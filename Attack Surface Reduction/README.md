@@ -1,7 +1,3 @@
-# cleanstart-use-cases
-Cleanstart use-cases
-
-
 # Attack Surface Reduction Through Dependency Management
 
 Practical Strategies for Securing Python Container Images
@@ -10,9 +6,29 @@ Practical Strategies for Securing Python Container Images
 
 ## Overview
 
-Every dependency is a potential vulnerability. **Less code = less risk.**
+Every dependency is a potential vulnerability. Less code = less risk.
 
-Modern apps pull hundreds of transitive dependencies — each could carry CVEs, supply chain risks, or licensing issues. More dependencies = larger attack surface.
+### The Problem:
+
+Modern apps pull hundreds of transitive dependencies—each could have CVEs, supply chain risks, or licensing issues. More dependencies = larger attack surface.
+
+### Practical Strategies:
+
+- Audit Ruthlessly Remove unused packages. If it's not running in production, it shouldn't be in the image. Use apt autoremove, npm prune, or equivalent.
+
+- Pin Everything Avoid "latest" tags. Pin exact versions with checksums. Know precisely what you're running and prevent silent upgrades.
+
+- Multi-Stage Builds Keep build tools, compilers, and dev dependencies out of production images. Build in one stage, copy only runtime artifacts to the final stage.
+
+- Minimize Layers Fewer layers = fewer places for vulnerabilities to hide. Combine related RUN commands where possible.
+
+- Question Every Dependency Before adding a package, ask: "Do I absolutely need this?" The best code is no code.
+
+- Example Impact: Python official image: 479 packages Hardened Python image: 47 packages 92% reduction in attack surface
+
+- CleanStart provides dependency-minimized images with only essential runtime requirements—security through elimination.
+
+- Less surface, less risk. Audit, minimize, protect.
 
 ---
 
@@ -146,7 +162,7 @@ trivy image myapp:minimal --severity HIGH,CRITICAL
 ## Key Takeaways
 
 - ✅ **Dependency audit** reduces package count by **90.2%**
-- ✅ **Multi-stage builds** reduce image size by **90.1%**
+- ✅ **Multi-stage builds** reduce image size by **92.75%**
 - ✅ **Hardened base images** achieve near-zero CVEs
 
 > **Result:** Smaller attack surface, faster deployments, fewer vulnerabilities.
@@ -186,7 +202,7 @@ Before adding a package, ask: *"Do I absolutely need this?"* The best code is no
 
 > Question everything - "Do I need this?"
 
-- Impact: Official Python: 610 packages → Hardened: 48 packages → 92% reduction
+- Impact: Official Python: 479 packages → Hardened: 47 packages → 92% reduction
 
 - CleanStart provides minimized images — security through elimination.
 
