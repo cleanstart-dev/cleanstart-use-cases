@@ -25,7 +25,7 @@ multistagebuilds/
 
 ---
 
-## The Problem
+## The Problem statement
 
 When building containerised Node.js applications, it is common to reach for a feature-rich dev image — one that has all the tools needed to compile, bundle, and test. The problem is that most teams then ship that same image to production, carrying along:
 
@@ -94,7 +94,7 @@ cd singlestage
 docker build -t singlestage .
 
 # Build multi-stage
-cd ../multistage
+cd multistage
 docker build -t multistage .
 
 # Compare sizes
