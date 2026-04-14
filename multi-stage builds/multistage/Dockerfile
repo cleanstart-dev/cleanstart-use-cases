@@ -1,4 +1,4 @@
-FROM cleanstart/node:latest AS builder
+FROM cleanstart/node:latest-dev AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
