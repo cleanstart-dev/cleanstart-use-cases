@@ -62,7 +62,7 @@ brew install aquasecurity/trivy/trivy
 ```bash
 docker pull cleanstart/node:latest
 docker pull node:20-bullseye
-docker pull cleanstart/node:latest
+docker pull node:20
 ```
 
 
