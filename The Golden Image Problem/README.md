@@ -14,7 +14,7 @@ But the model breaks at scale.
 
 | Week | Event | Impact |
 |------|-------|--------|
-| 0 | Team needs Node.js 20 LTS | Platform backlog ticket #47. ETA: 1 week |
+| 0 | Team needs Node.js 25.8.1 | Platform backlog ticket #47. ETA: 1 week |
 | 3 | CVE published (e.g. OpenSSL) | 600 services affected. 2 engineers to patch |
 | 4 | Team builds their own base image | Shadow IT. Audit failure. Incident opened |
 | 6 | Drift scan runs | 30% of instances on images 90+ days old |
@@ -32,7 +32,7 @@ The root cause isn't negligence — it's that **centralized image ownership does
 
 `cleanstart/node` is a minimal Node.js base image — it ships only what Node.js actually needs to run. Nothing more.
 
-The result is a dramatically smaller attack surface compared to standard base images like `node:20-bullseye` or `node:20`, which bundle hundreds of OS packages your application never touches.
+The result is a dramatically smaller attack surface compared to standard base images like `node:25.8.1-bullseye` or `node:25.8.1`, which bundle hundreds of OS packages your application never touches.
 
 ---
 
@@ -61,8 +61,8 @@ brew install aquasecurity/trivy/trivy
 
 ```bash
 docker pull cleanstart/node:latest
-docker pull node:20-bullseye
-docker pull node:20
+docker pull node:25.8.1-bullseye
+docker pull node:25.8.1
 ```
 
 
@@ -73,8 +73,8 @@ chmod +x check_drift.sh
 
 # Examples
 ./check_drift.sh cleanstart/node:latest 30
-./check_drift.sh node:20-bullseye 30
-./check_drift.sh node:20 30
+./check_drift.sh node:25.8.1-bullseye 30
+./check_drift.sh node:25.8.1 30
 ```
 
 ### Exit codes
@@ -92,25 +92,25 @@ chmod +x check_drift.sh
 Run against three images pulled on the same day:
 
 ```
-./check_drift.sh node:20-bullseye 30
+./check_drift.sh node:25.8.1-bullseye 30
 
-  Image : node:20-bullseye
+  Image : node:25.8.1-bullseye
   ────────────────────────────────
-  AGE   PASS  14 days old — within 30-day threshold
-  CVE   FAIL  21 CRITICAL, 22 HIGH — run: trivy image node:20-bullseye
+  AGE   FAIL  35 days old (limit: 30) — rebuild required
+  CVE   FAIL  21 CRITICAL, 22 HIGH — run: trivy image node:25.8.1-bullseye
   ────────────────────────────────
-  RESULT  FAIL (exit 2)
+  RESULT  FAIL (exit 1)
 ```
 
 ```
-./check_drift.sh node:20 30
+./check_drift.sh node:25.8.1 30
 
-  Image : node:20
+  Image : node:25.8.1
   ────────────────────────────────
-  AGE   PASS  14 days old — within 30-day threshold
-  CVE   FAIL  18 CRITICAL, 19 HIGH — run: trivy image node:20
+  AGE   FAIL  35 days old (limit: 30) — rebuild required
+  CVE   FAIL  18 CRITICAL, 19 HIGH — run: trivy image node:25.8.1
   ────────────────────────────────
-  RESULT  FAIL (exit 2)
+  RESULT  FAIL (exit 1)
 ```
 
 ```
@@ -128,8 +128,8 @@ Run against three images pulled on the same day:
 
 | Image | Age | CRITICAL | HIGH | Result |
 |-------|-----|----------|------|--------|
-| `node:20-bullseye` | 14 days | 21 | 22 | FAIL |
-| `node:20` | 14 days | 18 | 19 | FAIL |
+| `node:25.8.1-bullseye` | 35 days | 21 | 22 | FAIL |
+| `node:25.8.1` | 35 days | 18 | 19 | FAIL |
 | `cleanstart/node:latest` | 1 day | 0 | 0 | **PASS** |
 
 Same Node.js runtime. Completely different risk profile. The difference is everything that `cleanstart/node` chose **not** to include.
