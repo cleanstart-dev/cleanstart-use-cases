@@ -200,8 +200,6 @@ A community for DevOps/DevSecOps engineers, security professionals, and develope
 |----------|------|
 | 📺 YouTube | [@CleanStart-official](https://youtube.com/@CleanStartOfficial) |
 | 💼 LinkedIn | [@cleanstart-official](https://linkedin.com/company/cleanstart-official) |
-| 🐦 X (Twitter) | [@CleanStart-official](https://x.com/CleanStartX) |
-| 🔴 Reddit | [@CleanStart-official](https://reddit.com/u/CleanStartOfficial) |
 
 ---
 
