@@ -1,0 +1,37 @@
+{
+  "name": "fintrack-api",
+  "version": "2.3.1",
+  "description": "Demo: transitive dependency vulnerabilities survive a hardened base image (cleanstart/node)",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "audit:basic": "npm audit",
+    "audit:json": "npm audit --json > reports/npm-audit.json && echo 'Report saved to reports/npm-audit.json'",
+    "audit:critical": "npm audit --audit-level=critical",
+    "audit:high": "npm audit --audit-level=high",
+    "scan:layers": "node scripts/compare-layers.js",
+    "scan:tree": "node scripts/dep-tree.js",
+    "scan:depth": "node scripts/find-transitive.js",
+    "scan:licenses": "node scripts/check-licenses.js",
+    "fix:overrides": "node scripts/apply-overrides.js",
+    "report": "node scripts/full-report.js",
+    "demo": "node scripts/demo-redos.js",
+    "docker:build": "docker build -t fintrack-api:vuln .",
+    "docker:scan": "trivy image --scanners vuln fintrack-api:vuln"
+  },
+  "dependencies": {
+    "express": "^5.0.0",
+    "axios": "^1.7.4",
+    "helmet": "7.1.0",
+    "jsonwebtoken": "9.0.0",
+    "express-rate-limit": "7.1.5",
+    "mongoose": "8.0.3"
+  },
+  "devDependencies": {
+    "colors": "^1.4.0"
+  },
+  "overrides": {
+    "path-to-regexp": ">=8.1.0",
+    "semver": ">=7.5.2"
+  }
+}
