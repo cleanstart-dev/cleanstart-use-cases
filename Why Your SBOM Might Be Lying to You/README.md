@@ -15,9 +15,7 @@ This creates a silent gap: any dependency installed after the image is built —
 | Check | Result |
 |---|---|
 | Packages declared in SBOM | `flask`, `requests` |
-| Packages running at runtime | `flask`, `requests`, **`cryptography`** |
-| CVE scan against SBOM file | `45 issues` (misleading) |
-| CVE scan against live image | `vulnerabilities found` ⚠️ |
+| Packages running at runtime | `flask`, `requests`, **`cryptography`** ⚠️ |
 
 ### Why this happens
 
