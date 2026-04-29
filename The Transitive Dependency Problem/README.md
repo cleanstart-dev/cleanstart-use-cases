@@ -1,10 +1,10 @@
 # 🔍 Transitive Dependency Vulnerabilities — Even on a Hardened Base Image
 
-> **The scenario:** Your team switched to `cleanstart/node:latest` — a hardened, minimal, near-zero-CVE base image. Trivy scans the image. Clean. Then someone runs `npm audit`.
+> **The scenario:** Your team switched to `cleanstart/node:latest` — a hardened, minimal, near-zero-CVE base image. Trivy scans the image. Clean. Then `npm audit` will show below vulnerabilities.
 >
 > **9 vulnerabilities. 1 critical. 6 of them in packages you never installed.**
 
-This project is a fully executable demo of the **two-layer vulnerability model** — what `cleanstart/node` protects, what it can't, and exactly how to fix both.
+This project is a fully executable demo of the **two-layer vulnerability model** — what `cleanstart/node` protects, what it can't and exactly how to fix both.
 
 ---
 
@@ -26,13 +26,13 @@ This project is a fully executable demo of the **two-layer vulnerability model**
 │                                                              │
 │  cleanstart/node has no visibility into this layer           │
 ├──────────────────────────────────────────────────────────────┤
-│  LAYER 1 — OS / cleanstart/node:latest         ✔ CLEAN       │
+│  LAYER 1 — Base Image / cleanstart/node:latest         ✔ CLEAN       │
 │                                                              │
 │  ✔ No shell (bash/sh removed)                                │
 │  ✔ No package manager (apt/apk removed)                      │
 │  ✔ No curl/wget/git                                          │
 │  ✔ Non-root user enforced                                    │
-│  ✔ Near-zero OS-level CVEs                                   │
+│  ✔ Near-zero base image CVEs                                   │
 │  ✔ Signed SBOM + SLSA provenance                             │
 └──────────────────────────────────────────────────────────────┘
 ```
@@ -60,6 +60,7 @@ npm -v    # 10.x.x
 ## Setup
 
 ```bash
+git clone https://github.com/cleanstart-dev/cleanstart-use-cases.git
 cd "The Transitive Dependency Problem"
 
 # Install all scripts into the scripts/ folder (download from repo)
@@ -103,15 +104,15 @@ npm run scan:layers
   │  ✗ qs                MODERATE [transitive]                 │
   │  cleanstart/node CANNOT protect you here                   │
   ├────────────────────────────────────────────────────────────┤
-  │  LAYER 1 — OS / cleanstart/node:latest                     │
+  │  LAYER 1 — Base Image / cleanstart/node:latest                     │
   │  ✔ No shell, no package manager, no curl/wget              │
   │  ✔ Non-root user enforced                                  │
-  │  ✔ Near-zero OS-level CVEs                                 │
+  │  ✔ Near-zero base image CVEs                                 │
   │  ✔ Signed SBOM + SLSA provenance                           │
   └────────────────────────────────────────────────────────────┘
 
   WHAT EACH SCANNING TOOL SEES
-  Trivy (image scan)    OS packages (Layer 1)    ✔ Clean — cleanstart works
+  Trivy (image scan)    Base image packages (Layer 1)    ✔ Clean — cleanstart works
   npm audit             node_modules (Layer 2)   ✗ 9 vulns (1 critical, 4 high)
 ```
 
@@ -126,7 +127,7 @@ npm list --all | wc -l    # 188 lines — what npm actually installed
 
 **What it shows:** You chose 6 packages. npm installed 110. That's **104 packages you never reviewed**, all running inside your `cleanstart/node` container.
 
-> Note: Use `--all` flag with npm v7+. Plain `npm list` deduplicates and shows fewer lines.
+> Note: Use `--all` flag. Plain `npm list` deduplicates and shows fewer lines.
 
 ---
 
@@ -349,13 +350,58 @@ npm run scan:layers
   │                                                            │
   │  cleanstart/node CANNOT protect you here                   │
   ├────────────────────────────────────────────────────────────┤
-  │  LAYER 1 — OS / cleanstart/node:latest         ✔ CLEAN     │
+  │  LAYER 1 — Base Image / cleanstart/node:latest         ✔ CLEAN     │
 
   npm audit         node_modules (Layer 2)    ✔ 0 vulns
   Trivy (full scan) Both layers               ✔ Clean
 ```
 
 Both layers clean. ✔
+
+---
+
+## The Dockerfile
+
+```dockerfile
+# Stage 1: Build — npm is available here to install dependencies
+FROM cleanstart/node:latest AS builder
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
+COPY src/ ./src/
+
+# Stage 2: Runtime — minimal, hardened, non-root
+FROM cleanstart/node:latest
+WORKDIR /app
+USER node
+COPY --from=builder --chown=node:node /app/node_modules ./node_modules
+COPY --from=builder --chown=node:node /app/src ./src
+COPY --chown=node:node package.json ./
+EXPOSE 3000
+CMD ["node", "src/server.js"]
+```
+
+The base image is clean. But when `npm ci` runs in the build stage, every CVE in `node_modules` boards the container. They travel into the final image inside `/app/node_modules` regardless of how minimal the base image is.
+
+### Optional: Build and scan the full image
+
+If you have Docker and Trivy installed:
+
+```bash
+# Build using cleanstart/node as base
+npm run docker:build
+# → docker build -t fintrack-api:vuln .
+
+# Scan — this catches BOTH layers including node_modules
+npm run docker:scan
+# → trivy image --scanners vuln fintrack-api:vuln
+
+# Compare: base image alone vs full built image
+trivy image cleanstart/node:latest     # near-zero CVEs
+trivy image fintrack-api:vuln          # npm CVEs appear here
+```
+
+This makes the two-layer model visible in a single `diff`.
 
 ---
 
@@ -384,7 +430,7 @@ Both layers clean. ✔
 | Shell injection (no bash/sh) | ✅ | — |
 | In-container package installs (no apt) | ✅ | — |
 | Privilege escalation (non-root default) | ✅ | — |
-| OS-level CVEs | ✅ Near-zero | — |
+| Base image CVEs | ✅ Near-zero | — |
 | Supply chain transparency (SBOM + SLSA) | ✅ | — |
 | ReDoS via path-to-regexp | ❌ | ✅ |
 | Search injection via mongoose | ❌ | ✅ |
@@ -393,6 +439,72 @@ Both layers clean. ✔
 | GPL license in transitive dep | ❌ | ✅ scan:licenses |
 
 `cleanstart/node` and `npm audit` are **complementary**. One secures the container. The other secures the application. You need both.
+
+---
+
+## ❓ "My base image is clean — why do I still see vulnerabilities at runtime?"
+
+This is the most common question after adopting a hardened base image. The answer is a hard architectural boundary.
+
+**`cleanstart/node` owns everything below your application:**
+
+```
+/usr, /lib, /bin  ← Base image layer — cleanstart/node controls this
+                     Node.js binary, glibc, system libs
+                     Trivy image scan covers this layer
+                     Result: near-zero CVEs ✔
+
+/app/node_modules ← Application layer — your package.json controls this
+                     npm packages, transitive dependencies
+                     npm audit covers this layer
+                     Result: depends entirely on your dependencies
+```
+
+The base image has no package manager at runtime (by design). There is no mechanism for it to patch npm packages — those are application files written by your build process, sitting above the base image boundary. The Node.js runtime executes whatever is in `node_modules` without validating CVE status.
+
+**Runtime vulnerabilities from npm cannot be eliminated from the image side.** The only fix is at the source — your `package.json` and `package-lock.json` — before the image is built.
+
+### The correct separation of responsibility
+
+| Layer | Owner | Scanner | Fix mechanism |
+|-------|-------|---------|---------------|
+| Node binary, system libs, base packages | `cleanstart/node` | `trivy image` | Update base image tag |
+| `node_modules`, npm packages | Your `package.json` | `npm audit` | Upgrade deps / add overrides |
+
+### Enforcing clean npm deps at build time
+
+The right place to stop a vulnerable image from ever reaching the registry is the Dockerfile itself. Add an audit gate as a build step — if vulnerabilities exist, the build fails and nothing gets pushed:
+
+```dockerfile
+FROM cleanstart/node:latest AS builder
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
+
+# ← Build fails here if high/critical vulns exist.
+#   A vulnerable image never reaches the registry.
+RUN npm audit --audit-level=high
+
+COPY src/ ./src/
+
+FROM cleanstart/node:latest
+WORKDIR /app
+USER node
+COPY --from=builder --chown=node:node /app/node_modules ./node_modules
+COPY --from=builder --chown=node:node /app/src ./src
+COPY --chown=node:node package.json ./
+EXPOSE 3000
+CMD ["node", "src/server.js"]
+```
+
+This makes it structurally impossible to ship a vulnerable npm layer — the image simply does not build until the application layer is clean. Pair this with the CI workflow in this repo and the guarantee holds across every PR and deployment.
+
+### Summary
+
+> A clean Trivy scan on `cleanstart/node:latest` confirms the base image layer is secure.
+> It says nothing about `node_modules`.
+> These are two independent facts that require two independent tools.
+> Fix npm vulnerabilities in `package.json` before the image is built — not after.
 
 ---
 
@@ -411,11 +523,35 @@ Add this to your repo and every PR becomes a security gate.
 
 ---
 
+## Project Structure
+
+```
+The Transitive Dependency Problem/
+├── Dockerfile                           ← cleanstart/node:latest base, multi-stage
+├── src/
+│   └── server.js                        ← Express API (intentionally vulnerable versions)
+├── scripts/
+│   ├── compare-layers.js                ← Step 1:  live two-layer diagram
+│   ├── dep-tree.js                      ← Step 4:  CVE chains traced to source
+│   ├── find-transitive.js               ← Step 5:  all packages by nesting depth
+│   ├── demo-redos.js                    ← Step 6:  safe ReDoS timing proof
+│   ├── check-licenses.js                ← Step 7:  license audit across 110 packages
+│   ├── full-report.js                   ← Step 8:  JSON + Markdown security report
+│   └── apply-overrides.js               ← Step 9:  generates package-fixed.json
+├── reports/                             ← Generated output (gitignored)
+├── .github/
+│   └── workflows/security.yml           ← CI: blocks PRs with high/critical vulns
+├── package.json                         ← 6 direct deps, intentionally old versions
+└── .gitignore
+```
+
+---
+
 ## Quick Reference — All Commands
 
 ```bash
 # ── Scanning ──────────────────────────────────────────────────
-npm run scan:layers       # Two-layer OS vs npm model (start here)
+npm run scan:layers       # Two-layer base image vs npm model (start here)
 npm run scan:tree         # Every CVE traced to its source package
 npm run scan:depth        # All 110 packages listed by nesting depth
 npm run scan:licenses     # License audit across all transitive deps
@@ -431,6 +567,10 @@ npm run report            # Generates reports/security-report.json + .md
 
 # ── Fix ───────────────────────────────────────────────────────
 npm run fix:overrides     # Generates package-fixed.json with all fixes
+
+# ── Docker (requires Docker + Trivy installed) ────────────────
+npm run docker:build      # docker build -t fintrack-api:vuln .
+npm run docker:scan       # trivy image --scanners vuln fintrack-api:vuln
 ```
 
 ---
@@ -439,7 +579,7 @@ npm run fix:overrides     # Generates package-fixed.json with all fixes
 
 > **A hardened base image is necessary. It is not sufficient.**
 >
-> `cleanstart/node:latest` eliminates the OS attack surface — no shell, no package manager, near-zero CVEs, signed provenance. It is the right foundation.
+> `cleanstart/node:latest` eliminates the base image attack surface — no shell, no package manager, near-zero CVEs, signed provenance. It is the right foundation.
 >
 > But the moment `npm ci` runs in your Dockerfile, 104 packages arrive above that hardened layer. They bring their own vulnerabilities. No base image scanner will see them.
 >
@@ -451,7 +591,7 @@ npm run fix:overrides     # Generates package-fixed.json with all fixes
 
 | Tool | Layer | Cost |
 |------|-------|------|
-| [cleanstart/node](https://hub.docker.com/r/cleanstart/node) | OS (Layer 1) | Free |
+| [cleanstart/node](https://hub.docker.com/r/cleanstart/node) | Base image (Layer 1) | Free |
 | `npm audit` | npm (Layer 2) | Built-in |
 | [Trivy](https://trivy.dev) | Both | Free, open source |
 | [Snyk](https://snyk.io) | Both | Free for open source |
