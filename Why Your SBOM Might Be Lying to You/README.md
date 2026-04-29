@@ -197,48 +197,6 @@ urllib3            2.6.3
 Werkzeug           3.1.8
 ```
 
----
-
-### Step 5 — CVE scan: SBOM file vs. live image
-
-```bash
-# Start the container again for the live scan
-docker run -d --name sbom-test sbom-demo:latest
-sleep 8
-
-# Scan the SBOM file — what compliance tools see
-grype sbom:sbom-output.json
-
-# Scan the live running image — ground truth
-grype sbom-demo:latest
-
-# Clean up
-docker stop sbom-test && docker rm sbom-test
-```
-
-**Expected result:** The SBOM-based scan shows fewer or zero vulnerabilities for `cryptography`. The live image scan surfaces CVEs that the SBOM scan missed entirely.
-
->scan without cryptography
-```
- ✔ Vulnerability DB                [updated]
- ✔ Scanned for vulnerabilities     [45 vulnerability matches]
-   ├── by severity: 2 critical, 3 high, 21 medium, 18 low, 1 negligible
-   └── by status:   4 fixed, 41 not-fixed, 0 ignored
-```
-
->scan with cryptography
-```
- ✔ Loaded image                                                                                                                                                                              sbom-demo:latest
- ✔ Parsed image                                                                                                                       sha256:e039c0702e101ac8aee46521d7c998e28a5fb16d7d727fff49bc19fc2eb99faa
- ✔ Cataloged contents                                                                                                                        839782e84b303141e59360db87e9648da77203c4894c25f436692c46a332b5b5
-   ├── ✔ Packages                        [167 packages]
-   ├── ✔ Executables                     [907 executables]
-   ├── ✔ File metadata                   [4,301 locations]
-   └── ✔ File digests                    [4,301 files]
- ✔ Scanned for vulnerabilities     [46 vulnerability matches]
-   ├── by severity: 2 critical, 3 high, 22 medium, 18 low, 1 negligible
-   └── by status:   16 fixed, 30 not-fixed, 0 ignored
-```
 
 ## 3. Solution
 
