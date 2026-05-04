@@ -1,0 +1,25 @@
+# Dockerfile.legacy — the "before" picture.
+# Typical real-world image: full OS, package manager, build tools, root user.
+FROM node:18-bullseye
+
+WORKDIR /app
+
+# Classic anti-pattern: install build tools and curl in the runtime image.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        curl \
+        bash \
+        python3 \
+        build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY app/package*.json ./
+RUN npm install --omit=dev
+
+COPY app/ ./
+
+# Runs as root (default).
+EXPOSE 3000
+HEALTHCHECK --interval=30s --timeout=3s \
+    CMD curl -f http://localhost:3000/healthz || exit 1
+
+CMD ["node", "server.js"]

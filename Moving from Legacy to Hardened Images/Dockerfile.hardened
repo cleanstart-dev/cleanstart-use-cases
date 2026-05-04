@@ -1,0 +1,23 @@
+# Dockerfile.hardened
+FROM cleanstart/node:latest-dev AS builder
+
+WORKDIR /app
+
+COPY app/package*.json ./
+RUN npm install --omit=dev
+
+COPY app/ ./
+
+RUN mkdir -p /app/logs /app/tmp && \
+    chown -R 65532:65532 /app
+
+FROM cleanstart/node:latest
+
+WORKDIR /app
+COPY --from=builder --chown=65532:65532 /app /app
+
+USER 65532:65532
+EXPOSE 3000
+ENV NODE_ENV=production
+
+ENTRYPOINT ["node", "server.js"]
