@@ -18,12 +18,12 @@ Same image. Same day. Two scanners. Completely different answers.
 
 | CVE Agreement | Count |
 |---|---|
-| Trivy unique HIGH+CRIT CVE IDs | 187 |
+| Trivy unique HIGH+CRIT CVE IDs | 189 |
 | Grype unique HIGH+CRIT CVE IDs | 55 |
-| **Both scanners agree** | **43** |
-| Only Trivy finds | 144 |
-| Only Grype finds | 12 |
-| **Consensus rate** | **23%** |
+| **Both scanners agree** | **44** |
+| Only Trivy finds | 145 |
+| Only Grype finds | 11 |
+| **Consensus rate** | **23.3%** |
 
 **Only 23% of HIGH/CRITICAL CVEs are confirmed by both scanners.**
 The other 77% creates noise, duplicate tickets, and blocked pipelines.
@@ -87,7 +87,19 @@ HIGH+CRIT     : 179    (HIGH: 168 · CRITICAL: 11)
 
 ---
 
-## Step 5 — CVE Overlap Analysis
+## Step 5 — CVE Overlap Analysis (Both Images)
+
+**Commands:**
+```bash
+# Save all 4 scan outputs as JSON
+bash scripts/run_scans.sh
+
+# Run overlap + CleanStart comparison
+python3 scripts/overlap.py
+```
+
+> `run_scans.sh` runs all 4 scans automatically:
+> Trivy + Grype on `python:3.14` AND `cleanstart/python:latest`
 
 **Commands:**
 ```bash
@@ -104,19 +116,40 @@ python3 scripts/overlap.py
 
 **Result:**
 ```
-====================================================
-  SCANNING PARADOX — CVE OVERLAP ANALYSIS
-  Image: python:3.14 | May 4, 2026
-====================================================
-  Trivy  HIGH+CRIT unique CVEs :  187
+========================================================
+  SCANNING PARADOX - CVE OVERLAP ANALYSIS
+  May 5, 2026
+========================================================
+  IMAGE 1: python:3.14 (baseline)
+  --------------------------------------------------
+  Trivy  HIGH+CRIT unique CVEs :  189
   Grype  HIGH+CRIT unique CVEs :   55
-  Both agree (consensus)       :   43
-  Only Trivy finds             :  144
-  Only Grype finds             :   12
-  Consensus rate               : 23.0%
-====================================================
-  Sample — only Trivy : ['CVE-2013-7445', 'CVE-2019-19449', 'CVE-2019-19814']
-  Sample — only Grype : ['CVE-2025-13151', 'CVE-2025-59375', 'CVE-2026-3298']
+  Both agree (consensus)       :   44
+  Only Trivy finds             :  145
+  Only Grype finds             :   11
+  Consensus rate               :  23.3%
+
+  Sample - only Trivy : ['CVE-2013-7445', 'CVE-2019-19449', 'CVE-2019-19814']
+  Sample - only Grype : ['CVE-2025-13151', 'CVE-2025-59375', 'CVE-2026-3298']
+  Sample - both agree : ['CVE-2023-44431', 'CVE-2023-51596', 'CVE-2025-12495']
+
+  IMAGE 2: cleanstart/python:latest (hardened)
+  --------------------------------------------------
+  Trivy  HIGH+CRIT CVEs :    0  (OS: family=none)
+  Grype  CRITICAL       :    1
+  Grype  HIGH           :    3
+  Grype  HIGH+CRIT      :    4
+  Grype findings        : ['CVE-2026-3298', 'CVE-2026-4786',
+                           'CVE-2026-4878', 'CVE-2026-6100']
+
+========================================================
+  COMPARISON SUMMARY
+========================================================
+  Image                          Trivy    Grype   Consensus
+  ----------------------------------------------------------
+  python:3.14                      189       55       23.3%
+  cleanstart/python:latest           0        4     partial
+========================================================
 ```
 
 ---
@@ -210,7 +243,7 @@ Pick Trivy or Grype for CI gates. Run the other in report-only mode.
 Only the primary can block a build. Ends the "which scanner is right" debate.
 
 **2. Act on consensus findings first**
-Only 43 of 187+55 CVEs are confirmed by both. Start there.
+Only 44 of 189+55 CVEs are confirmed by both. Start there.
 Single-scanner-only findings go to a review queue, not the sprint board.
 
 **3. Use exploitability context**
