@@ -1,4 +1,4 @@
-# Topic 11 — The Scanning Paradox: More Tools, More Confusion
+# The Scanning Paradox: More Tools, More Confusion
 
 > **CleanStart Use Cases** — Practical evidence for hardened container images.
 > Every number in this README is from actual scan execution. Clone and verify yourself.
