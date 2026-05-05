@@ -1,6 +1,6 @@
 # Dockerfile.legacy — the "before" picture.
 # Typical real-world image: full OS, package manager, build tools, root user.
-FROM node:18-bullseye
+FROM node:25.9.0-bullseye
 
 WORKDIR /app
 

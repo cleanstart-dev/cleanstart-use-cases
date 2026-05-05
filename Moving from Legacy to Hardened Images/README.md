@@ -5,7 +5,7 @@
 
 ## 🎯 Scenario
 
-A fintech processing 4M payment receipts/day. Their `receipt-api` runs on `node:18-bullseye` across 120+ pods. A PCI-DSS audit flags the image with **5000+ CVEs** (1000+ High, 150+ Critical). The CISO mandates a move to hardened images within one quarter.
+A fintech processing 4M payment receipts/day. Their `receipt-api` runs on `node:25.9.0-bullseye` across 120+ pods. A PCI-DSS audit flags the image with **5000+ CVEs** (1000+ High, 150+ Critical). The CISO mandates a move to hardened images within one quarter.
 
 Five days in, the team escalates: *"Hardened images don't work for our use case."* Builds fail because `apt-get` doesn't exist. The container won't start because the app expects to run as root. The entrypoint uses `bash`, which isn't there.
 
@@ -18,7 +18,7 @@ Five days in, the team escalates: *"Hardened images don't work for our use case.
 ```
 .
 ├── README.md
-├── Dockerfile.legacy          # Bloated baseline (node:18-bullseye)
+├── Dockerfile.legacy          # Bloated baseline (node:25.9.0-bullseye)
 ├── Dockerfile.hardened        # Multi-stage, both stages on CleanStart
 ├── app/
 │   ├── package.json
@@ -64,10 +64,11 @@ syft receipt-api:legacy -o spdx-json > legacy-sbom.json
 
 jq '[.Results[]?.Vulnerabilities[]?] | length' legacy-scan.json
 jq '[.Results[]?.Vulnerabilities[]? | select(.Severity == "CRITICAL")] | length' legacy-scan.json
+jq -r '[.Results[].Vulnerabilities[]?.Severity] | group_by(.) | map({sev: .[0], count: length})' legacy-scan.json
 jq '.packages | length' legacy-sbom.json
 ```
 
-Expect ~5000+ CVEs, ~1000+ HIGH/CRITICAL, ~430 packages, ~1.5 GB image.
+Expect ~3300+ CVEs, 12 CRITICAL, 472 HIGH, 629 packages, 1.52 GB image.
 
 ## Step 3 — Build & inspect hardened
 
@@ -85,6 +86,8 @@ trivy image receipt-api:hardened --format json --output hardened-scan.json
 syft receipt-api:hardened -o spdx-json > hardened-sbom.json
 
 jq '[.Results[]?.Vulnerabilities[]?] | length' hardened-scan.json
+jq '[.Results[]?.Vulnerabilities[]? | select(.Severity == "CRITICAL")] | length' hardened-scan.json
+jq -r '[.Results[].Vulnerabilities[]?.Severity] | group_by(.) | map({sev: .[0], count: length})' hardened-scan.json
 jq '.packages | length' hardened-sbom.json
 ```
 
@@ -118,7 +121,7 @@ Both must respond identically. If they do, the migration works.
 
 **3. Permission denied as non-root** → Pre-create writable dirs in the builder, `chown -R 65532:65532 /app`, set `USER 65532:65532` in runtime. Bind to ports >1024.
 
-**4. Entrypoint script breaks** → Drop `bash` wrappers. Use exec-form: `ENTRYPOINT ["node", "server.js"]`. If you need pre-start logic, use a Kubernetes init container.
+**4. Entrypoint script breaks** → Drop `bash` wrappers. Use exec-form: `ENTRYPOINT ["server.js"]`. If you need pre-start logic, use a Kubernetes init container.
 
 **5. Healthcheck fails (`curl` missing)** → Use `httpGet` probes in Kubernetes, not `exec` probes. Or ship a static healthcheck (we ship `healthcheck.js`).
 
@@ -126,13 +129,14 @@ Both must respond identically. If they do, the migration works.
 
 ## 📈 Expected Results
 
-| Metric | Legacy (`node:18-bullseye`) | Hardened (`cleanstart/node:latest`) |
+| Metric | Legacy (`node:25.9.0-bullseye`) | Hardened (`cleanstart/node:latest`) |
 |---|---:|---:|
-| Image size           | ~1.46 GB | ~223 MB |
-| Total CVEs           | ~5000+      | 0–3     |
-| HIGH + CRITICAL CVEs | ~1000+       | 0       |
-| Packages in SBOM     | ~430      | ~40     |
+| Image size           | 1.52 GB | ~223 MB |
+| Total CVEs           | ~3300+      | 0     |
+| HIGH + CRITICAL CVEs | 484       | 0       |
+| Packages in SBOM     | 629      | 254     |
 | Runs as root         | ✅ Yes    | ❌ No (uid 65532) |
+| Entrypoint           | docker-entrypoint.sh | /usr/bin/node |  
 
 Numbers will vary by machine and image version — run the steps above and capture your own.
 
