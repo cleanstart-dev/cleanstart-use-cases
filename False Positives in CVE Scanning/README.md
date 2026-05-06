@@ -75,8 +75,10 @@ These affect the actual Loki binary:
 
 * `stdlib` (Go runtime)
 * `github.com/grafana/loki/v3`
-* `golang.org/x/*`
-* `prometheus` libraries
+* `go.opentelemetry.io/*`
+* `prometheus`
+* `github.com/aws/aws-sdk-go-v2`
+* `github.com/go-jose/*`
 
 👉 Present in both images
 👉 Must be fixed via patching/upgrading
