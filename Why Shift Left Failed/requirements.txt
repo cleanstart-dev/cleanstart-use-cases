@@ -1,0 +1,5 @@
+# flask pinned to an older version with known CVEs — intentional for demo
+flask==2.2.0
+requests==2.28.0
+# cryptography pinned to a version with known CVEs (CVE-2023-23931 etc.)
+cryptography==38.0.0
