@@ -131,7 +131,7 @@ Both must respond identically. If they do, the migration works.
 
 | Metric | Legacy (`node:25.9.0-bullseye`) | Hardened (`cleanstart/node:latest`) |
 |---|---:|---:|
-| Image size           | 1.52 GB | ~223 MB |
+| Image size           | 1.52 GB | 223 MB |
 | Total CVEs           | ~3300+      | 0     |
 | HIGH + CRITICAL CVEs | 484       | 0       |
 | Packages in SBOM     | 629      | 254     |
