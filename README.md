@@ -86,7 +86,7 @@ Each use case includes:
 |-------|-------|--------|----------|
 | 11 | The Scanning Paradox: More Tools, More Vulnerabilities | — | — |
 | 12 | False Positives in CVE Scanning: The 80/20 Problem | — | — |
-| 13 | Why Your SBOM Might Be Lying to You | — | — |
+| 13 | Why Your SBOM Might Be Lying to You | [View](https://github.com/cleanstart-dev/cleanstart-use-cases/tree/main/Why%20Your%20SBOM%20Might%20Be%20Lying%20to%20You) | [Post](https://www.linkedin.com/feed/update/urn:li:activity:7455655709934858240?utm_source=share&utm_medium=member_desktop&rcm=ACoAAC7HlnEBbjimP6PTj3BXvh-8_gLv3IpE230) |
 | 14 | VEX Standards Explained: Moving from Vulnerability Lists to Exploitability Context | — | — |
 | 15 | OSV.dev: The Universal Vulnerability Database for Open Source | — | [Post](https://www.linkedin.com/feed/update/urn:li:activity:7434575245669347328?utm_source=share&utm_medium=member_desktop&rcm=ACoAADsC9HYBNTIuYxSvYr689odHBSpvD4U4k-s) |
 
@@ -95,7 +95,7 @@ Each use case includes:
 | S.No. | Topic | GitHub | LinkedIn |
 |-------|-------|--------|----------|
 | 16 | Security-Velocity Trade-off: Why Zero-CVE Doesn't Mean Slow Builds | — | — |
-| 17 | Why "Shift Left" Failed (And What Actually Works) | — | — |
+| 17 | Why "Shift Left" Failed (And What Actually Works) | [View](https://github.com/cleanstart-dev/cleanstart-use-cases/tree/main/Why%20Shift%20Left%20Failed) | [Post](https://www.linkedin.com/feed/update/urn:li:activity:7457695261276995585?utm_source=share&utm_medium=member_desktop&rcm=ACoAAC7HlnEBbjimP6PTj3BXvh-8_gLv3IpE230) |
 | 18 | The Golden Image Problem: When Centralized Control Becomes a Bottleneck | — | — |
 | 19 | Breaking the Migration Barrier: Moving from Legacy to Hardened Images | — | — |
 
