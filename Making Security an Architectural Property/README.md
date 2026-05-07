@@ -62,7 +62,7 @@ Try to get a shell in each container:
 ```bash
 docker exec -it nginx-hardened sh    # present in make file
 
-# baseline not present in make file
+# baseline not present in make file, please run below commands manually to get into shell in baseline
 docker compose up -d baseline
 docker exec -it nginx-baseline sh
 
@@ -101,32 +101,59 @@ The Rego policy in `policies/docker_policy.rego` enforces:
 - **CIS 4.10** — no secrets in `ENV` (deny)
 - **CIS 5.8** — no privileged ports (`<1024`) exposed (deny)
 
-These are enforced *at build time* by the CI workflow, not audited *after deployment*.
-
-## What the CI workflow does
-
-`.github/workflows/security.yml` runs on every push and pull request:
-
-1. **`policy-check`** — runs Conftest against both Dockerfiles. The hardened one must pass; the baseline one must fail (sanity check that the policy itself is intact).
-2. **`lint`** — Hadolint scans `Dockerfile.hardened` for stylistic and security issues.
-3. **`vuln-scan`** — Trivy scans the built image and fails the build on any HIGH or CRITICAL vulnerability.
-4. **`sbom`** — Syft generates an SPDX-format SBOM and stores it as a build artifact.
-
-A pull request that weakens any of these checks will not merge.
-
-## Runtime hardening (in `docker-compose.yml`)
-
-The compose file imposes additional architectural constraints at runtime:
-
-- `read_only: true` — root filesystem is immutable; writes are only possible to explicit tmpfs mounts
-- `cap_drop: [ALL]` + `cap_add: [NET_BIND_SERVICE]` — no Linux capabilities except the one nginx actually needs
-- `no-new-privileges: true` — the container cannot escalate via setuid binaries
-- `tmpfs` mounts for `/tmp`, `/var/cache/nginx`, `/var/lib/nginx`, `/var/log/nginx`, `/var/run` — every write is in-memory, wiped on container restart
-
-There is no persistent on-disk state inside this container for an attacker to plant anything in.
-
 ## The takeaway
 
 Asking *"did we check rule 4.1?"* is a checklist mindset.
 
 Asking *"is it possible for rule 4.1 to be wrong in our pipeline?"* is an architectural one. If the answer is no — because the build fails, or the runtime can't express the insecure state — you've moved security from *process* to *property*.
+
+These are enforced *at build time* by the CI workflow, not audited *after deployment*.
+
+## Wiring this into a CI/CD pipeline
+
+Running `conftest test` locally proves the policy works. Wiring it into your pipeline is what makes it architectural — the rule then applies to *everyone*, *every time*, with no human in the loop. A reference workflow for GitHub Actions might look like:
+
+```yaml
+name: security-gate
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  policy-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Conftest
+        run: |
+          wget -q https://github.com/open-policy-agent/conftest/releases/download/v0.56.0/conftest_0.56.0_Linux_x86_64.tar.gz
+          tar xzf conftest_0.56.0_Linux_x86_64.tar.gz
+          sudo mv conftest /usr/local/bin
+      - name: Verify hardened Dockerfile passes CIS policy
+        run: conftest test --policy policies/ Dockerfile.hardened
+      - name: Confirm baseline Dockerfile fails CIS policy (sanity check)
+        run: |
+          if conftest test --policy policies/ Dockerfile.baseline; then
+            echo "Baseline should have failed but passed. Policy is broken." && exit 1
+          fi
+
+  vuln-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build hardened image
+        run: docker build -t nginx-hardened:ci -f Dockerfile.hardened .
+      - name: Trivy scan
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: nginx-hardened:ci
+          severity: HIGH,CRITICAL
+          scanners: vuln
+          exit-code: '1'
+          ignore-unfixed: true
+          timeout: 15m
+```
+
+The same pattern works in GitLab CI, Jenkins, CircleCI, or any other pipeline runner. The point is that the policy file is portable — once `policies/docker_policy.rego` exists, *any* CI system can be the gate.
+
+Combine the gate with branch protection (GitHub: Settings → Branches → "Require status checks to pass before merging") and a non-compliant change becomes structurally unable to reach `main`. That combination — automated policy + organizational rule that no one can bypass — is the full picture of "security as a property."
