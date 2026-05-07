@@ -1,0 +1,27 @@
+# ============================================================================
+# HARDENED — security as an architectural property
+# Built on cleanstart/nginx (hardened, minimal, runs as user 'clnstrt').
+# ============================================================================
+
+# CIS 4.7 — pinned digest, deterministic and immutable input
+FROM cleanstart/nginx@sha256:427e3db5bd040b6aaa598f752f52f4b2f42f35721a49b21f6ad968326cab0c10
+
+# CIS 4.9 — COPY (not ADD), and chown to the user the base image actually uses
+COPY --chown=clnstrt:clnstrt html/ /usr/share/nginx/html/
+COPY --chown=clnstrt:clnstrt nginx/nginx.conf /etc/nginx/nginx.conf
+COPY --chown=clnstrt:clnstrt nginx/security-headers.conf /etc/nginx/security-headers.conf
+
+# CIS 4.1 — explicit non-root user (matches the image default; making the contract explicit)
+USER clnstrt
+
+# CIS 5.8 — only unprivileged ports exposed
+EXPOSE 8080
+
+# CIS 4.6 — healthcheck declared in image
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD ["/usr/sbin/nginx", "-t"]
+
+# IMPORTANT: do NOT redefine CMD here.
+# The base image's entrypoint already runs:
+#   /usr/sbin/nginx -c /etc/nginx/nginx.conf -e /dev/stderr -g "daemon off;"
+# Our COPY above places our config at /etc/nginx/nginx.conf, so it gets used.

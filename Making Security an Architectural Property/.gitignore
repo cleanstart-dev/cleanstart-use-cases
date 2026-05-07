@@ -1,0 +1,10 @@
+*.tar
+*.tar.gz
+sbom.json
+sbom.spdx.json
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+docker-compose.override.yml
