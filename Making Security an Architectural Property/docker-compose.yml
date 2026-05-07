@@ -1,0 +1,32 @@
+services:
+  hardened:
+    build:
+      context: .
+      dockerfile: Dockerfile.hardened
+    image: demo/nginx-hardened:local
+    container_name: nginx-hardened
+    ports:
+      - "8080:8080"
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    tmpfs:
+      - /tmp
+      - /var/cache/nginx
+      - /var/run
+      - /var/log/nginx
+      - /var/lib/nginx
+    restart: unless-stopped
+
+  baseline:
+    build:
+      context: .
+      dockerfile: Dockerfile.baseline
+    image: demo/nginx-baseline:local
+    container_name: nginx-baseline
+    ports:
+      - "8081:80"
