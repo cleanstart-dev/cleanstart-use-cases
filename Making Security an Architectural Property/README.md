@@ -36,8 +36,8 @@ A different approach is to make the *architecture itself* enforce the rules. A n
 This is the architectural gate — same policy, two Dockerfiles, mechanical pass/fail.
 
 ```bash
-conftest test --policy policies/ Dockerfile.baseline
-conftest test --policy policies/ Dockerfile.hardened
+conftest test --policy policies/ Dockerfile.baseline  # Results: 8 tests, 4 passed, 1 warning, 3 failures, 0 exceptions
+conftest test --policy policies/ Dockerfile.hardened  # Results: 8 tests, 8 passed, 0 warnings, 0 failures, 0 exceptions
 ```
 
 Expected:
@@ -50,7 +50,7 @@ Expected:
 ```bash
 make build       # builds both images
 make run         # starts the hardened container on :8080
-curl -I http://localhost:8080
+curl -I http://localhost:8080     # show the html status along with security content
 ```
 
 You should see security headers in the response: `Strict-Transport-Security`, `X-Frame-Options: DENY`, `Content-Security-Policy`, `Permissions-Policy`. The `Server` header carries no version disclosure.
@@ -60,11 +60,11 @@ You should see security headers in the response: `Strict-Transport-Security`, `X
 Try to get a shell in each container:
 
 ```bash
-docker exec -it nginx-hardened sh    # present in make file
+docker exec -it nginx-hardened sh    # No shell in cleanstart/nginx , ouput : executable file not found in $PATH
 
 # baseline not present in make file, please run below commands manually to get into shell in baseline
-docker compose up -d baseline
-docker exec -it nginx-baseline sh
+docker compose up -d baseline  # starts the basline
+docker exec -it nginx-baseline sh  # able to get into shell of the basline image
 
 whoami
 id
@@ -78,21 +78,21 @@ This isn't a bug. The hardened image ships without a shell, package manager, or 
 ### 5. Compare CVEs
 
 ```bash
-trivy image --severity HIGH,CRITICAL --scanners vuln demo/nginx-baseline:local
-trivy image --severity HIGH,CRITICAL --scanners vuln demo/nginx-hardened:local
+trivy image --severity HIGH,CRITICAL --scanners vuln demo/nginx-baseline:local  # 20 critical/high vulnerabilities
+trivy image --severity HIGH,CRITICAL --scanners vuln demo/nginx-hardened:local  # 0 critical/high vulnerabilities
 ```
 
-The baseline reports a list of HIGH and CRITICAL CVEs in libraries nginx doesn't even use to serve HTTP — `libheif`, `libde265`, `libgnutls`, etc. — bloat dragged in by Debian's package system. The hardened image returns *"Detected OS: family=none. Unsupported os."* — there's no OS metadata, no package database, nothing for the scanner to match against. You can't be vulnerable to a CVE in a library that isn't installed.
+The baseline reports a list of HIGH and CRITICAL CVEs in libraries nginx doesn't even use to serve HTTP — `libheif`, `libde265`, `libgnutls`, etc. — bloat dragged in by Debian's package system. The hardened image returns nothing. You can't be vulnerable to a CVE in a library that isn't installed.
 
 ### 6. Stop
 
 ```bash
-make stop
+make stop # stop docker compose 
 ```
 
 ## Mapping to CIS Docker Benchmark
 
-The Rego policy in `policies/docker_policy.rego` enforces:
+The Rego policy in `policies/docker_policy.rego` enforces below checks:
 
 - **CIS 4.1** — non-root user (deny)
 - **CIS 4.6** — `HEALTHCHECK` declared (warn)
@@ -101,59 +101,8 @@ The Rego policy in `policies/docker_policy.rego` enforces:
 - **CIS 4.10** — no secrets in `ENV` (deny)
 - **CIS 5.8** — no privileged ports (`<1024`) exposed (deny)
 
-## The takeaway
 
-Asking *"did we check rule 4.1?"* is a checklist mindset.
+Wired into a CI pipeline, a non-compliant change cannot reach the main branch.
+The same pattern works in GitLab CI, Jenkins, CircleCI, or any other pipeline runner. 
 
-Asking *"is it possible for rule 4.1 to be wrong in our pipeline?"* is an architectural one. If the answer is no — because the build fails, or the runtime can't express the insecure state — you've moved security from *process* to *property*.
-
-These are enforced *at build time* by the CI workflow, not audited *after deployment*.
-
-## Wiring this into a CI/CD pipeline
-
-Running `conftest test` locally proves the policy works. Wiring it into your pipeline is what makes it architectural — the rule then applies to *everyone*, *every time*, with no human in the loop. A reference workflow for GitHub Actions might look like:
-
-```yaml
-name: security-gate
-on:
-  pull_request:
-    branches: [main]
-
-jobs:
-  policy-check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install Conftest
-        run: |
-          wget -q https://github.com/open-policy-agent/conftest/releases/download/v0.56.0/conftest_0.56.0_Linux_x86_64.tar.gz
-          tar xzf conftest_0.56.0_Linux_x86_64.tar.gz
-          sudo mv conftest /usr/local/bin
-      - name: Verify hardened Dockerfile passes CIS policy
-        run: conftest test --policy policies/ Dockerfile.hardened
-      - name: Confirm baseline Dockerfile fails CIS policy (sanity check)
-        run: |
-          if conftest test --policy policies/ Dockerfile.baseline; then
-            echo "Baseline should have failed but passed. Policy is broken." && exit 1
-          fi
-
-  vuln-scan:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Build hardened image
-        run: docker build -t nginx-hardened:ci -f Dockerfile.hardened .
-      - name: Trivy scan
-        uses: aquasecurity/trivy-action@0.28.0
-        with:
-          image-ref: nginx-hardened:ci
-          severity: HIGH,CRITICAL
-          scanners: vuln
-          exit-code: '1'
-          ignore-unfixed: true
-          timeout: 15m
-```
-
-The same pattern works in GitLab CI, Jenkins, CircleCI, or any other pipeline runner. The point is that the policy file is portable — once `policies/docker_policy.rego` exists, *any* CI system can be the gate.
-
-Combine the gate with branch protection (GitHub: Settings → Branches → "Require status checks to pass before merging") and a non-compliant change becomes structurally unable to reach `main`. That combination — automated policy + organizational rule that no one can bypass — is the full picture of "security as a property."
+The hardened image is the foundation. An OPA Rego policy is the gate. The policy mechanically enforces CIS Docker Benchmark rules — pinned digests, non-root user, no privileged ports, no secrets in ENV. Same policy, two Dockerfiles, automatic pass/fail.
