@@ -1,0 +1,8 @@
+FROM cleanstart/python:latest
+
+WORKDIR /app
+COPY app.py .
+
+USER 65532
+
+CMD ["app.py"]
