@@ -99,7 +99,7 @@ CMD ["app.py"]
 # cloudbuild.yaml
 steps:
   # Stage 1: Use dev image to run tests
-  - name: cleanstart/python:dev
+  - name: cleanstart/python:latest-dev
     id: test
     entrypoint: /bin/sh
     args:
