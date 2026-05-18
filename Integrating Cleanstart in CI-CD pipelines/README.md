@@ -112,7 +112,7 @@ steps:
     args:
       - build
       - -t
-      - us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/my-app:$COMMIT_SHA
+      - <your-image-repository>/<image-name>:<image-tag>
       - .
     waitFor: [test]
 
@@ -121,7 +121,7 @@ steps:
     id: push
     args:
       - push
-      - us-central1-docker.pkg.dev/$PROJECT_ID/my-repo/my-app:$COMMIT_SHA
+      - <your-image-repository>/<image-name>:<image-tag>
     waitFor: [build]
 ```
 
