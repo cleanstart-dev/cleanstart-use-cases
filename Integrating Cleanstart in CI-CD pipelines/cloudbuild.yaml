@@ -1,0 +1,56 @@
+# ─────────────────────────────────────────────────────────────────
+# cloudbuild.yaml
+# CleanStart Python App — Local Demo Pipeline
+#
+# Steps:
+#   1. Test  → runs pytest inside cleanstart/python:latest-dev
+#   2. Build → builds Docker image using Dockerfile (prod image)
+#   3. Push  → pushes to local registry at localhost:5000
+# ─────────────────────────────────────────────────────────────────
+
+substitutions:
+  _REGISTRY: localhost:5000
+  _IMAGE: python-app
+
+steps:
+
+  # ── Step 1: TEST ──────────────────────────────────────────────
+  # Uses dev image — has shell and pip
+  - id: "test"
+    name: "cleanstart/python:latest-dev"
+    entrypoint: "sh"
+    args:
+      - "-c"
+      - |
+        echo ">>> Creating virtual environment..."
+        python -m venv /tmp/venv
+        echo ">>> Installing dependencies..."
+        /tmp/venv/bin/pip install --no-cache-dir -r requirements.txt
+        echo ">>> Running tests..."
+        /tmp/venv/bin/pytest tests/ -v --tb=short
+    env:
+      - "DEBUG=true"
+
+  # ── Step 2: BUILD ─────────────────────────────────────────────
+  # Dockerfile uses cleanstart/python:latest (prod — no shell)
+  - id: "build"
+    name: "gcr.io/cloud-builders/docker"
+    args:
+      - "build"
+      - "-t"
+      - "${_REGISTRY}/${_IMAGE}:$SHORT_SHA"
+      - "-t"
+      - "${_REGISTRY}/${_IMAGE}:latest"
+      - "."
+    waitFor:
+      - "test"
+
+  # ── Step 3: PUSH to local registry ───────────────────────────
+  - id: "push"
+    name: "gcr.io/cloud-builders/docker"
+    args:
+      - "push"
+      - "--all-tags"
+      - "${_REGISTRY}/${_IMAGE}"
+    waitFor:
+      - "build"
