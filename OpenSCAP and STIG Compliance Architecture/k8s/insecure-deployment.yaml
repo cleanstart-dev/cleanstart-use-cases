@@ -1,0 +1,35 @@
+# ─────────────────────────────────────────────────────────────────
+# Intentionally insecure deployment.
+# This will be REJECTED by Pod Security Admission because the
+# stig-hardened namespace enforces the "restricted" profile.
+#
+# Violations:
+#   - Uses stock python:latest (runs as root by default)
+#   - No securityContext set
+#   - No capabilities dropped
+#   - No seccomp profile
+#   - No readOnlyRootFilesystem
+#   - allowPrivilegeEscalation is not explicitly false
+# ─────────────────────────────────────────────────────────────────
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: insecure-python
+  namespace: stig-hardened
+  labels:
+    app: insecure-python
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: insecure-python
+  template:
+    metadata:
+      labels:
+        app: insecure-python
+    spec:
+      containers:
+        - name: app
+          image: python:latest
+          command: ["python", "-c", "import time; time.sleep(3600)"]
+          # No securityContext at all — violates "restricted" PSS

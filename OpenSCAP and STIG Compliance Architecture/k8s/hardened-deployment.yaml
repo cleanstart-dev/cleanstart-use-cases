@@ -1,0 +1,89 @@
+# ─────────────────────────────────────────────────────────────────
+# Namespace with Pod Security Standards "restricted" enforced.
+# Any pod that doesn't meet the restricted profile will be REJECTED.
+# ─────────────────────────────────────────────────────────────────
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: stig-hardened
+  labels:
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/enforce-version: latest
+    pod-security.kubernetes.io/warn: restricted
+    pod-security.kubernetes.io/audit: restricted
+---
+# ─────────────────────────────────────────────────────────────────
+# STIG-compliant deployment using cleanstart/python:latest.
+# Every securityContext field maps to a specific STIG/CIS control.
+# ─────────────────────────────────────────────────────────────────
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hardened-python
+  namespace: stig-hardened
+  labels:
+    app: hardened-python
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hardened-python
+  template:
+    metadata:
+      labels:
+        app: hardened-python
+    spec:
+      # CIS K8s 5.1.6 — don't mount service account tokens unless needed
+      automountServiceAccountToken: false
+
+      # Pod-level security context
+      securityContext:
+        runAsNonRoot: true            # STIG V-257791, CIS K8s 5.2.6
+        runAsUser: 1000               # cleanstart default UID
+        runAsGroup: 102               # cleanstart default GID
+        fsGroup: 102
+        seccompProfile:
+          type: RuntimeDefault        # CIS K8s 5.7.2
+
+      containers:
+        - name: app
+          image: cleanstart/python:latest
+          args:
+            - "-c"
+            - |
+              import time, os
+              print(f'STIG-hardened pod started | UID={os.getuid()} GID={os.getgid()}', flush=True)
+              while True:
+                  time.sleep(60)
+
+          env:
+            - name: PYTHONDONTWRITEBYTECODE
+              value: "1"
+            - name: PYTHONUNBUFFERED
+              value: "1"
+
+          # Container-level security context
+          securityContext:
+            allowPrivilegeEscalation: false   # CIS K8s 5.2.5
+            readOnlyRootFilesystem: true      # STIG V-257792, CIS K8s 5.2.5
+            capabilities:
+              drop:
+                - ALL                         # STIG V-257789, CIS K8s 5.2.7
+
+          # Resource limits (STIG container DoS protection)
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "10m"
+            limits:
+              memory: "64Mi"
+              cpu: "50m"
+
+          # Writable scratch space (required because rootfs is read-only)
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+
+      volumes:
+        - name: tmp
+          emptyDir: {}
