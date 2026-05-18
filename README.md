@@ -98,40 +98,41 @@ Each use case includes:
 | 17 | Why "Shift Left" Failed (And What Actually Works) | [View](https://github.com/cleanstart-dev/cleanstart-use-cases/tree/main/Why%20Shift%20Left%20Failed) | [Post](https://www.linkedin.com/feed/update/urn:li:activity:7457695261276995585?utm_source=share&utm_medium=member_desktop&rcm=ACoAAC7HlnEBbjimP6PTj3BXvh-8_gLv3IpE230) |
 | 18 | The Golden Image Problem: When Centralized Control Becomes a Bottleneck | — | — |
 | 19 | Breaking the Migration Barrier: Moving from Legacy to Hardened Images | — | — |
+| 20 | Integrating CleanStart in CI/CD pipelines | [View]() | [POST]() |
 
 ### Category 6: Runtime Security Challenges
 
 | S.No. | Topic | GitHub | LinkedIn |
 |-------|-------|--------|----------|
-| 20 | Rootless Containers: Security Theater or Real Protection? | — | — |
-| 21 | The Truth About Zero-Day Vulnerabilities in Containers | — | — |
-| 22 | Immutable Infrastructure vs. Runtime Patching: Choosing Your Security Model | — | — |
+| 21 | Rootless Containers: Security Theater or Real Protection? | — | — |
+| 22 | The Truth About Zero-Day Vulnerabilities in Containers | — | — |
+| 23 | Immutable Infrastructure vs. Runtime Patching: Choosing Your Security Model | — | — |
 
 ### Category 7: Supply Chain & Trust Issues
 
 | S.No. | Topic | GitHub | LinkedIn |
 |-------|-------|--------|----------|
-| 23 | SLSA Levels Demystified: Understanding Supply Chain Trust States | — | — |
-| 24 | Container Image Signing and Verification: Nobody's Actually Doing It (Yet) | — | — |
-| 25 | Private Registry Security: Are Your Internal Images Actually Safer? | — | — |
-| 26 | The Upstream Dependency Betrayal: When Trusted Sources Become Compromised | — | — |
-| 27 | The Trivy Supply Chain Attack: When Security Scanners Become the Weapon | — | [Post](https://www.linkedin.com/feed/update/urn:li:activity:7442906600337584128?utm_source=share&utm_medium=member_desktop&rcm=ACoAADsC9HYBNTIuYxSvYr689odHBSpvD4U4k-s) |
+| 24 | SLSA Levels Demystified: Understanding Supply Chain Trust States | — | — |
+| 25 | Container Image Signing and Verification: Nobody's Actually Doing It (Yet) | — | — |
+| 26 | Private Registry Security: Are Your Internal Images Actually Safer? | — | — |
+| 27 | The Upstream Dependency Betrayal: When Trusted Sources Become Compromised | — | — |
+| 28 | The Trivy Supply Chain Attack: When Security Scanners Become the Weapon | — | [Post](https://www.linkedin.com/feed/update/urn:li:activity:7442906600337584128?utm_source=share&utm_medium=member_desktop&rcm=ACoAADsC9HYBNTIuYxSvYr689odHBSpvD4U4k-s) |
 
 ### Category 8: Compliance & Regulatory Requirements
 
 | S.No. | Topic | GitHub | LinkedIn |
 |-------|-------|--------|----------|
-| 28 | CIS Hardening Beyond Checklists: Making Security an Architectural Property | — | — |
-| 29 | STIG Hardening by Design vs. Retrofit: Which Approach Wins? | — | — |
-| 30 | FIPS 140-2/140-3 in Containers: Embedding Compliance at the Foundation | — | — |
-| 31 | OpenSCAP and STIG Compliance Architecture: Implementation Patterns | — | — |
+| 29 | CIS Hardening Beyond Checklists: Making Security an Architectural Property | — | — |
+| 30 | STIG Hardening by Design vs. Retrofit: Which Approach Wins? | — | — |
+| 31 | FIPS 140-2/140-3 in Containers: Embedding Compliance at the Foundation | — | — |
+| 32 | OpenSCAP and STIG Compliance Architecture: Implementation Patterns | — | — |
 
 ### Category 9: Operational & Debugging Challenges
 
 | S.No. | Topic | GitHub | LinkedIn |
 |-------|-------|--------|----------|
-| 32 | The Debugging Dilemma: Troubleshooting Hardened Images Without Shell Access | — | — |
-| 33 | Image Update Fatigue: Managing the Patch Treadmill | — | — |
+| 33 | The Debugging Dilemma: Troubleshooting Hardened Images Without Shell Access | — | — |
+| 34 | Image Update Fatigue: Managing the Patch Treadmill | — | — |
 
 ---
 
