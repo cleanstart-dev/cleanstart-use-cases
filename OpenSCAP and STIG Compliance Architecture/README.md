@@ -1,6 +1,6 @@
-# STIG Compliance Demo: `cleanstart/python:latest`
+# OpenSCAP and STIG Compliance Architecture with `cleanstart/python:latest`
 
-A hands-on demo showing how the hardened `cleanstart/python:latest` image qualifies as a STIG-compliant base for Python workloads in both **Docker** and **Kubernetes** environments.
+Cleanstart's Python image comes already hardened — no shell, no root user, no known CVEs, and signed for proof. OpenSCAP picks up where the image stops, scanning the host and Kubernetes nodes so the whole stack stays compliant.
 
 ---
 
