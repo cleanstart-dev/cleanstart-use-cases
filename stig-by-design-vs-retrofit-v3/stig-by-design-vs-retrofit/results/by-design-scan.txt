@@ -1,0 +1,42 @@
+PLACEHOLDER — this file will be populated by scripts/03-scan-both.sh
+
+The actual scan output goes here after you run:
+
+    bash scripts/03-scan-both.sh
+
+Expected format is the raw stdout of:
+
+    oscap-docker image stig-by-design:latest xccdf eval \
+        --profile xccdf_org.ssgproject.content_profile_stig \
+        --results results/by-design-scan.xml \
+        --report  results/by-design-scan.html \
+        /usr/share/xml/scap/ssg/content/ssg-ubuntu2204-ds.xml
+
+============================================================
+Before this file will be meaningful you must:
+============================================================
+
+1. Replace <image>:<tag> in configs/Dockerfile.by-design with an
+   actual CleanStart image tag from hub.docker.com/u/cleanstart.
+
+2. Run scripts/02-build-by-design.sh to build the image.
+
+3. Run scripts/03-scan-both.sh to scan it.
+
+============================================================
+What honest reporting looks like for the by-design result:
+============================================================
+
+Expect SOME failures even on a well-hardened image. Don't be tempted
+to massage the numbers. Common legitimate failures on container scans
+that are NOT image defects:
+
+- Host-kernel sysctl values the container cannot set or observe
+- AppArmor profile inheritance (depends on host config)
+- Persistent audit log storage (depends on volume mounts at deploy time)
+- Audit daemon service-enablement state (host responsibility)
+- GRUB / partitioning / BIOS rules (don't apply to containers at all)
+
+Per the DISA Container Hardening Process Guide, an assessor is
+expected to evaluate the validity of each failure, not just count them.
+A credible comparison post does the same.

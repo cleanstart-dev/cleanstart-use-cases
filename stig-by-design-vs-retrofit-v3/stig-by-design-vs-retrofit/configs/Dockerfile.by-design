@@ -1,0 +1,31 @@
+# By-design path: CleanStart hardened glibc base.
+#
+# Image: cleanstart/glibc:latest
+# Source: https://hub.docker.com/r/cleanstart/glibc
+#
+# Why glibc and not jdk/python/nginx/etc:
+#   We're comparing against ubuntu:22.04 — a base OS, not a runtime.
+#   cleanstart/glibc is CleanStart's equivalent foundational image:
+#   minimal GNU C Library, POSIX threading, locale data, core system
+#   libraries. It's the apples-to-apples comparison target.
+#
+# CleanStart's published description: "security-hardened and optimized for
+# enterprise deployments, featuring minimal attack surface and FIPS-compliant
+# cryptographic functions."
+#
+# If your workload is Java/Node/Python/etc, swap to cleanstart/jdk,
+# cleanstart/nodejs, cleanstart/python (browse hub.docker.com/u/cleanstart
+# for the full catalog — 62 hardened images as of writing).
+
+FROM cleanstart/glibc:latest
+
+# Demo app (replace with your actual application binary)
+COPY --chown=1000:1000 app /app
+
+USER 1000
+
+# Run with these flags per CleanStart's documented hardened defaults:
+#   --read-only --security-opt=no-new-privileges --user 1000:1000
+# (See https://hub.docker.com/r/cleanstart/glibc for full deployment guide)
+
+ENTRYPOINT ["/app/server"]
