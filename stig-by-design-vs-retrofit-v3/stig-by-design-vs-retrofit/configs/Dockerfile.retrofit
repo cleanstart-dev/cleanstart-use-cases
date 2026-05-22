@@ -1,0 +1,55 @@
+# Retrofit path: start from a general-purpose Ubuntu base
+# and apply STIG remediation in layers.
+#
+# This is what most teams write when handed a STIG mandate
+# on top of an existing Ubuntu workload.
+
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# 1. Remove packages flagged by STIG container baseline.
+#    telnet, ftp, rsh, talk, finger, NIS — all called out explicitly.
+RUN apt-get update && \
+    for pkg in telnet telnetd ftp tftp tftpd-hpa \
+               rsh-client rsh-redone-client rsh-redone-server \
+               talk talkd finger nis ypbind ypserv; do \
+        dpkg -l "$pkg" 2>/dev/null | grep -q "^ii" && apt-get remove --purge -y "$pkg" || true; \
+    done && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
+
+# 2. Install the packages STIG *requires*: audit daemon,
+#    PAM password quality, AIDE for file integrity.
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        auditd \
+        audispd-plugins \
+        libpam-pwquality \
+        aide \
+        aide-common \
+    && rm -rf /var/lib/apt/lists/*
+
+# 3. Apply the bulk remediation script.
+#    340 lines of sed/echo/chmod against /etc — see scripts/retrofit-remediation.sh
+COPY scripts/retrofit-remediation.sh /tmp/retrofit-remediation.sh
+RUN bash /tmp/retrofit-remediation.sh && \
+    rm /tmp/retrofit-remediation.sh
+
+# 4. Add a non-root user. Ubuntu base ships running as root.
+RUN groupadd -g 65532 app && \
+    useradd -u 65532 -g 65532 -s /sbin/nologin -M app
+
+# 5. Tighten permissions on remaining sensitive files.
+RUN chmod 0600 /etc/shadow /etc/gshadow && \
+    chmod 0644 /etc/passwd /etc/group && \
+    chmod 0600 /etc/ssh/sshd_config 2>/dev/null || true && \
+    chmod 0700 /root
+
+# 6. Drop privilege.
+USER 65532
+
+# Your application would go here. The remaining 27 STIG findings
+# in this image are package-selection issues (wget, tar, dpkg, /bin/bash)
+# that can't be remediated without breaking the image.
+CMD ["/bin/false"]
