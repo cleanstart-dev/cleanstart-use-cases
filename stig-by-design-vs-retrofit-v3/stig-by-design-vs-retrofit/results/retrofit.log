@@ -1,0 +1,716 @@
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  44.54kB
+Step 1/10 : FROM ubuntu:22.04
+ ---> 86f1a8d7b38e
+Step 2/10 : ENV DEBIAN_FRONTEND=noninteractive
+ ---> Running in 820c94ad2124
+ ---> Removed intermediate container 820c94ad2124
+ ---> 9999e944157a
+Step 3/10 : RUN apt-get update &&     for pkg in telnet telnetd ftp tftp tftpd-hpa                rsh-client rsh-redone-client rsh-redone-server                talk talkd finger nis ypbind ypserv; do         dpkg -l "$pkg" 2>/dev/null | grep -q "^ii" && apt-get remove --purge -y "$pkg" || true;     done &&     apt-get autoremove -y &&     rm -rf /var/lib/apt/lists/*
+ ---> Running in c6cea7f933e1
+Get:1 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Get:3 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3945 kB]
+Get:4 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [7070 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+Get:10 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1295 kB]
+Get:11 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [77.8 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1603 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [86.4 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [4294 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [7355 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [82.8 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [35.6 kB]
+Fetched 46.2 MB in 12s (3757 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+0 upgraded, 0 newly installed, 0 to remove and 1 not upgraded.
+ ---> Removed intermediate container c6cea7f933e1
+ ---> 3d3128f983da
+Step 4/10 : RUN apt-get update &&     apt-get install -y --no-install-recommends         auditd         audispd-plugins         libpam-pwquality         aide         aide-common     && rm -rf /var/lib/apt/lists/*
+ ---> Running in 824a77529eb6
+Get:1 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Get:2 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+Get:4 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3945 kB]
+Get:5 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [7070 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+Get:11 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1295 kB]
+Get:12 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [77.8 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [7355 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [4294 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [86.4 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1603 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [35.6 kB]
+Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [82.8 kB]
+Fetched 46.2 MB in 12s (3787 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  bsd-mailx cpio libauparse0 libbsd0 libcrack2 libicu70 libldap-2.5-0
+  liblockfile-bin liblockfile1 libmd0 libmhash2 libpwquality-common
+  libpwquality1 libsasl2-2 libsasl2-modules-db netbase openssl postfix
+  ssl-cert ucf
+Suggested packages:
+  figlet libarchive1 ca-certificates procmail postfix-mysql postfix-pgsql
+  postfix-ldap postfix-pcre postfix-lmdb postfix-sqlite sasl2-bin
+  | dovecot-common libsasl2-modules | dovecot-common resolvconf postfix-cdb
+  postfix-mta-sts-resolver ufw postfix-doc
+Recommended packages:
+  cron cracklib-runtime libldap-common libsasl2-modules python3
+  ca-certificates
+The following NEW packages will be installed:
+  aide aide-common audispd-plugins auditd bsd-mailx cpio libauparse0 libbsd0
+  libcrack2 libicu70 libldap-2.5-0 liblockfile-bin liblockfile1 libmd0
+  libmhash2 libpam-pwquality libpwquality-common libpwquality1 libsasl2-2
+  libsasl2-modules-db netbase openssl postfix ssl-cert ucf
+0 upgraded, 25 newly installed, 0 to remove and 1 not upgraded.
+Need to get 14.2 MB of archives.
+After this operation, 45.8 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy/main amd64 libicu70 amd64 70.1-2 [10.6 MB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules-db amd64 2.1.27+dfsg2-3ubuntu1.2 [20.5 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-2 amd64 2.1.27+dfsg2-3ubuntu1.2 [53.8 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy/main amd64 netbase all 6.3 [12.9 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 openssl amd64 3.0.2-0ubuntu1.23 [1186 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy/main amd64 ssl-cert all 1.1.2 [17.4 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 cpio amd64 2.13+dfsg-7ubuntu0.1 [84.5 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 postfix amd64 3.6.4-1ubuntu1.4 [1248 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy/main amd64 libauparse0 amd64 1:3.0.7-1build1 [58.0 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy/main amd64 auditd amd64 1:3.0.7-1build1 [212 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmd0 amd64 1.0.4-1build1 [23.0 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbsd0 amd64 0.11.5-1 [44.8 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy/main amd64 ucf all 3.0043 [56.1 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmhash2 amd64 0.9.9.9-9build2 [95.9 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 aide amd64 0.17.4-1ubuntu0.2 [92.1 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy/main amd64 liblockfile-bin amd64 1.17-1build2 [11.7 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy/main amd64 liblockfile1 amd64 1.17-1build2 [7058 B]
+Get:18 http://archive.ubuntu.com/ubuntu jammy/main amd64 bsd-mailx amd64 8.1.2-0.20180807cvs-2build2 [69.6 kB]
+Get:19 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 aide-common all 0.17.4-1ubuntu0.2 [72.2 kB]
+Get:20 http://archive.ubuntu.com/ubuntu jammy/main amd64 libcrack2 amd64 2.9.6-3.4build4 [29.6 kB]
+Get:21 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-2.5-0 amd64 2.5.20+dfsg-0ubuntu0.22.04.1 [184 kB]
+Get:22 http://archive.ubuntu.com/ubuntu jammy/main amd64 libpwquality-common all 1.4.4-1build2 [7642 B]
+Get:23 http://archive.ubuntu.com/ubuntu jammy/main amd64 libpwquality1 amd64 1.4.4-1build2 [13.4 kB]
+Get:24 http://archive.ubuntu.com/ubuntu jammy/main amd64 libpam-pwquality amd64 1.4.4-1build2 [11.8 kB]
+Get:25 http://archive.ubuntu.com/ubuntu jammy/universe amd64 audispd-plugins amd64 1:3.0.7-1build1 [39.1 kB]
+[91mdebconf: delaying package configuration, since apt-utils is not installed
+[0mFetched 14.2 MB in 5s (2980 kB/s)
+Selecting previously unselected package libicu70:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 4393 files and directories currently installed.)
+Preparing to unpack .../00-libicu70_70.1-2_amd64.deb ...
+Unpacking libicu70:amd64 (70.1-2) ...
+Selecting previously unselected package libsasl2-modules-db:amd64.
+Preparing to unpack .../01-libsasl2-modules-db_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libsasl2-2:amd64.
+Preparing to unpack .../02-libsasl2-2_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package netbase.
+Preparing to unpack .../03-netbase_6.3_all.deb ...
+Unpacking netbase (6.3) ...
+Selecting previously unselected package openssl.
+Preparing to unpack .../04-openssl_3.0.2-0ubuntu1.23_amd64.deb ...
+Unpacking openssl (3.0.2-0ubuntu1.23) ...
+Selecting previously unselected package ssl-cert.
+Preparing to unpack .../05-ssl-cert_1.1.2_all.deb ...
+Unpacking ssl-cert (1.1.2) ...
+Selecting previously unselected package cpio.
+Preparing to unpack .../06-cpio_2.13+dfsg-7ubuntu0.1_amd64.deb ...
+Unpacking cpio (2.13+dfsg-7ubuntu0.1) ...
+Selecting previously unselected package postfix.
+Preparing to unpack .../07-postfix_3.6.4-1ubuntu1.4_amd64.deb ...
+Unpacking postfix (3.6.4-1ubuntu1.4) ...
+Selecting previously unselected package libauparse0:amd64.
+Preparing to unpack .../08-libauparse0_1%3a3.0.7-1build1_amd64.deb ...
+Unpacking libauparse0:amd64 (1:3.0.7-1build1) ...
+Selecting previously unselected package auditd.
+Preparing to unpack .../09-auditd_1%3a3.0.7-1build1_amd64.deb ...
+Unpacking auditd (1:3.0.7-1build1) ...
+Selecting previously unselected package libmd0:amd64.
+Preparing to unpack .../10-libmd0_1.0.4-1build1_amd64.deb ...
+Unpacking libmd0:amd64 (1.0.4-1build1) ...
+Selecting previously unselected package libbsd0:amd64.
+Preparing to unpack .../11-libbsd0_0.11.5-1_amd64.deb ...
+Unpacking libbsd0:amd64 (0.11.5-1) ...
+Selecting previously unselected package ucf.
+Preparing to unpack .../12-ucf_3.0043_all.deb ...
+Moving old data out of the way
+Unpacking ucf (3.0043) ...
+Selecting previously unselected package libmhash2:amd64.
+Preparing to unpack .../13-libmhash2_0.9.9.9-9build2_amd64.deb ...
+Unpacking libmhash2:amd64 (0.9.9.9-9build2) ...
+Selecting previously unselected package aide.
+Preparing to unpack .../14-aide_0.17.4-1ubuntu0.2_amd64.deb ...
+Unpacking aide (0.17.4-1ubuntu0.2) ...
+Selecting previously unselected package liblockfile-bin.
+Preparing to unpack .../15-liblockfile-bin_1.17-1build2_amd64.deb ...
+Unpacking liblockfile-bin (1.17-1build2) ...
+Selecting previously unselected package liblockfile1:amd64.
+Preparing to unpack .../16-liblockfile1_1.17-1build2_amd64.deb ...
+Unpacking liblockfile1:amd64 (1.17-1build2) ...
+Selecting previously unselected package bsd-mailx.
+Preparing to unpack .../17-bsd-mailx_8.1.2-0.20180807cvs-2build2_amd64.deb ...
+Unpacking bsd-mailx (8.1.2-0.20180807cvs-2build2) ...
+Selecting previously unselected package aide-common.
+Preparing to unpack .../18-aide-common_0.17.4-1ubuntu0.2_all.deb ...
+Unpacking aide-common (0.17.4-1ubuntu0.2) ...
+Selecting previously unselected package libcrack2:amd64.
+Preparing to unpack .../19-libcrack2_2.9.6-3.4build4_amd64.deb ...
+Unpacking libcrack2:amd64 (2.9.6-3.4build4) ...
+Selecting previously unselected package libldap-2.5-0:amd64.
+Preparing to unpack .../20-libldap-2.5-0_2.5.20+dfsg-0ubuntu0.22.04.1_amd64.deb ...
+Unpacking libldap-2.5-0:amd64 (2.5.20+dfsg-0ubuntu0.22.04.1) ...
+Selecting previously unselected package libpwquality-common.
+Preparing to unpack .../21-libpwquality-common_1.4.4-1build2_all.deb ...
+Unpacking libpwquality-common (1.4.4-1build2) ...
+Selecting previously unselected package libpwquality1:amd64.
+Preparing to unpack .../22-libpwquality1_1.4.4-1build2_amd64.deb ...
+Unpacking libpwquality1:amd64 (1.4.4-1build2) ...
+Selecting previously unselected package libpam-pwquality:amd64.
+Preparing to unpack .../23-libpam-pwquality_1.4.4-1build2_amd64.deb ...
+Unpacking libpam-pwquality:amd64 (1.4.4-1build2) ...
+Selecting previously unselected package audispd-plugins.
+Preparing to unpack .../24-audispd-plugins_1%3a3.0.7-1build1_amd64.deb ...
+Unpacking audispd-plugins (1:3.0.7-1build1) ...
+Setting up libpwquality-common (1.4.4-1build2) ...
+Setting up cpio (2.13+dfsg-7ubuntu0.1) ...
+update-alternatives: using /bin/mt-gnu to provide /bin/mt (mt) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/mt.1.gz because associated file /usr/share/man/man1/mt-gnu.1.gz (of link group mt) doesn't exist
+Setting up liblockfile-bin (1.17-1build2) ...
+Setting up libauparse0:amd64 (1:3.0.7-1build1) ...
+Setting up libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up ucf (3.0043) ...
+Setting up libsasl2-2:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Setting up libcrack2:amd64 (2.9.6-3.4build4) ...
+Setting up libmhash2:amd64 (0.9.9.9-9build2) ...
+Setting up libmd0:amd64 (1.0.4-1build1) ...
+Setting up netbase (6.3) ...
+Setting up liblockfile1:amd64 (1.17-1build2) ...
+Setting up openssl (3.0.2-0ubuntu1.23) ...
+Setting up libbsd0:amd64 (0.11.5-1) ...
+Setting up libicu70:amd64 (70.1-2) ...
+Setting up aide (0.17.4-1ubuntu0.2) ...
+Setting up auditd (1:3.0.7-1build1) ...
+invoke-rc.d: could not determine current runlevel
+invoke-rc.d: policy-rc.d denied execution of start.
+Setting up libldap-2.5-0:amd64 (2.5.20+dfsg-0ubuntu0.22.04.1) ...
+Setting up libpwquality1:amd64 (1.4.4-1build2) ...
+Setting up ssl-cert (1.1.2) ...
+Setting up postfix (3.6.4-1ubuntu1.4) ...
+Adding group `postfix' (GID 102) ...
+Done.
+Adding system user `postfix' (UID 101) ...
+Adding new user `postfix' (UID 101) with group `postfix' ...
+Not creating home directory `/var/spool/postfix'.
+Creating /etc/postfix/dynamicmaps.cf
+Adding group `postdrop' (GID 103) ...
+Done.
+setting myhostname: 824a77529eb6
+setting alias maps
+setting alias database
+mailname is not a fully qualified domain name.  Not changing /etc/mailname.
+setting destinations: $myhostname, 824a77529eb6, localhost.localdomain, , localhost
+setting relayhost: 
+setting mynetworks: 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+setting mailbox_size_limit: 0
+setting recipient_delimiter: +
+setting inet_interfaces: all
+setting inet_protocols: all
+/etc/aliases does not exist, creating it.
+WARNING: /etc/aliases exists, but does not have a root alias.
+
+Postfix (main.cf) is now set up with a default configuration.  If you need to 
+make changes, edit /etc/postfix/main.cf (and others) as needed.  To view 
+Postfix configuration values, see postconf(1).
+
+After modifying main.cf, be sure to run 'systemctl reload postfix'.
+
+Running newaliases
+invoke-rc.d: could not determine current runlevel
+invoke-rc.d: policy-rc.d denied execution of restart.
+invoke-rc.d: could not determine current runlevel
+invoke-rc.d: policy-rc.d denied execution of start.
+Setting up audispd-plugins (1:3.0.7-1build1) ...
+Setting up libpam-pwquality:amd64 (1.4.4-1build2) ...
+Setting up bsd-mailx (8.1.2-0.20180807cvs-2build2) ...
+update-alternatives: using /usr/bin/bsd-mailx to provide /usr/bin/mailx (mailx) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/mailx.1.gz because associated file /usr/share/man/man1/bsd-mailx.1.gz (of link group mailx) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/mail.1.gz because associated file /usr/share/man/man1/bsd-mailx.1.gz (of link group mailx) doesn't exist
+update-alternatives: warning: skip creation of /usr/share/man/man1/Mail.1.gz because associated file /usr/share/man/man1/bsd-mailx.1.gz (of link group mailx) doesn't exist
+Setting up aide-common (0.17.4-1ubuntu0.2) ...
+
+Creating config file /etc/default/aide with new version
+
+Creating config file /etc/aide/aide.settings.d/31_aide_apt_settings with new version
+
+Creating config file /etc/aide/aide.settings.d/10_aide_sourceslist with new version
+
+Creating config file /etc/aide/aide.settings.d/31_aide_svn-server_settings with new version
+
+Creating config file /etc/aide/aide.settings.d/31_aide_torrus_settings with new version
+
+Creating config file /etc/aide/aide.settings.d/31_aide_trac_settings with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_nscd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_amanda-client with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_debspawn with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_inetd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_dovecot with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_grub-efi with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_systemd_sessions with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_clamav with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_libvirt-bin with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_privoxy with new version
+
+Creating config file /etc/aide/aide.conf.d/10_aide_year with new version
+
+Creating config file /etc/aide/aide.conf.d/70_aide_dev with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_cron with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_etckeeper with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_ifupdown with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_dokuwiki with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_smartmontools with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_dlocate with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_kerberos with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_systemd-cron with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_redis with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_courier-authlib with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_haproxy with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_pcscd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_munin-nodes with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_snmpd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_proftpd with new version
+
+Creating config file /etc/aide/aide.conf.d/20_aide_run_systemd-journald with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_rsnapshot with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_util-linux with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_console-setup with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_ifplugd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_needrestart with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_apache2 with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_hald with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_php7 with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_xinetd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_cereal with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_man with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_run_systemd_resolve with new version
+
+Creating config file /etc/aide/aide.conf.d/10_aide_machineid with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_e2fsprogs with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_slrn with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_rngd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_checksecurity with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_fail2ban with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_clamav-freshclam with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_findutils with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_sudo with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_x11-common with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_apt-cacher-ng with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_squid with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_unbound with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_mysql-server with new version
+
+Creating config file /etc/aide/aide.conf.d/70_aide_var with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_samba with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_adjtime with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_apt-listchanges with new version
+
+Creating config file /etc/aide/aide.conf.d/21_aide_run_agetty with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_systemd-nspawn with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_clamav-unofficial-sigs with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_dcc-common with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_pm-utils with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_amanda-server with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_plocate with new version
+
+Creating config file /etc/aide/aide.conf.d/70_aide_tmp with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_nfs with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_ippl with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_smokeping with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_aide with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_mail with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_sshd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_rsyslog with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_openvpn with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_aptitude with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_php-fpm with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_asterisk with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_opie-server with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_bind9 with new version
+
+Creating config file /etc/aide/aide.conf.d/10_aide_prevyear with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_systemd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_systemd-resolved with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_libapache2-mod-fastcgi with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_webalizer with new version
+
+Creating config file /etc/aide/aide.conf.d/10_aide_hostname with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_dbus with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_root-dotfiles with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_mdadm with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_atop with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_borgbackup with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_rkhunter with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_cracklib-runtime with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_ntp-server with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_icinga2 with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_mlocate with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_xdm with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_spamassassin with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_nslcd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_runuser with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_dehydrated with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_lvm2 with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_saslauthd with new version
+
+Creating config file /etc/aide/aide.conf.d/10_aide_run with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_isc-dhcp-server with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_run_tmpfiles with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_boinc-client with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_x11-xkb-utils with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_slapd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_screen with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_laptop-mode-tools with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_logrotate with new version
+
+Creating config file /etc/aide/aide.conf.d/30_aide_bind9 with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_inn2 with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_exim4_exiscan with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_dpkg with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_irqbalance with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_chrony with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_cron-apt with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_systemd-machined with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_apt-listbugs with new version
+
+Creating config file /etc/aide/aide.conf.d/70_aide_run with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_systemd-networkd with new version
+
+Creating config file /etc/aide/aide.conf.d/10_aide_logext with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_postfix with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_initscripts with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_apcupsd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_syslog-ng with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_torrus with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_tmux with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_lastlog with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_vsftpd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_postgrey with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_lpd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_tiger with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_alsa with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_svn-server with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_ddclient with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_network with new version
+
+Creating config file /etc/aide/aide.conf.d/10_aide_distribution with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_udev with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_lighttpd with new version
+
+Creating config file /etc/aide/aide.conf.d/99_aide_root with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_gnupg with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_console-log with new version
+
+Creating config file /etc/aide/aide.conf.d/30_aide_apache2 with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_hapsd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_php-common with new version
+
+Creating config file /etc/aide/aide.conf.d/21_aide_spamassassin with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_spampd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_sniproxy with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_xe-guest-utilities with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_fake-hwclock with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_modules with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_dev with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_mariadb with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_apt-show-versions with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_isc-dhcp-client with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_apt with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_anubis with new version
+
+Creating config file /etc/aide/aide.conf.d/10_aide_constants with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_exim4 with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_debconf with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_systemd-timesyncd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_run_systemd_netif with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_tlp with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_openvpn-server with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_cups with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_utmp with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_resolvconf with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_wpasupplicant with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_network-manager with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_avahi-daemon with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_postfix-cluebringer with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_locales with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_munin with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_ssh-server with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_dmeventd with new version
+
+Creating config file /etc/aide/aide.conf.d/70_aide_proc_sys with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_initramfs-tools with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_portmap with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_btmp with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_exim4_logs with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_wtmp with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_trac with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_systemd-journald with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_tt-rss with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_anacron with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_pam_motd with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_nrpe with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_amavisd-new with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_acpid with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_logcheck with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_mailman with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_ssh-agent with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_fcron with new version
+
+Creating config file /etc/aide/aide.conf.d/70_aide_etc with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_postgresql with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_debsecan with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_vpnc with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_at with new version
+
+Creating config file /etc/aide/aide.conf.d/31_aide_lldpd with new version
+
+Creating config file /etc/aide/aide.conf.d/30_inn2_vars with new version
+
+Creating config file /etc/aide/aide.conf with new version
+
+Creating config file /etc/cron.daily/aide with new version
+Processing triggers for libc-bin (2.35-0ubuntu3.13) ...
+ ---> Removed intermediate container 824a77529eb6
+ ---> b92964836b1e
+Step 5/10 : COPY scripts/retrofit-remediation.sh /tmp/retrofit-remediation.sh
+ ---> 65e5f7f5936d
+Step 6/10 : RUN bash /tmp/retrofit-remediation.sh &&     rm /tmp/retrofit-remediation.sh
+ ---> Running in b81477c44b2b
+[remediation] Hardening /etc/login.defs
+[remediation] Configuring PAM password quality
+[remediation] Hardening sshd_config
+[remediation] Configuring auditd
+[remediation] Writing sysctl hardening
+[remediation] Blacklisting unused kernel modules
+[remediation] Setting file permissions
+[remediation] Installing DoD warning banner
+[remediation] Initializing AIDE database
+[remediation] Locking down cron
+[remediation] Retrofit remediation complete.
+[remediation] Lines of config rewritten: ~340
+[remediation] Remaining unfixable findings: package-selection rules (wget, tar,
+[remediation] dpkg, /bin/bash present). Cannot be remediated without breaking the image.
+ ---> Removed intermediate container b81477c44b2b
+ ---> 36261e23f6b0
+Step 7/10 : RUN groupadd -g 65532 app &&     useradd -u 65532 -g 65532 -s /sbin/nologin -M app
+ ---> Running in e3ee4e4adfb6
+ ---> Removed intermediate container e3ee4e4adfb6
+ ---> b0c33dfd85af
+Step 8/10 : RUN chmod 0600 /etc/shadow /etc/gshadow &&     chmod 0644 /etc/passwd /etc/group &&     chmod 0600 /etc/ssh/sshd_config 2>/dev/null || true &&     chmod 0700 /root
+ ---> Running in 0d55d3201518
+ ---> Removed intermediate container 0d55d3201518
+ ---> 9e3e7a79eebb
+Step 9/10 : USER 65532
+ ---> Running in 8fd53fd30f68
+ ---> Removed intermediate container 8fd53fd30f68
+ ---> c726157283b0
+Step 10/10 : CMD ["/bin/false"]
+ ---> Running in 6c43426e4580
+ ---> Removed intermediate container 6c43426e4580
+ ---> 452a55a41b2b
+Successfully built 452a55a41b2b
+Successfully tagged stig-retrofit:latest

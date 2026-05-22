@@ -258,6 +258,7 @@ chmod 0644 /etc/sysctl.d/99-stig.conf
 # -----------------------------------------------------------------------------
 log "Blacklisting unused kernel modules"
 
+mkdir -p /etc/modprobe.d
 cat > /etc/modprobe.d/stig-blacklist.conf <<'EOF'
 # Unnecessary filesystems
 install cramfs   /bin/true

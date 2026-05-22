@@ -1,0 +1,19 @@
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon   80.9kB
+Step 1/4 : FROM cleanstart/glibc:latest
+ ---> 7dfd7a8558d0
+Step 2/4 : COPY --chown=1000:1000 app /app
+ ---> 3005f66a177d
+Step 3/4 : USER 1000
+ ---> Running in 78e231b33411
+ ---> Removed intermediate container 78e231b33411
+ ---> 34984021d4b7
+Step 4/4 : ENTRYPOINT ["/app/server"]
+ ---> Running in 50f7baed99f8
+ ---> Removed intermediate container 50f7baed99f8
+ ---> 39674915e7bd
+Successfully built 39674915e7bd
+Successfully tagged stig-by-design:latest

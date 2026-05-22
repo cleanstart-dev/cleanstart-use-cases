@@ -11,15 +11,13 @@ ENV DEBIAN_FRONTEND=noninteractive
 # 1. Remove packages flagged by STIG container baseline.
 #    telnet, ftp, rsh, talk, finger, NIS — all called out explicitly.
 RUN apt-get update && \
-    apt-get remove --purge -y \
-        telnet telnetd \
-        ftp tftp tftpd-hpa \
-        rsh-client rsh-redone-client rsh-redone-server \
-        talk talkd \
-        finger \
-        nis ypbind ypserv \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/*
+    for pkg in telnet telnetd ftp tftp tftpd-hpa \
+               rsh-client rsh-redone-client rsh-redone-server \
+               talk talkd finger nis ypbind ypserv; do \
+        dpkg -l "$pkg" 2>/dev/null | grep -q "^ii" && apt-get remove --purge -y "$pkg" || true; \
+    done && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
 
 # 2. Install the packages STIG *requires*: audit daemon,
 #    PAM password quality, AIDE for file integrity.

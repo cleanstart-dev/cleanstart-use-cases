@@ -1,6 +1,3 @@
-phase,run,retrofit_value,by_design_value,unit,notes
-# This file is appended to by 01-build-retrofit.sh, 02-build-by-design.sh,
-# and 03-scan-both.sh. Re-run the scripts to populate it.
-#
-# Recommended: run each script 3 times after a fresh `docker system prune -af`
-# between runs so the timings are not contaminated by layer cache.
+label,build_seconds,image_size
+retrofit,83,145MB
+by-design,2,44.9MB
