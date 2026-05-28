@@ -10,7 +10,8 @@ spec:
   shareProcessNamespace: true
   containers:
     - name: app
-      image: cleanstart/myapp:hardened
+      image: stig-by-design:latest
+      imagePullPolicy: Never
       ports:
         - containerPort: 8080
     - name: debug

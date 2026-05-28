@@ -14,7 +14,8 @@ metadata:
 spec:
   containers:
     - name: app
-      image: cleanstart/glibc:latest
+      image: stig-by-design:latest
+      imagePullPolicy: Never
       ports:
         - containerPort: 8080
       securityContext:
