@@ -1,0 +1,24 @@
+# Demo pod using CleanStart hardened base image.
+# Deploy this first, then run the 3 debug technique scripts against it.
+#
+# Usage:
+#   kubectl apply -f scripts/00-demo-pod.yaml
+#   kubectl wait --for=condition=Ready pod/hardened-app --timeout=60s
+#   bash scripts/01-kubectl-debug.sh
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hardened-app
+  labels:
+    app: hardened-app
+spec:
+  containers:
+    - name: app
+      image: cleanstart/glibc:latest
+      ports:
+        - containerPort: 8080
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        readOnlyRootFilesystem: true
+        allowPrivilegeEscalation: false
