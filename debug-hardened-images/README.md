@@ -1,31 +1,12 @@
 # Debugging Hardened Images Without Shell Access
 
-
 Hardened container images strip out shells, package managers, and debug tools to reduce attack surface. Great for security — painful when something breaks at 2 AM. This use case shows **3 practical techniques** to debug them, with real command outputs you can verify yourself.
 
 ---
 
-## Why This Matters for CleanStart Users
-
-CleanStart hardened images are purpose-built with minimal attack surface. Verified locally against `cleanstart/glibc:latest`:
-
-| Metric | Stock Ubuntu 22.04 | CleanStart `glibc:latest` |
-|---|---|---|
-| Executables in `/usr/bin`, `/usr/sbin`, `/bin`, `/sbin` | 366 | **13** (glibc runtime only) |
-| Shell (`sh`, `bash`) present | ✅ `bash` | ❌ none |
-| Package manager (`apt`, `dpkg`) | ✅ present | ❌ none |
-| Debugging tools (`ps`, `netstat`, `curl`, `cat`) | ✅ present | ❌ none |
-| Default user | `root` (uid 0) | `clnstrt` (uid 1000) |
-| Login shell for default user | `/bin/bash` | `/sbin/nologin` |
-| Image size on disk | 78.1 MB | **44.9 MB** |
-
-*Verified via `docker images`, `docker inspect`, and `docker export | tar -tv` against `cleanstart/glibc:latest`. See "Verify the Hardening Yourself" section below to reproduce.*
-
-The 13 binaries that remain are **glibc runtime utilities** (`ldd`, `iconv`, `locale`, `getent`, `localedef`, `tzselect`, etc.) — essential library functions, not interactive tools. Zero shells, zero package managers, zero debug utilities. The default user can't even log in interactively (`/sbin/nologin`). That's the point — and why you need a different debugging strategy.
-
----
-
 ## The Problem
+
+Modern container security pushes teams toward hardened, distroless, or minimal base images. The trade-off shows up the first time something breaks in production:
 
 ```bash
 $ kubectl exec -it my-pod -- sh
@@ -37,7 +18,7 @@ exec: "sh": executable file not found in $PATH
 Or with Docker directly:
 
 ```bash
-$ docker run --rm --entrypoint sh cleanstart/glibc:latest
+$ docker run --rm --entrypoint sh <hardened-image>
 docker: Error response from daemon: failed to create task for container:
 failed to create shim task: OCI runtime create failed: runc create failed:
 unable to start container process: error during container init:
@@ -45,6 +26,26 @@ exec: "sh": executable file not found in $PATH: unknown
 ```
 
 No shell. No `ps`, `curl`, `netstat`, or `cat`. The image is working exactly as designed — now you need to debug without breaking that guarantee.
+
+---
+
+## What "Hardened" Actually Means Inside a Container
+
+Most teams don't realize how minimal a hardened image is until they're staring at a broken production pod with no shell. Here's a like-for-like comparison between a stock Ubuntu base and a hardened base image — verified locally with Docker (commands in the "Verify It Yourself" section below):
+
+| Metric | Stock Ubuntu 22.04 | Hardened base (example: `cleanstart/glibc:latest`) |
+|---|---|---|
+| Executables in `/usr/bin`, `/usr/sbin`, `/bin`, `/sbin` | 366 | **13** (glibc runtime only) |
+| Shell (`sh`, `bash`) present | ✅ `bash` | ❌ none |
+| Package manager (`apt`, `dpkg`) | ✅ present | ❌ none |
+| Debugging tools (`ps`, `netstat`, `curl`, `cat`) | ✅ present | ❌ none |
+| Default user | `root` (uid 0) | non-root (uid 1000) |
+| Login shell for default user | `/bin/bash` | `/sbin/nologin` |
+| Image size on disk | 78.1 MB | **44.9 MB** |
+
+The 13 binaries that remain in this example are **glibc runtime utilities** (`ldd`, `iconv`, `locale`, `getent`, `localedef`, `tzselect`, etc.) — essential library functions, not interactive tools. Zero shells, zero package managers, zero debug utilities. The default user can't even log in interactively (`/sbin/nologin`).
+
+That's the design — and why you need a different debugging strategy.
 
 ---
 
@@ -81,7 +82,7 @@ Inside the debug container (expected output):
 ```bash
 / # ps -ef
 PID   USER     TIME  COMMAND
-    1 1000      0:00 /app/server          # hardened app (uid 1000 = clnstrt)
+    1 1000      0:00 /app/server          # hardened app (non-root, uid 1000)
    12 root      0:00 sh                   # debug container's shell
 
 / # ls /proc/1/root/app/
@@ -104,7 +105,7 @@ See [`scripts/01-kubectl-debug.sh`](scripts/01-kubectl-debug.sh).
 No shell needed to read a file. `docker cp` works directly against the container's filesystem from the host.
 
 ```bash
-# This fails — no shell, no cat
+# This fails — no shell, no cat inside the container
 $ docker exec hardened-app cat /app/config.yaml
 OCI runtime exec failed: exec failed: unable to start container process:
 exec: "cat": executable file not found in $PATH
@@ -121,10 +122,10 @@ $ tail ./app.log
 2026-05-28 02:14:33 ERROR connection refused: db:5432
 ```
 
-**Verified against `cleanstart/glibc:latest`** — `docker cp` works against the hardened image even though it has zero interactive tools inside:
+**Verified against a hardened image** — `docker cp` works even when the container has zero interactive tools inside:
 
 ```bash
-# cleanstart/glibc has no default CMD/ENTRYPOINT — pass a dummy command so docker create works
+# Hardened images often have no default CMD/ENTRYPOINT — pass a dummy command so docker create works
 $ docker create --name temp cleanstart/glibc:latest /nonexistent
 399cbfb731ca120d049dbff2b0125db3e542a7adb92889170cda3430bf2a0f74
 
@@ -155,7 +156,7 @@ spec:
   shareProcessNamespace: true
   containers:
     - name: app
-      image: cleanstart/myapp:hardened
+      image: <your-hardened-image>
     - name: debug
       image: busybox:1.36
       command: ["sleep", "infinity"]
@@ -212,7 +213,7 @@ kubectl apply -f scripts/03-sidecar.yaml   # sidecar pattern
 
 ```
 ├── scripts/
-│   ├── 00-demo-pod.yaml      deploy a CleanStart hardened pod to test against
+│   ├── 00-demo-pod.yaml      deploy a hardened pod to test against
 │   ├── 01-kubectl-debug.sh   Technique 1 — ephemeral debug container
 │   ├── 02-docker-cp.sh       Technique 2 — extract files without a shell
 │   └── 03-sidecar.yaml       Technique 3 — dormant debug sidecar
@@ -222,10 +223,10 @@ kubectl apply -f scripts/03-sidecar.yaml   # sidecar pattern
 
 ## Verify the Hardening Yourself
 
-Don't trust the table above — reproduce every number in under 60 seconds:
+Don't trust the comparison table — reproduce every number with these commands. We used `cleanstart/glibc:latest` as the hardened-image example here; the same commands work against any hardened or distroless base.
 
 ```bash
-# Pull the image
+# Pull a hardened base image
 docker pull cleanstart/glibc:latest
 
 # 1. Confirm image size (claim: 44.9 MB)
@@ -233,7 +234,7 @@ docker images cleanstart/glibc:latest
 # REPOSITORY         TAG      IMAGE ID       SIZE
 # cleanstart/glibc   latest   64b634b4f8dd   44.9MB
 
-# 2. Confirm default user (claim: clnstrt, uid 1000)
+# 2. Confirm default user is non-root (claim: uid 1000)
 docker inspect cleanstart/glibc:latest --format='{{.Config.User}}'
 # clnstrt
 docker run --rm --user clnstrt cleanstart/glibc:latest /usr/bin/getent passwd clnstrt
@@ -256,7 +257,7 @@ docker rm inspect
 docker run --rm --entrypoint sh cleanstart/glibc:latest
 # docker: Error response from daemon: ... exec: "sh": executable file not found in $PATH
 
-# 6. Compare with Ubuntu 22.04 (claim: 366 binaries, 78.1 MB)
+# 6. Compare with stock Ubuntu 22.04 (claim: 366 binaries, 78.1 MB)
 docker pull ubuntu:22.04
 docker images ubuntu:22.04
 # ubuntu  22.04  86f1a8d7b38e  78.1MB
@@ -266,7 +267,7 @@ docker export inspect-ubu | tar -tv | grep -E "^-rwx" | grep -E "(usr/bin/|usr/s
 docker rm inspect-ubu
 ```
 
-Every number in the table above was produced by these exact commands.
+Every number in the comparison table above was produced by these exact commands. Run them against any hardened image of your choice and the techniques in this repo will apply the same way.
 
 ---
 
@@ -289,8 +290,8 @@ The file path may not exist in the hardened image. Use `docker export` to browse
 docker export my-container | tar -tv | grep config
 ```
 
-**`docker create cleanstart/glibc:latest` fails with "no command specified"?**
-The image has no default `CMD` or `ENTRYPOINT`. Pass any dummy command — `docker create --name temp cleanstart/glibc:latest /nonexistent` works fine; you're not going to run it, just create the container to copy files from.
+**`docker create` fails with "no command specified"?**
+Some hardened images have no default `CMD` or `ENTRYPOINT`. Pass any dummy command — `docker create --name temp <image> /nonexistent` works fine; you're not going to run it, just create the container to copy files from.
 
 ---
 
@@ -298,10 +299,14 @@ The image has no default `CMD` or `ENTRYPOINT`. Pass any dummy command — `dock
 
 **Hardened images don't make debugging impossible — they make it deliberate.**
 
+The instinct when you see `sh: not found` is to add bash back. "Just for now." That instinct is exactly what attackers rely on.
+
 Instead of every container shipping with `sh` "just in case," you bring tools when you need them.
 
-**366 interactive binaries reduced to 13 glibc runtime utilities.** Zero shells, debug tools, or package managers. The default user can't even log in. Same debuggability via the techniques above. Drastically smaller attack surface.
+In the example above: **366 interactive binaries reduced to 13 glibc runtime utilities.** Zero shells, debug tools, or package managers. The default user can't even log in. Same debuggability via the techniques above. Drastically smaller attack surface.
+
+This is the trade-off worth making — once you have the debugging playbook for it.
 
 ---
 
-*Part of the CleanStart Use Cases series — [hub.docker.com/u/cleanstart](https://hub.docker.com/u/cleanstart)*
+*Part of a series on hardened container images. Example image used here: [`cleanstart/glibc`](https://hub.docker.com/u/cleanstart). The techniques apply to any hardened or distroless base.*
