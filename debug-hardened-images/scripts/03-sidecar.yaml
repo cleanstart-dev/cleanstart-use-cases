@@ -1,0 +1,23 @@
+# Technique 3: Debug sidecar pattern
+# Hardened app container + dormant debug container sharing PID namespace.
+# Apply: kubectl apply -f scripts/03-sidecar.yaml
+# Debug: kubectl exec -it hardened-app -c debug -- sh
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hardened-app
+spec:
+  shareProcessNamespace: true
+  containers:
+    - name: app
+      image: stig-by-design:latest
+      imagePullPolicy: Never
+      ports:
+        - containerPort: 8080
+    - name: debug
+      image: busybox:1.36
+      command: ["sleep", "infinity"]
+      # Uncomment for advanced debugging (strace, gdb):
+      # securityContext:
+      #   capabilities:
+      #     add: ["SYS_PTRACE"]
