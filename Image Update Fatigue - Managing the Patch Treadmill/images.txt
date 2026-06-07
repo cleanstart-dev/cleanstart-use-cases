@@ -1,0 +1,7 @@
+# images.txt — public | cleanstart pairs
+python:3.14.5          | cleanstart/python:latest
+node:26.3.0            | cleanstart/node:latest
+nginx:1.31.1           | cleanstart/nginx:latest
+prom/prometheus:v3.11.3| cleanstart/prometheus:latest
+postgres:18.4          | cleanstart/postgres:latest
+redis:8.6.4            | cleanstart/redis:latest
