@@ -1,0 +1,22 @@
+# ────────────────────────────────────────────────
+# Dockerfile.alpine  |  BEFORE migration
+# Base image: python:3.14.5-alpine
+#
+# Why "small" doesn't mean "secure":
+#   ✗ Shell present       — /bin/sh available via busybox
+#   ✗ Package manager     — apk present; attacker can install tools
+#   ✗ Runs as root        — uid=0 by default
+#   ✗ musl libc           — subtle compatibility bugs with native modules
+#   ✗ 20–40 CVEs          — slower patch cadence than upstream
+#   ✗ No image signing    — supply chain unverified
+#
+# To migrate → replace this FROM with: FROM cleanstart/python:latest
+# ────────────────────────────────────────────────
+
+FROM python:3.14.5-alpine
+
+WORKDIR /app
+COPY app.py .
+
+EXPOSE 3000
+CMD ["python", "app.py"]
