@@ -1,0 +1,26 @@
+# ────────────────────────────────────────────────
+# Dockerfile.ubuntu  |  BEFORE migration
+# Base image: ubuntu:26.04
+#
+# Why this is risky in production:
+#   ✗ Shell present       — bash + sh available; attacker can exec in
+#   ✗ Package manager     — apt-get present; attacker can install tools
+#   ✗ Runs as root        — uid=0 by default; full filesystem access
+#   ✗ Bloated OS layer    — hundreds of unused binaries bundled in
+#   ✗ 50–100 CVEs         — known vulnerabilities in the base layer
+#   ✗ No image signing    — supply chain unverified
+#
+# To migrate → replace this FROM with: FROM cleanstart/python:latest
+# ────────────────────────────────────────────────
+
+FROM ubuntu:26.04
+
+RUN apt-get update \
+ && apt-get install -y python3 \
+ && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+COPY app.py .
+
+EXPOSE 3000
+CMD ["python3", "app.py"]
