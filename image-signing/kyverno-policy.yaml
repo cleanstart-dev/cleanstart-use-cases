@@ -1,0 +1,54 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: verify-cleanstart-image-signatures
+  annotations:
+    policies.kyverno.io/title: Verify CleanStart Image Signatures
+    policies.kyverno.io/category: Supply Chain Security
+    policies.kyverno.io/severity: high
+    policies.kyverno.io/description: >-
+      Requires all images from cleanstart to have a valid Cosign
+      signature issued via the CleanStart Google Cloud Build pipeline.
+      Unsigned or tampered images are rejected at admission time.
+spec:
+  validationFailureAction: Enforce
+  background: false
+  rules:
+    - name: verify-image-signature
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      verifyImages:
+        - imageReferences:
+            - "cleanstart/*"
+          attestors:
+            - entries:
+                - keyless:
+                    subject: "pkgs-admin-clnstrt-dev@release-build.iam.gserviceaccount.com"
+                    issuer: "https://accounts.google.com"
+                    rekor:
+                      url: https://rekor.sigstore.dev
+
+    - name: verify-slsa-provenance
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      verifyImages:
+        - imageReferences:
+            - "cleanstart/*"
+          attestations:
+            - predicateType: https://slsa.dev/provenance/v0.2
+              attestors:
+                - entries:
+                    - keyless:
+                        subject: "pkgs-admin-clnstrt-dev@release-build.iam.gserviceaccount.com"
+                        issuer: "https://accounts.google.com"
+              conditions:
+                - all:
+                    - key: "{{ slsaProvenance.builder.id }}"
+                      operator: Equals
+                      value: "https://cloudbuild.googleapis.com/GoogleHostedWorker@v0.3"
