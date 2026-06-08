@@ -1,0 +1,3 @@
+sboms/*.json
+scan_results/*.json
+docs/*.html
