@@ -1,0 +1,388 @@
+{
+  "scanned_at": "2026-06-07T10:31:39Z",
+  "pairs": [
+    {
+      "public": {
+        "image": "python:3.14.5",
+        "image_type": "public",
+        "total_cves": 151,
+        "by_severity": {
+          "CRITICAL": 3,
+          "HIGH": 8,
+          "MEDIUM": 37,
+          "LOW": 97,
+          "UNKNOWN": 6
+        },
+        "fixable": 18,
+        "trivy_file": "python-3-14-5.trivy.json",
+        "sbom_file": "python-3-14-5.sbom.json"
+      },
+      "cleanstart": {
+        "image": "cleanstart/python:latest",
+        "image_type": "cleanstart",
+        "total_cves": 0,
+        "by_severity": {
+          "CRITICAL": 0,
+          "HIGH": 0,
+          "MEDIUM": 0,
+          "LOW": 0,
+          "UNKNOWN": 0
+        },
+        "fixable": 0,
+        "trivy_file": "cleanstart-python-latest.trivy.json",
+        "sbom_file": "cleanstart-python-latest.sbom.json"
+      },
+      "reduction_pct": 100
+    },
+    {
+      "public": {
+        "image": "node:26.3.0",
+        "image_type": "public",
+        "total_cves": 150,
+        "by_severity": {
+          "CRITICAL": 3,
+          "HIGH": 8,
+          "MEDIUM": 37,
+          "LOW": 96,
+          "UNKNOWN": 6
+        },
+        "fixable": 18,
+        "trivy_file": "node-26-3-0.trivy.json",
+        "sbom_file": "node-26-3-0.sbom.json"
+      },
+      "cleanstart": {
+        "image": "cleanstart/node:latest",
+        "image_type": "cleanstart",
+        "total_cves": 2,
+        "by_severity": {
+          "CRITICAL": 0,
+          "HIGH": 0,
+          "MEDIUM": 2,
+          "LOW": 0,
+          "UNKNOWN": 0
+        },
+        "fixable": 2,
+        "trivy_file": "cleanstart-node-latest.trivy.json",
+        "sbom_file": "cleanstart-node-latest.sbom.json"
+      },
+      "reduction_pct": 99
+    },
+    {
+      "public": {
+        "image": "nginx:1.31.1",
+        "image_type": "public",
+        "total_cves": 43,
+        "by_severity": {
+          "CRITICAL": 0,
+          "HIGH": 4,
+          "MEDIUM": 15,
+          "LOW": 23,
+          "UNKNOWN": 1
+        },
+        "fixable": 1,
+        "trivy_file": "nginx-1-31-1.trivy.json",
+        "sbom_file": "nginx-1-31-1.sbom.json"
+      },
+      "cleanstart": {
+        "image": "cleanstart/nginx:latest",
+        "image_type": "cleanstart",
+        "total_cves": 0,
+        "by_severity": {
+          "CRITICAL": 0,
+          "HIGH": 0,
+          "MEDIUM": 0,
+          "LOW": 0,
+          "UNKNOWN": 0
+        },
+        "fixable": 0,
+        "trivy_file": "cleanstart-nginx-latest.trivy.json",
+        "sbom_file": "cleanstart-nginx-latest.sbom.json"
+      },
+      "reduction_pct": 100
+    },
+    {
+      "public": {
+        "image": "prom/prometheus:v3.11.3",
+        "image_type": "public",
+        "total_cves": 22,
+        "by_severity": {
+          "CRITICAL": 0,
+          "HIGH": 15,
+          "MEDIUM": 7,
+          "LOW": 0,
+          "UNKNOWN": 0
+        },
+        "fixable": 19,
+        "trivy_file": "prom-prometheus-v3-11-3.trivy.json",
+        "sbom_file": "prom-prometheus-v3-11-3.sbom.json"
+      },
+      "cleanstart": {
+        "image": "cleanstart/prometheus:latest",
+        "image_type": "cleanstart",
+        "total_cves": 5,
+        "by_severity": {
+          "CRITICAL": 0,
+          "HIGH": 3,
+          "MEDIUM": 2,
+          "LOW": 0,
+          "UNKNOWN": 0
+        },
+        "fixable": 2,
+        "trivy_file": "cleanstart-prometheus-latest.trivy.json",
+        "sbom_file": "cleanstart-prometheus-latest.sbom.json"
+      },
+      "reduction_pct": 77
+    },
+    {
+      "public": {
+        "image": "postgres:18.4",
+        "image_type": "public",
+        "total_cves": 68,
+        "by_severity": {
+          "CRITICAL": 3,
+          "HIGH": 19,
+          "MEDIUM": 24,
+          "LOW": 18,
+          "UNKNOWN": 4
+        },
+        "fixable": 37,
+        "trivy_file": "postgres-18-4.trivy.json",
+        "sbom_file": "postgres-18-4.sbom.json"
+      },
+      "cleanstart": {
+        "image": "cleanstart/postgres:latest",
+        "image_type": "cleanstart",
+        "total_cves": 0,
+        "by_severity": {
+          "CRITICAL": 0,
+          "HIGH": 0,
+          "MEDIUM": 0,
+          "LOW": 0,
+          "UNKNOWN": 0
+        },
+        "fixable": 0,
+        "trivy_file": "cleanstart-postgres-latest.trivy.json",
+        "sbom_file": "cleanstart-postgres-latest.sbom.json"
+      },
+      "reduction_pct": 100
+    },
+    {
+      "public": {
+        "image": "redis:8.6.4",
+        "image_type": "public",
+        "total_cves": 11,
+        "by_severity": {
+          "CRITICAL": 0,
+          "HIGH": 0,
+          "MEDIUM": 3,
+          "LOW": 8,
+          "UNKNOWN": 0
+        },
+        "fixable": 0,
+        "trivy_file": "redis-8-6-4.trivy.json",
+        "sbom_file": "redis-8-6-4.sbom.json"
+      },
+      "cleanstart": {
+        "image": "cleanstart/redis:latest",
+        "image_type": "cleanstart",
+        "total_cves": 0,
+        "by_severity": {
+          "CRITICAL": 0,
+          "HIGH": 0,
+          "MEDIUM": 0,
+          "LOW": 0,
+          "UNKNOWN": 0
+        },
+        "fixable": 0,
+        "trivy_file": "cleanstart-redis-latest.trivy.json",
+        "sbom_file": "cleanstart-redis-latest.sbom.json"
+      },
+      "reduction_pct": 100
+    }
+  ],
+  "images": [
+    {
+      "image": "python:3.14.5",
+      "image_type": "public",
+      "total_cves": 151,
+      "by_severity": {
+        "CRITICAL": 3,
+        "HIGH": 8,
+        "MEDIUM": 37,
+        "LOW": 97,
+        "UNKNOWN": 6
+      },
+      "fixable": 18,
+      "trivy_file": "python-3-14-5.trivy.json",
+      "sbom_file": "python-3-14-5.sbom.json"
+    },
+    {
+      "image": "cleanstart/python:latest",
+      "image_type": "cleanstart",
+      "total_cves": 0,
+      "by_severity": {
+        "CRITICAL": 0,
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 0,
+        "UNKNOWN": 0
+      },
+      "fixable": 0,
+      "trivy_file": "cleanstart-python-latest.trivy.json",
+      "sbom_file": "cleanstart-python-latest.sbom.json"
+    },
+    {
+      "image": "node:26.3.0",
+      "image_type": "public",
+      "total_cves": 150,
+      "by_severity": {
+        "CRITICAL": 3,
+        "HIGH": 8,
+        "MEDIUM": 37,
+        "LOW": 96,
+        "UNKNOWN": 6
+      },
+      "fixable": 18,
+      "trivy_file": "node-26-3-0.trivy.json",
+      "sbom_file": "node-26-3-0.sbom.json"
+    },
+    {
+      "image": "cleanstart/node:latest",
+      "image_type": "cleanstart",
+      "total_cves": 2,
+      "by_severity": {
+        "CRITICAL": 0,
+        "HIGH": 0,
+        "MEDIUM": 2,
+        "LOW": 0,
+        "UNKNOWN": 0
+      },
+      "fixable": 2,
+      "trivy_file": "cleanstart-node-latest.trivy.json",
+      "sbom_file": "cleanstart-node-latest.sbom.json"
+    },
+    {
+      "image": "nginx:1.31.1",
+      "image_type": "public",
+      "total_cves": 43,
+      "by_severity": {
+        "CRITICAL": 0,
+        "HIGH": 4,
+        "MEDIUM": 15,
+        "LOW": 23,
+        "UNKNOWN": 1
+      },
+      "fixable": 1,
+      "trivy_file": "nginx-1-31-1.trivy.json",
+      "sbom_file": "nginx-1-31-1.sbom.json"
+    },
+    {
+      "image": "cleanstart/nginx:latest",
+      "image_type": "cleanstart",
+      "total_cves": 0,
+      "by_severity": {
+        "CRITICAL": 0,
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 0,
+        "UNKNOWN": 0
+      },
+      "fixable": 0,
+      "trivy_file": "cleanstart-nginx-latest.trivy.json",
+      "sbom_file": "cleanstart-nginx-latest.sbom.json"
+    },
+    {
+      "image": "prom/prometheus:v3.11.3",
+      "image_type": "public",
+      "total_cves": 22,
+      "by_severity": {
+        "CRITICAL": 0,
+        "HIGH": 15,
+        "MEDIUM": 7,
+        "LOW": 0,
+        "UNKNOWN": 0
+      },
+      "fixable": 19,
+      "trivy_file": "prom-prometheus-v3-11-3.trivy.json",
+      "sbom_file": "prom-prometheus-v3-11-3.sbom.json"
+    },
+    {
+      "image": "cleanstart/prometheus:latest",
+      "image_type": "cleanstart",
+      "total_cves": 5,
+      "by_severity": {
+        "CRITICAL": 0,
+        "HIGH": 3,
+        "MEDIUM": 2,
+        "LOW": 0,
+        "UNKNOWN": 0
+      },
+      "fixable": 2,
+      "trivy_file": "cleanstart-prometheus-latest.trivy.json",
+      "sbom_file": "cleanstart-prometheus-latest.sbom.json"
+    },
+    {
+      "image": "postgres:18.4",
+      "image_type": "public",
+      "total_cves": 68,
+      "by_severity": {
+        "CRITICAL": 3,
+        "HIGH": 19,
+        "MEDIUM": 24,
+        "LOW": 18,
+        "UNKNOWN": 4
+      },
+      "fixable": 37,
+      "trivy_file": "postgres-18-4.trivy.json",
+      "sbom_file": "postgres-18-4.sbom.json"
+    },
+    {
+      "image": "cleanstart/postgres:latest",
+      "image_type": "cleanstart",
+      "total_cves": 0,
+      "by_severity": {
+        "CRITICAL": 0,
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 0,
+        "UNKNOWN": 0
+      },
+      "fixable": 0,
+      "trivy_file": "cleanstart-postgres-latest.trivy.json",
+      "sbom_file": "cleanstart-postgres-latest.sbom.json"
+    },
+    {
+      "image": "redis:8.6.4",
+      "image_type": "public",
+      "total_cves": 11,
+      "by_severity": {
+        "CRITICAL": 0,
+        "HIGH": 0,
+        "MEDIUM": 3,
+        "LOW": 8,
+        "UNKNOWN": 0
+      },
+      "fixable": 0,
+      "trivy_file": "redis-8-6-4.trivy.json",
+      "sbom_file": "redis-8-6-4.sbom.json"
+    },
+    {
+      "image": "cleanstart/redis:latest",
+      "image_type": "cleanstart",
+      "total_cves": 0,
+      "by_severity": {
+        "CRITICAL": 0,
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 0,
+        "UNKNOWN": 0
+      },
+      "fixable": 0,
+      "trivy_file": "cleanstart-redis-latest.trivy.json",
+      "sbom_file": "cleanstart-redis-latest.sbom.json"
+    }
+  ],
+  "total_public_cves": 445,
+  "total_cleanstart_cves": 7,
+  "avg_reduction_pct": 98
+}

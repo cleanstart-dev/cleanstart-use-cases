@@ -1,0 +1,73 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.70.0"
+  },
+  "ReportID": "019ea1a6-a0ec-79f0-9026-f78648515313",
+  "CreatedAt": "2026-06-07T10:35:12.49265404Z",
+  "ArtifactName": "sboms/cleanstart-postgres-latest.sbom.json",
+  "ArtifactType": "cyclonedx",
+  "Metadata": {
+    "OS": {
+      "Family": "clnstrt",
+      "Name": "3.20.3"
+    }
+  },
+  "Results": [
+    {
+      "Target": "",
+      "Class": "lang-pkgs",
+      "Type": "gobinary",
+      "Packages": [
+        {
+          "ID": "github.com/moby/sys/user@v0.1.0",
+          "Name": "github.com/moby/sys/user",
+          "Identifier": {
+            "PURL": "pkg:golang/github.com/moby/sys/user@v0.1.0",
+            "UID": "187740a4b78eb494",
+            "BOMRef": "pkg:golang/github.com/moby/sys/user@v0.1.0?package-id=7f42746209069040"
+          },
+          "Version": "v0.1.0"
+        },
+        {
+          "ID": "github.com/tianon/gosu",
+          "Name": "github.com/tianon/gosu",
+          "Identifier": {
+            "PURL": "pkg:golang/github.com/tianon/gosu",
+            "UID": "ec32c6214a058a03",
+            "BOMRef": "pkg:golang/github.com/tianon/gosu?package-id=b2e8c10ce81d1df3"
+          }
+        },
+        {
+          "ID": "golang.org/x/sys@v0.44.0",
+          "Name": "golang.org/x/sys",
+          "Identifier": {
+            "PURL": "pkg:golang/golang.org/x/sys@v0.44.0",
+            "UID": "8ebebafb04420502",
+            "BOMRef": "pkg:golang/golang.org/x/sys@v0.44.0?package-id=2621969cae5a7283"
+          },
+          "Version": "v0.44.0"
+        },
+        {
+          "ID": "stdlib@v1.26.4",
+          "Name": "stdlib",
+          "Identifier": {
+            "PURL": "pkg:golang/stdlib@1.26.4",
+            "UID": "7c9eb08cff2e6971",
+            "BOMRef": "pkg:golang/stdlib@1.26.4?package-id=870373a01ee663c7"
+          },
+          "Version": "1.26.4",
+          "Licenses": [
+            "BSD-3-Clause"
+          ]
+        }
+      ]
+    }
+  ],
+  "_meta": {
+    "image": "cleanstart/postgres:latest",
+    "image_type": "cleanstart",
+    "total_cves": 0,
+    "reduction_pct": 100
+  }
+}

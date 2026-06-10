@@ -1,0 +1,2020 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.70.0"
+  },
+  "ReportID": "019ea1a5-5cfa-7610-b455-5ed569aa5c93",
+  "CreatedAt": "2026-06-07T10:33:49.562401193Z",
+  "ArtifactName": "sboms/cleanstart-node-latest.sbom.json",
+  "ArtifactType": "cyclonedx",
+  "Metadata": {
+    "OS": {
+      "Family": "clnstrt",
+      "Name": "3.20.3"
+    }
+  },
+  "Results": [
+    {
+      "Target": "Node.js",
+      "Class": "lang-pkgs",
+      "Type": "node-pkg",
+      "Packages": [
+        {
+          "ID": "@gar/promise-retry@1.0.3",
+          "Name": "@gar/promise-retry",
+          "Identifier": {
+            "PURL": "pkg:npm/%40gar/promise-retry@1.0.3",
+            "UID": "9c884f99ff25eabc",
+            "BOMRef": "pkg:npm/%40gar/promise-retry@1.0.3?package-id=ae02c180b50d9b8b"
+          },
+          "Version": "1.0.3",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "@isaacs/fs-minipass@4.0.1",
+          "Name": "@isaacs/fs-minipass",
+          "Identifier": {
+            "PURL": "pkg:npm/%40isaacs/fs-minipass@4.0.1",
+            "UID": "2bce5a1f83391a39",
+            "BOMRef": "pkg:npm/%40isaacs/fs-minipass@4.0.1?package-id=81c2e50358d62b53"
+          },
+          "Version": "4.0.1",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "@isaacs/string-locale-compare@1.1.0",
+          "Name": "@isaacs/string-locale-compare",
+          "Identifier": {
+            "PURL": "pkg:npm/%40isaacs/string-locale-compare@1.1.0",
+            "UID": "edbb90c1136d31fd",
+            "BOMRef": "pkg:npm/%40isaacs/string-locale-compare@1.1.0?package-id=b92bb8b1ccf39991"
+          },
+          "Version": "1.1.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "@npmcli/agent@4.0.0",
+          "Name": "@npmcli/agent",
+          "Identifier": {
+            "PURL": "pkg:npm/%40npmcli/agent@4.0.0",
+            "UID": "89271fa1a203b949",
+            "BOMRef": "pkg:npm/%40npmcli/agent@4.0.0?package-id=a4efc6269462aa0d"
+          },
+          "Version": "4.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "@npmcli/arborist@9.4.2",
+          "Name": "@npmcli/arborist",
+          "Identifier": {
+            "PURL": "pkg:npm/%40npmcli/arborist@9.4.2",
+            "UID": "15fc4d77c6c9ab7c",
+            "BOMRef": "pkg:npm/%40npmcli/arborist@9.4.2?package-id=6992010b5796f1db"
+          },
+          "Version": "9.4.2",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "@npmcli/config@10.8.1",
+          "Name": "@npmcli/config",
+          "Identifier": {
+            "PURL": "pkg:npm/%40npmcli/config@10.8.1",
+            "UID": "95ca923e76a77752",
+            "BOMRef": "pkg:npm/%40npmcli/config@10.8.1?package-id=eb2607f2cc3be904"
+          },
+          "Version": "10.8.1",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "@npmcli/fs@5.0.0",
+          "Name": "@npmcli/fs",
+          "Identifier": {
+            "PURL": "pkg:npm/%40npmcli/fs@5.0.0",
+            "UID": "5d8e14ca5967fd84",
+            "BOMRef": "pkg:npm/%40npmcli/fs@5.0.0?package-id=3b550a30852e4783"
+          },
+          "Version": "5.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "@npmcli/git@7.0.2",
+          "Name": "@npmcli/git",
+          "Identifier": {
+            "PURL": "pkg:npm/%40npmcli/git@7.0.2",
+            "UID": "283de0ce9410d4e8",
+            "BOMRef": "pkg:npm/%40npmcli/git@7.0.2?package-id=7201a1fa238a159b"
+          },
+          "Version": "7.0.2",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "@npmcli/installed-package-contents@4.0.0",
+          "Name": "@npmcli/installed-package-contents",
+          "Identifier": {
+            "PURL": "pkg:npm/%40npmcli/installed-package-contents@4.0.0",
+            "UID": "5e0fcdc3fcc6acbc",
+            "BOMRef": "pkg:npm/%40npmcli/installed-package-contents@4.0.0?package-id=b7b15879406e624c"
+          },
+          "Version": "4.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "@npmcli/map-workspaces@5.0.3",
+          "Name": "@npmcli/map-workspaces",
+          "Identifier": {
+            "PURL": "pkg:npm/%40npmcli/map-workspaces@5.0.3",
+            "UID": "d465a7898dbd6565",
+            "BOMRef": "pkg:npm/%40npmcli/map-workspaces@5.0.3?package-id=d50f1e31610fd790"
+          },
+          "Version": "5.0.3",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "@npmcli/metavuln-calculator@9.0.3",
+          "Name": "@npmcli/metavuln-calculator",
+          "Identifier": {
+            "PURL": "pkg:npm/%40npmcli/metavuln-calculator@9.0.3",
+            "UID": "f50ad5f23d693d4",
+            "BOMRef": "pkg:npm/%40npmcli/metavuln-calculator@9.0.3?package-id=21f11a7a63cbd8bd"
+          },
+          "Version": "9.0.3",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "@npmcli/name-from-folder@4.0.0",
+          "Name": "@npmcli/name-from-folder",
+          "Identifier": {
+            "PURL": "pkg:npm/%40npmcli/name-from-folder@4.0.0",
+            "UID": "8aecfd385f9474ba",
+            "BOMRef": "pkg:npm/%40npmcli/name-from-folder@4.0.0?package-id=b0c374b90a94f297"
+          },
+          "Version": "4.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "@npmcli/node-gyp@5.0.0",
+          "Name": "@npmcli/node-gyp",
+          "Identifier": {
+            "PURL": "pkg:npm/%40npmcli/node-gyp@5.0.0",
+            "UID": "4a5c509138b16d9d",
+            "BOMRef": "pkg:npm/%40npmcli/node-gyp@5.0.0?package-id=c9aee3a61fc99176"
+          },
+          "Version": "5.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "@npmcli/package-json@7.0.5",
+          "Name": "@npmcli/package-json",
+          "Identifier": {
+            "PURL": "pkg:npm/%40npmcli/package-json@7.0.5",
+            "UID": "6c3991aa4e97107b",
+            "BOMRef": "pkg:npm/%40npmcli/package-json@7.0.5?package-id=57165c924c2bf0aa"
+          },
+          "Version": "7.0.5",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "@npmcli/promise-spawn@9.0.1",
+          "Name": "@npmcli/promise-spawn",
+          "Identifier": {
+            "PURL": "pkg:npm/%40npmcli/promise-spawn@9.0.1",
+            "UID": "7718bcc7fb4949e8",
+            "BOMRef": "pkg:npm/%40npmcli/promise-spawn@9.0.1?package-id=a24aedb302bcde16"
+          },
+          "Version": "9.0.1",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "@npmcli/query@5.0.0",
+          "Name": "@npmcli/query",
+          "Identifier": {
+            "PURL": "pkg:npm/%40npmcli/query@5.0.0",
+            "UID": "3341ff423706f8c",
+            "BOMRef": "pkg:npm/%40npmcli/query@5.0.0?package-id=85940051a67a1195"
+          },
+          "Version": "5.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "@npmcli/redact@4.0.0",
+          "Name": "@npmcli/redact",
+          "Identifier": {
+            "PURL": "pkg:npm/%40npmcli/redact@4.0.0",
+            "UID": "ae52977374b8dfbe",
+            "BOMRef": "pkg:npm/%40npmcli/redact@4.0.0?package-id=0b0b32b141add11f"
+          },
+          "Version": "4.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "@npmcli/run-script@10.0.4",
+          "Name": "@npmcli/run-script",
+          "Identifier": {
+            "PURL": "pkg:npm/%40npmcli/run-script@10.0.4",
+            "UID": "924519b50eb6c9fa",
+            "BOMRef": "pkg:npm/%40npmcli/run-script@10.0.4?package-id=ed61ae60771ebb44"
+          },
+          "Version": "10.0.4",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "@sigstore/bundle@4.0.0",
+          "Name": "@sigstore/bundle",
+          "Identifier": {
+            "PURL": "pkg:npm/%40sigstore/bundle@4.0.0",
+            "UID": "db9fb57afb0288ff",
+            "BOMRef": "pkg:npm/%40sigstore/bundle@4.0.0?package-id=7e2d28adb7c9cfff"
+          },
+          "Version": "4.0.0",
+          "Licenses": [
+            "Apache-2.0"
+          ]
+        },
+        {
+          "ID": "@sigstore/core@3.2.0",
+          "Name": "@sigstore/core",
+          "Identifier": {
+            "PURL": "pkg:npm/%40sigstore/core@3.2.0",
+            "UID": "3288a0c47e6cafdf",
+            "BOMRef": "pkg:npm/%40sigstore/core@3.2.0?package-id=30374c1088492946"
+          },
+          "Version": "3.2.0",
+          "Licenses": [
+            "Apache-2.0"
+          ]
+        },
+        {
+          "ID": "@sigstore/protobuf-specs@0.5.0",
+          "Name": "@sigstore/protobuf-specs",
+          "Identifier": {
+            "PURL": "pkg:npm/%40sigstore/protobuf-specs@0.5.0",
+            "UID": "4c0f5094db4152ea",
+            "BOMRef": "pkg:npm/%40sigstore/protobuf-specs@0.5.0?package-id=124b00880b3329fe"
+          },
+          "Version": "0.5.0",
+          "Licenses": [
+            "Apache-2.0"
+          ]
+        },
+        {
+          "ID": "@sigstore/sign@4.1.1",
+          "Name": "@sigstore/sign",
+          "Identifier": {
+            "PURL": "pkg:npm/%40sigstore/sign@4.1.1",
+            "UID": "ce08ca9cb5c356e",
+            "BOMRef": "pkg:npm/%40sigstore/sign@4.1.1?package-id=a28c92a5a50bc044"
+          },
+          "Version": "4.1.1",
+          "Licenses": [
+            "Apache-2.0"
+          ]
+        },
+        {
+          "ID": "@sigstore/tuf@4.0.2",
+          "Name": "@sigstore/tuf",
+          "Identifier": {
+            "PURL": "pkg:npm/%40sigstore/tuf@4.0.2",
+            "UID": "8dce2e08238dea69",
+            "BOMRef": "pkg:npm/%40sigstore/tuf@4.0.2?package-id=82563be2d8e6c017"
+          },
+          "Version": "4.0.2",
+          "Licenses": [
+            "Apache-2.0"
+          ]
+        },
+        {
+          "ID": "@sigstore/verify@3.1.0",
+          "Name": "@sigstore/verify",
+          "Identifier": {
+            "PURL": "pkg:npm/%40sigstore/verify@3.1.0",
+            "UID": "c5e6d0415239eeab",
+            "BOMRef": "pkg:npm/%40sigstore/verify@3.1.0?package-id=bc8c8a2ff5de7ca3"
+          },
+          "Version": "3.1.0",
+          "Licenses": [
+            "Apache-2.0"
+          ]
+        },
+        {
+          "ID": "@tufjs/canonical-json@2.0.0",
+          "Name": "@tufjs/canonical-json",
+          "Identifier": {
+            "PURL": "pkg:npm/%40tufjs/canonical-json@2.0.0",
+            "UID": "4cff83f4f4ffd6d",
+            "BOMRef": "pkg:npm/%40tufjs/canonical-json@2.0.0?package-id=e905b93f8c592a54"
+          },
+          "Version": "2.0.0",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "@tufjs/models@4.1.0",
+          "Name": "@tufjs/models",
+          "Identifier": {
+            "PURL": "pkg:npm/%40tufjs/models@4.1.0",
+            "UID": "addf73ed9267c409",
+            "BOMRef": "pkg:npm/%40tufjs/models@4.1.0?package-id=a68bfc3e2b6d6b3f"
+          },
+          "Version": "4.1.0",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "abbrev@4.0.0",
+          "Name": "abbrev",
+          "Identifier": {
+            "PURL": "pkg:npm/abbrev@4.0.0",
+            "UID": "fcf0da4c27760e59",
+            "BOMRef": "pkg:npm/abbrev@4.0.0?package-id=eb108005369708ef"
+          },
+          "Version": "4.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "agent-base@7.1.4",
+          "Name": "agent-base",
+          "Identifier": {
+            "PURL": "pkg:npm/agent-base@7.1.4",
+            "UID": "5aa09c6178d854e4",
+            "BOMRef": "pkg:npm/agent-base@7.1.4?package-id=22363fdb6d099442"
+          },
+          "Version": "7.1.4",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "aproba@2.1.0",
+          "Name": "aproba",
+          "Identifier": {
+            "PURL": "pkg:npm/aproba@2.1.0",
+            "UID": "16fffbc202d41dc9",
+            "BOMRef": "pkg:npm/aproba@2.1.0?package-id=c56ecd8b4952c937"
+          },
+          "Version": "2.1.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "archy@1.0.0",
+          "Name": "archy",
+          "Identifier": {
+            "PURL": "pkg:npm/archy@1.0.0",
+            "UID": "1b2901a3f60918ce",
+            "BOMRef": "pkg:npm/archy@1.0.0?package-id=a81238f43f9b3c6c"
+          },
+          "Version": "1.0.0",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "balanced-match@4.0.4",
+          "Name": "balanced-match",
+          "Identifier": {
+            "PURL": "pkg:npm/balanced-match@4.0.4",
+            "UID": "78410ba7c53f8343",
+            "BOMRef": "pkg:npm/balanced-match@4.0.4?package-id=fbd8f18671b68e0b"
+          },
+          "Version": "4.0.4",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "bin-links@6.0.0",
+          "Name": "bin-links",
+          "Identifier": {
+            "PURL": "pkg:npm/bin-links@6.0.0",
+            "UID": "1db5cd59188d8584",
+            "BOMRef": "pkg:npm/bin-links@6.0.0?package-id=2654b385d7ce1a65"
+          },
+          "Version": "6.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "binary-extensions@3.1.0",
+          "Name": "binary-extensions",
+          "Identifier": {
+            "PURL": "pkg:npm/binary-extensions@3.1.0",
+            "UID": "1c19bb07063b5938",
+            "BOMRef": "pkg:npm/binary-extensions@3.1.0?package-id=294d7243254e852c"
+          },
+          "Version": "3.1.0",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "brace-expansion@5.0.5",
+          "Name": "brace-expansion",
+          "Identifier": {
+            "PURL": "pkg:npm/brace-expansion@5.0.5",
+            "UID": "c356b2e12b586fbd",
+            "BOMRef": "pkg:npm/brace-expansion@5.0.5?package-id=884683de2b2a4df4"
+          },
+          "Version": "5.0.5",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "cacache@20.0.4",
+          "Name": "cacache",
+          "Identifier": {
+            "PURL": "pkg:npm/cacache@20.0.4",
+            "UID": "f5e26635787caf5d",
+            "BOMRef": "pkg:npm/cacache@20.0.4?package-id=7266fb3b94b83882"
+          },
+          "Version": "20.0.4",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "chalk@5.6.2",
+          "Name": "chalk",
+          "Identifier": {
+            "PURL": "pkg:npm/chalk@5.6.2",
+            "UID": "5294835b95b2021e",
+            "BOMRef": "pkg:npm/chalk@5.6.2?package-id=2d13fa9529d4fc9d"
+          },
+          "Version": "5.6.2",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "chownr@3.0.0",
+          "Name": "chownr",
+          "Identifier": {
+            "PURL": "pkg:npm/chownr@3.0.0",
+            "UID": "2d7f5071312f684e",
+            "BOMRef": "pkg:npm/chownr@3.0.0?package-id=e88e688fc25a5e51"
+          },
+          "Version": "3.0.0",
+          "Licenses": [
+            "BlueOak-1.0.0"
+          ]
+        },
+        {
+          "ID": "ci-info@4.4.0",
+          "Name": "ci-info",
+          "Identifier": {
+            "PURL": "pkg:npm/ci-info@4.4.0",
+            "UID": "ea5ef0756cca7ef7",
+            "BOMRef": "pkg:npm/ci-info@4.4.0?package-id=dd0b42fe487da3da"
+          },
+          "Version": "4.4.0",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "cidr-regex@5.0.3",
+          "Name": "cidr-regex",
+          "Identifier": {
+            "PURL": "pkg:npm/cidr-regex@5.0.3",
+            "UID": "9659612b646e81d",
+            "BOMRef": "pkg:npm/cidr-regex@5.0.3?package-id=6990c93fabcc49af"
+          },
+          "Version": "5.0.3",
+          "Licenses": [
+            "BSD-2-Clause"
+          ]
+        },
+        {
+          "ID": "cmd-shim@8.0.0",
+          "Name": "cmd-shim",
+          "Identifier": {
+            "PURL": "pkg:npm/cmd-shim@8.0.0",
+            "UID": "7127b5282eff0130",
+            "BOMRef": "pkg:npm/cmd-shim@8.0.0?package-id=bc18533547232b9d"
+          },
+          "Version": "8.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "common-ancestor-path@2.0.0",
+          "Name": "common-ancestor-path",
+          "Identifier": {
+            "PURL": "pkg:npm/common-ancestor-path@2.0.0",
+            "UID": "b259b5ca4a32ca8b",
+            "BOMRef": "pkg:npm/common-ancestor-path@2.0.0?package-id=222441b3970b26b2"
+          },
+          "Version": "2.0.0",
+          "Licenses": [
+            "BlueOak-1.0.0"
+          ]
+        },
+        {
+          "ID": "cssesc@3.0.0",
+          "Name": "cssesc",
+          "Identifier": {
+            "PURL": "pkg:npm/cssesc@3.0.0",
+            "UID": "411a4bfdf29fd933",
+            "BOMRef": "pkg:npm/cssesc@3.0.0?package-id=249e2bcc0697cff2"
+          },
+          "Version": "3.0.0",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "debug@4.4.3",
+          "Name": "debug",
+          "Identifier": {
+            "PURL": "pkg:npm/debug@4.4.3",
+            "UID": "b831de98083775a7",
+            "BOMRef": "pkg:npm/debug@4.4.3?package-id=a1e172ec2809fa05"
+          },
+          "Version": "4.4.3",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "diff@8.0.3",
+          "Name": "diff",
+          "Identifier": {
+            "PURL": "pkg:npm/diff@8.0.3",
+            "UID": "78994e85d9c71cd9",
+            "BOMRef": "pkg:npm/diff@8.0.3?package-id=7a041842f68516b1"
+          },
+          "Version": "8.0.3",
+          "Licenses": [
+            "BSD-3-Clause"
+          ]
+        },
+        {
+          "ID": "env-paths@2.2.1",
+          "Name": "env-paths",
+          "Identifier": {
+            "PURL": "pkg:npm/env-paths@2.2.1",
+            "UID": "f503a0d204087700",
+            "BOMRef": "pkg:npm/env-paths@2.2.1?package-id=446cd1dd24496ab4"
+          },
+          "Version": "2.2.1",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "exponential-backoff@3.1.3",
+          "Name": "exponential-backoff",
+          "Identifier": {
+            "PURL": "pkg:npm/exponential-backoff@3.1.3",
+            "UID": "69e5e1ea68af341c",
+            "BOMRef": "pkg:npm/exponential-backoff@3.1.3?package-id=01d5bb5a1679da95"
+          },
+          "Version": "3.1.3",
+          "Licenses": [
+            "Apache-2.0"
+          ]
+        },
+        {
+          "ID": "fastest-levenshtein@1.0.16",
+          "Name": "fastest-levenshtein",
+          "Identifier": {
+            "PURL": "pkg:npm/fastest-levenshtein@1.0.16",
+            "UID": "8d6720e62db59709",
+            "BOMRef": "pkg:npm/fastest-levenshtein@1.0.16?package-id=b215551a9f0158a9"
+          },
+          "Version": "1.0.16",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "fdir@6.5.0",
+          "Name": "fdir",
+          "Identifier": {
+            "PURL": "pkg:npm/fdir@6.5.0",
+            "UID": "cad6ba51ca373724",
+            "BOMRef": "pkg:npm/fdir@6.5.0?package-id=a41345bd7631a4dc"
+          },
+          "Version": "6.5.0",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "fs-minipass@3.0.3",
+          "Name": "fs-minipass",
+          "Identifier": {
+            "PURL": "pkg:npm/fs-minipass@3.0.3",
+            "UID": "bc2f57604110e63b",
+            "BOMRef": "pkg:npm/fs-minipass@3.0.3?package-id=c802d9a8beb54dcb"
+          },
+          "Version": "3.0.3",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "glob@13.0.6",
+          "Name": "glob",
+          "Identifier": {
+            "PURL": "pkg:npm/glob@13.0.6",
+            "UID": "a8b5768a3c5e89eb",
+            "BOMRef": "pkg:npm/glob@13.0.6?package-id=a6a31e2eaab25327"
+          },
+          "Version": "13.0.6",
+          "Licenses": [
+            "BlueOak-1.0.0"
+          ]
+        },
+        {
+          "ID": "graceful-fs@4.2.11",
+          "Name": "graceful-fs",
+          "Identifier": {
+            "PURL": "pkg:npm/graceful-fs@4.2.11",
+            "UID": "10598cf720c27711",
+            "BOMRef": "pkg:npm/graceful-fs@4.2.11?package-id=304c6ab868b2d650"
+          },
+          "Version": "4.2.11",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "hosted-git-info@9.0.2",
+          "Name": "hosted-git-info",
+          "Identifier": {
+            "PURL": "pkg:npm/hosted-git-info@9.0.2",
+            "UID": "cbec493f2cf9cc2f",
+            "BOMRef": "pkg:npm/hosted-git-info@9.0.2?package-id=cd482fafdb4e4134"
+          },
+          "Version": "9.0.2",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "http-cache-semantics@4.2.0",
+          "Name": "http-cache-semantics",
+          "Identifier": {
+            "PURL": "pkg:npm/http-cache-semantics@4.2.0",
+            "UID": "2c21f691ed492a66",
+            "BOMRef": "pkg:npm/http-cache-semantics@4.2.0?package-id=c87764051de550d7"
+          },
+          "Version": "4.2.0",
+          "Licenses": [
+            "BSD-2-Clause"
+          ]
+        },
+        {
+          "ID": "http-proxy-agent@7.0.2",
+          "Name": "http-proxy-agent",
+          "Identifier": {
+            "PURL": "pkg:npm/http-proxy-agent@7.0.2",
+            "UID": "447bd3fb0cd9ecd6",
+            "BOMRef": "pkg:npm/http-proxy-agent@7.0.2?package-id=0ede80afd3a68d52"
+          },
+          "Version": "7.0.2",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "https-proxy-agent@7.0.6",
+          "Name": "https-proxy-agent",
+          "Identifier": {
+            "PURL": "pkg:npm/https-proxy-agent@7.0.6",
+            "UID": "54e4d04f268dab8a",
+            "BOMRef": "pkg:npm/https-proxy-agent@7.0.6?package-id=9eae5591fc5f2e08"
+          },
+          "Version": "7.0.6",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "iconv-lite@0.7.2",
+          "Name": "iconv-lite",
+          "Identifier": {
+            "PURL": "pkg:npm/iconv-lite@0.7.2",
+            "UID": "db065d6275e1a1da",
+            "BOMRef": "pkg:npm/iconv-lite@0.7.2?package-id=0d6c35b25a3ead43"
+          },
+          "Version": "0.7.2",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "ignore-walk@8.0.0",
+          "Name": "ignore-walk",
+          "Identifier": {
+            "PURL": "pkg:npm/ignore-walk@8.0.0",
+            "UID": "aef1c5eb9f50662b",
+            "BOMRef": "pkg:npm/ignore-walk@8.0.0?package-id=ca3bb5194654741c"
+          },
+          "Version": "8.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "ini@6.0.0",
+          "Name": "ini",
+          "Identifier": {
+            "PURL": "pkg:npm/ini@6.0.0",
+            "UID": "350f39f3412610e",
+            "BOMRef": "pkg:npm/ini@6.0.0?package-id=cf05b80208724d4e"
+          },
+          "Version": "6.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "init-package-json@8.2.5",
+          "Name": "init-package-json",
+          "Identifier": {
+            "PURL": "pkg:npm/init-package-json@8.2.5",
+            "UID": "e7a64e2f3e2232c0",
+            "BOMRef": "pkg:npm/init-package-json@8.2.5?package-id=550b67a67a40779a"
+          },
+          "Version": "8.2.5",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "ip-address@10.1.0",
+          "Name": "ip-address",
+          "Identifier": {
+            "PURL": "pkg:npm/ip-address@10.1.0",
+            "UID": "3855395bd894c878",
+            "BOMRef": "pkg:npm/ip-address@10.1.0?package-id=b958288bb0c2bb20"
+          },
+          "Version": "10.1.0",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "is-cidr@6.0.3",
+          "Name": "is-cidr",
+          "Identifier": {
+            "PURL": "pkg:npm/is-cidr@6.0.3",
+            "UID": "1cb247ffc513eebd",
+            "BOMRef": "pkg:npm/is-cidr@6.0.3?package-id=24a46b753a24b1aa"
+          },
+          "Version": "6.0.3",
+          "Licenses": [
+            "BSD-2-Clause"
+          ]
+        },
+        {
+          "ID": "isexe@4.0.0",
+          "Name": "isexe",
+          "Identifier": {
+            "PURL": "pkg:npm/isexe@4.0.0",
+            "UID": "7ca3d72e967bcd04",
+            "BOMRef": "pkg:npm/isexe@4.0.0?package-id=5829f60468269a76"
+          },
+          "Version": "4.0.0",
+          "Licenses": [
+            "BlueOak-1.0.0"
+          ]
+        },
+        {
+          "ID": "json-parse-even-better-errors@5.0.0",
+          "Name": "json-parse-even-better-errors",
+          "Identifier": {
+            "PURL": "pkg:npm/json-parse-even-better-errors@5.0.0",
+            "UID": "d83a7e3dbe7fd208",
+            "BOMRef": "pkg:npm/json-parse-even-better-errors@5.0.0?package-id=2092a513b2357ffc"
+          },
+          "Version": "5.0.0",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "json-stringify-nice@1.1.4",
+          "Name": "json-stringify-nice",
+          "Identifier": {
+            "PURL": "pkg:npm/json-stringify-nice@1.1.4",
+            "UID": "97bd88e904a82894",
+            "BOMRef": "pkg:npm/json-stringify-nice@1.1.4?package-id=43fe2968ba825879"
+          },
+          "Version": "1.1.4",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "jsonparse@1.3.1",
+          "Name": "jsonparse",
+          "Identifier": {
+            "PURL": "pkg:npm/jsonparse@1.3.1",
+            "UID": "354f65bf925db8b5",
+            "BOMRef": "pkg:npm/jsonparse@1.3.1?package-id=0da876bd7e75b8a5"
+          },
+          "Version": "1.3.1",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "just-diff@6.0.2",
+          "Name": "just-diff",
+          "Identifier": {
+            "PURL": "pkg:npm/just-diff@6.0.2",
+            "UID": "28bc774199c298e9",
+            "BOMRef": "pkg:npm/just-diff@6.0.2?package-id=9aab5b25b101626d"
+          },
+          "Version": "6.0.2",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "just-diff-apply@5.5.0",
+          "Name": "just-diff-apply",
+          "Identifier": {
+            "PURL": "pkg:npm/just-diff-apply@5.5.0",
+            "UID": "315a0776ef389a2",
+            "BOMRef": "pkg:npm/just-diff-apply@5.5.0?package-id=4364551774665beb"
+          },
+          "Version": "5.5.0",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "libnpmaccess@10.0.3",
+          "Name": "libnpmaccess",
+          "Identifier": {
+            "PURL": "pkg:npm/libnpmaccess@10.0.3",
+            "UID": "baeabab888cffb4f",
+            "BOMRef": "pkg:npm/libnpmaccess@10.0.3?package-id=97e923e336be12a9"
+          },
+          "Version": "10.0.3",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "libnpmdiff@8.1.5",
+          "Name": "libnpmdiff",
+          "Identifier": {
+            "PURL": "pkg:npm/libnpmdiff@8.1.5",
+            "UID": "3f2655052d3e4f18",
+            "BOMRef": "pkg:npm/libnpmdiff@8.1.5?package-id=6fa154edc9b63386"
+          },
+          "Version": "8.1.5",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "libnpmexec@10.2.5",
+          "Name": "libnpmexec",
+          "Identifier": {
+            "PURL": "pkg:npm/libnpmexec@10.2.5",
+            "UID": "560f630242f53c9e",
+            "BOMRef": "pkg:npm/libnpmexec@10.2.5?package-id=0210e5d313aefc92"
+          },
+          "Version": "10.2.5",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "libnpmfund@7.0.19",
+          "Name": "libnpmfund",
+          "Identifier": {
+            "PURL": "pkg:npm/libnpmfund@7.0.19",
+            "UID": "34c8dac3ebfc8899",
+            "BOMRef": "pkg:npm/libnpmfund@7.0.19?package-id=7b551438bf9d1359"
+          },
+          "Version": "7.0.19",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "libnpmorg@8.0.1",
+          "Name": "libnpmorg",
+          "Identifier": {
+            "PURL": "pkg:npm/libnpmorg@8.0.1",
+            "UID": "fc0796e77f29d4b7",
+            "BOMRef": "pkg:npm/libnpmorg@8.0.1?package-id=e972e9255bff6420"
+          },
+          "Version": "8.0.1",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "libnpmpack@9.1.5",
+          "Name": "libnpmpack",
+          "Identifier": {
+            "PURL": "pkg:npm/libnpmpack@9.1.5",
+            "UID": "1d37a6852588356d",
+            "BOMRef": "pkg:npm/libnpmpack@9.1.5?package-id=dbdb73f869d90069"
+          },
+          "Version": "9.1.5",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "libnpmpublish@11.1.3",
+          "Name": "libnpmpublish",
+          "Identifier": {
+            "PURL": "pkg:npm/libnpmpublish@11.1.3",
+            "UID": "bcb36d163eafb1a2",
+            "BOMRef": "pkg:npm/libnpmpublish@11.1.3?package-id=bbb72b31c6abe700"
+          },
+          "Version": "11.1.3",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "libnpmsearch@9.0.1",
+          "Name": "libnpmsearch",
+          "Identifier": {
+            "PURL": "pkg:npm/libnpmsearch@9.0.1",
+            "UID": "4e1b1219d011912e",
+            "BOMRef": "pkg:npm/libnpmsearch@9.0.1?package-id=fc035bd9b7654a72"
+          },
+          "Version": "9.0.1",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "libnpmteam@8.0.2",
+          "Name": "libnpmteam",
+          "Identifier": {
+            "PURL": "pkg:npm/libnpmteam@8.0.2",
+            "UID": "dd93e16ee1d92474",
+            "BOMRef": "pkg:npm/libnpmteam@8.0.2?package-id=11d8cdb01773b03b"
+          },
+          "Version": "8.0.2",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "libnpmversion@8.0.3",
+          "Name": "libnpmversion",
+          "Identifier": {
+            "PURL": "pkg:npm/libnpmversion@8.0.3",
+            "UID": "64f90382659c4d45",
+            "BOMRef": "pkg:npm/libnpmversion@8.0.3?package-id=afff6b984d01c5b1"
+          },
+          "Version": "8.0.3",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "lru-cache@11.2.7",
+          "Name": "lru-cache",
+          "Identifier": {
+            "PURL": "pkg:npm/lru-cache@11.2.7",
+            "UID": "a4c9de4801f5c875",
+            "BOMRef": "pkg:npm/lru-cache@11.2.7?package-id=bac748f038b77ee6"
+          },
+          "Version": "11.2.7",
+          "Licenses": [
+            "BlueOak-1.0.0"
+          ]
+        },
+        {
+          "ID": "make-fetch-happen@15.0.5",
+          "Name": "make-fetch-happen",
+          "Identifier": {
+            "PURL": "pkg:npm/make-fetch-happen@15.0.5",
+            "UID": "64db03f2c7b158b3",
+            "BOMRef": "pkg:npm/make-fetch-happen@15.0.5?package-id=59b9d503b50ae66b"
+          },
+          "Version": "15.0.5",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "minimatch@10.2.4",
+          "Name": "minimatch",
+          "Identifier": {
+            "PURL": "pkg:npm/minimatch@10.2.4",
+            "UID": "2900eebf6a31e3ff",
+            "BOMRef": "pkg:npm/minimatch@10.2.4?package-id=09d784ba73830e95"
+          },
+          "Version": "10.2.4",
+          "Licenses": [
+            "BlueOak-1.0.0"
+          ]
+        },
+        {
+          "ID": "minipass@3.3.6",
+          "Name": "minipass",
+          "Identifier": {
+            "PURL": "pkg:npm/minipass@3.3.6",
+            "UID": "ea2925bfc69aa5d6",
+            "BOMRef": "pkg:npm/minipass@3.3.6?package-id=39093a5dc2c6168c"
+          },
+          "Version": "3.3.6",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "minipass@3.3.6",
+          "Name": "minipass",
+          "Identifier": {
+            "PURL": "pkg:npm/minipass@3.3.6",
+            "UID": "e5979209f0e68ffe",
+            "BOMRef": "pkg:npm/minipass@3.3.6?package-id=53ecfecaf067eac1"
+          },
+          "Version": "3.3.6",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "minipass@7.1.3",
+          "Name": "minipass",
+          "Identifier": {
+            "PURL": "pkg:npm/minipass@7.1.3",
+            "UID": "6530c245ed6dd509",
+            "BOMRef": "pkg:npm/minipass@7.1.3?package-id=f9d7ecd62e14936c"
+          },
+          "Version": "7.1.3",
+          "Licenses": [
+            "BlueOak-1.0.0"
+          ]
+        },
+        {
+          "ID": "minipass-collect@2.0.1",
+          "Name": "minipass-collect",
+          "Identifier": {
+            "PURL": "pkg:npm/minipass-collect@2.0.1",
+            "UID": "960dab7b11e0c690",
+            "BOMRef": "pkg:npm/minipass-collect@2.0.1?package-id=70bcec9ff3663a26"
+          },
+          "Version": "2.0.1",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "minipass-fetch@5.0.2",
+          "Name": "minipass-fetch",
+          "Identifier": {
+            "PURL": "pkg:npm/minipass-fetch@5.0.2",
+            "UID": "66d2c128c1380c7c",
+            "BOMRef": "pkg:npm/minipass-fetch@5.0.2?package-id=13912cbbfe40cad5"
+          },
+          "Version": "5.0.2",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "minipass-flush@1.0.5",
+          "Name": "minipass-flush",
+          "Identifier": {
+            "PURL": "pkg:npm/minipass-flush@1.0.5",
+            "UID": "d0a11c08e4638888",
+            "BOMRef": "pkg:npm/minipass-flush@1.0.5?package-id=26819b56e2be37ea"
+          },
+          "Version": "1.0.5",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "minipass-pipeline@1.2.4",
+          "Name": "minipass-pipeline",
+          "Identifier": {
+            "PURL": "pkg:npm/minipass-pipeline@1.2.4",
+            "UID": "b5ad623ce80abfba",
+            "BOMRef": "pkg:npm/minipass-pipeline@1.2.4?package-id=ef0dc1a0861d1278"
+          },
+          "Version": "1.2.4",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "minipass-sized@2.0.0",
+          "Name": "minipass-sized",
+          "Identifier": {
+            "PURL": "pkg:npm/minipass-sized@2.0.0",
+            "UID": "444405bb86a75ce6",
+            "BOMRef": "pkg:npm/minipass-sized@2.0.0?package-id=a69ad8580ff5f1f7"
+          },
+          "Version": "2.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "minizlib@3.1.0",
+          "Name": "minizlib",
+          "Identifier": {
+            "PURL": "pkg:npm/minizlib@3.1.0",
+            "UID": "f313aa4184a4b8ec",
+            "BOMRef": "pkg:npm/minizlib@3.1.0?package-id=7e35cfb102300933"
+          },
+          "Version": "3.1.0",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "ms@2.1.3",
+          "Name": "ms",
+          "Identifier": {
+            "PURL": "pkg:npm/ms@2.1.3",
+            "UID": "4ed759773518a5dc",
+            "BOMRef": "pkg:npm/ms@2.1.3?package-id=93a085fab31bfc64"
+          },
+          "Version": "2.1.3",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "mute-stream@3.0.0",
+          "Name": "mute-stream",
+          "Identifier": {
+            "PURL": "pkg:npm/mute-stream@3.0.0",
+            "UID": "d0558b1dc9819846",
+            "BOMRef": "pkg:npm/mute-stream@3.0.0?package-id=7f3c2d53dd2d6bc3"
+          },
+          "Version": "3.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "negotiator@1.0.0",
+          "Name": "negotiator",
+          "Identifier": {
+            "PURL": "pkg:npm/negotiator@1.0.0",
+            "UID": "6117e62ab47e372",
+            "BOMRef": "pkg:npm/negotiator@1.0.0?package-id=2a41b9b83661e091"
+          },
+          "Version": "1.0.0",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "node-gyp@12.2.0",
+          "Name": "node-gyp",
+          "Identifier": {
+            "PURL": "pkg:npm/node-gyp@12.2.0",
+            "UID": "1ff7b902576d3f45",
+            "BOMRef": "pkg:npm/node-gyp@12.2.0?package-id=647eb7f297fb579c"
+          },
+          "Version": "12.2.0",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "nopt@9.0.0",
+          "Name": "nopt",
+          "Identifier": {
+            "PURL": "pkg:npm/nopt@9.0.0",
+            "UID": "fa90f7cbfdf875ed",
+            "BOMRef": "pkg:npm/nopt@9.0.0?package-id=bbe926386a3423b4"
+          },
+          "Version": "9.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "npm@11.12.1",
+          "Name": "npm",
+          "Identifier": {
+            "PURL": "pkg:npm/npm@11.12.1",
+            "UID": "a1e5df5f65639451",
+            "BOMRef": "pkg:npm/npm@11.12.1?package-id=bd84fead65fcba8d"
+          },
+          "Version": "11.12.1",
+          "Licenses": [
+            "Artistic-2.0"
+          ]
+        },
+        {
+          "ID": "npm-audit-report@7.0.0",
+          "Name": "npm-audit-report",
+          "Identifier": {
+            "PURL": "pkg:npm/npm-audit-report@7.0.0",
+            "UID": "9ca9c91167da4047",
+            "BOMRef": "pkg:npm/npm-audit-report@7.0.0?package-id=1568964e572b1ef9"
+          },
+          "Version": "7.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "npm-bundled@5.0.0",
+          "Name": "npm-bundled",
+          "Identifier": {
+            "PURL": "pkg:npm/npm-bundled@5.0.0",
+            "UID": "9258e145601e2ae2",
+            "BOMRef": "pkg:npm/npm-bundled@5.0.0?package-id=1c423acb00fc73ec"
+          },
+          "Version": "5.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "npm-install-checks@8.0.0",
+          "Name": "npm-install-checks",
+          "Identifier": {
+            "PURL": "pkg:npm/npm-install-checks@8.0.0",
+            "UID": "322b7e4ac91a492b",
+            "BOMRef": "pkg:npm/npm-install-checks@8.0.0?package-id=a3163ba2c13de27d"
+          },
+          "Version": "8.0.0",
+          "Licenses": [
+            "BSD-2-Clause"
+          ]
+        },
+        {
+          "ID": "npm-normalize-package-bin@5.0.0",
+          "Name": "npm-normalize-package-bin",
+          "Identifier": {
+            "PURL": "pkg:npm/npm-normalize-package-bin@5.0.0",
+            "UID": "2e394290a26d1e80",
+            "BOMRef": "pkg:npm/npm-normalize-package-bin@5.0.0?package-id=0bb26efbd1e70231"
+          },
+          "Version": "5.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "npm-package-arg@13.0.2",
+          "Name": "npm-package-arg",
+          "Identifier": {
+            "PURL": "pkg:npm/npm-package-arg@13.0.2",
+            "UID": "a1ca49e68671e803",
+            "BOMRef": "pkg:npm/npm-package-arg@13.0.2?package-id=a2eef9817b2af39f"
+          },
+          "Version": "13.0.2",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "npm-packlist@10.0.4",
+          "Name": "npm-packlist",
+          "Identifier": {
+            "PURL": "pkg:npm/npm-packlist@10.0.4",
+            "UID": "494a49a42a054521",
+            "BOMRef": "pkg:npm/npm-packlist@10.0.4?package-id=39fb97aa6dbe892e"
+          },
+          "Version": "10.0.4",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "npm-pick-manifest@11.0.3",
+          "Name": "npm-pick-manifest",
+          "Identifier": {
+            "PURL": "pkg:npm/npm-pick-manifest@11.0.3",
+            "UID": "c87ac2db002c9073",
+            "BOMRef": "pkg:npm/npm-pick-manifest@11.0.3?package-id=d0a054ec03d92f57"
+          },
+          "Version": "11.0.3",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "npm-profile@12.0.1",
+          "Name": "npm-profile",
+          "Identifier": {
+            "PURL": "pkg:npm/npm-profile@12.0.1",
+            "UID": "73b91b0091b982f1",
+            "BOMRef": "pkg:npm/npm-profile@12.0.1?package-id=551222d976476ad0"
+          },
+          "Version": "12.0.1",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "npm-registry-fetch@19.1.1",
+          "Name": "npm-registry-fetch",
+          "Identifier": {
+            "PURL": "pkg:npm/npm-registry-fetch@19.1.1",
+            "UID": "cde76cc6b014fdff",
+            "BOMRef": "pkg:npm/npm-registry-fetch@19.1.1?package-id=0be0170d592d6fa9"
+          },
+          "Version": "19.1.1",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "npm-user-validate@4.0.0",
+          "Name": "npm-user-validate",
+          "Identifier": {
+            "PURL": "pkg:npm/npm-user-validate@4.0.0",
+            "UID": "5721ef5639d4e10c",
+            "BOMRef": "pkg:npm/npm-user-validate@4.0.0?package-id=975a786a26513745"
+          },
+          "Version": "4.0.0",
+          "Licenses": [
+            "BSD-2-Clause"
+          ]
+        },
+        {
+          "ID": "p-map@7.0.4",
+          "Name": "p-map",
+          "Identifier": {
+            "PURL": "pkg:npm/p-map@7.0.4",
+            "UID": "95e6d2bc705b8aeb",
+            "BOMRef": "pkg:npm/p-map@7.0.4?package-id=aa561d7fb00053a7"
+          },
+          "Version": "7.0.4",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "pacote@21.5.0",
+          "Name": "pacote",
+          "Identifier": {
+            "PURL": "pkg:npm/pacote@21.5.0",
+            "UID": "c291d9269364f0b3",
+            "BOMRef": "pkg:npm/pacote@21.5.0?package-id=6d79ea1c7eef99fd"
+          },
+          "Version": "21.5.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "parse-conflict-json@5.0.1",
+          "Name": "parse-conflict-json",
+          "Identifier": {
+            "PURL": "pkg:npm/parse-conflict-json@5.0.1",
+            "UID": "e90549857e36ddbb",
+            "BOMRef": "pkg:npm/parse-conflict-json@5.0.1?package-id=7bac85424e41282b"
+          },
+          "Version": "5.0.1",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "path-scurry@2.0.2",
+          "Name": "path-scurry",
+          "Identifier": {
+            "PURL": "pkg:npm/path-scurry@2.0.2",
+            "UID": "878ff154578bb25f",
+            "BOMRef": "pkg:npm/path-scurry@2.0.2?package-id=b4966ee69fd4e358"
+          },
+          "Version": "2.0.2",
+          "Licenses": [
+            "BlueOak-1.0.0"
+          ]
+        },
+        {
+          "ID": "picomatch@4.0.4",
+          "Name": "picomatch",
+          "Identifier": {
+            "PURL": "pkg:npm/picomatch@4.0.4",
+            "UID": "e25bff02f4022b24",
+            "BOMRef": "pkg:npm/picomatch@4.0.4?package-id=ddd38ca1dea2adcc"
+          },
+          "Version": "4.0.4",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "postcss-selector-parser@7.1.1",
+          "Name": "postcss-selector-parser",
+          "Identifier": {
+            "PURL": "pkg:npm/postcss-selector-parser@7.1.1",
+            "UID": "9b3b7a66e1f41b13",
+            "BOMRef": "pkg:npm/postcss-selector-parser@7.1.1?package-id=310cafbbd5abd891"
+          },
+          "Version": "7.1.1",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "proc-log@6.1.0",
+          "Name": "proc-log",
+          "Identifier": {
+            "PURL": "pkg:npm/proc-log@6.1.0",
+            "UID": "a01315689da5a390",
+            "BOMRef": "pkg:npm/proc-log@6.1.0?package-id=1611211fafab4c79"
+          },
+          "Version": "6.1.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "proggy@4.0.0",
+          "Name": "proggy",
+          "Identifier": {
+            "PURL": "pkg:npm/proggy@4.0.0",
+            "UID": "5fe99af47f5645d7",
+            "BOMRef": "pkg:npm/proggy@4.0.0?package-id=db1d86c8c07106c9"
+          },
+          "Version": "4.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "promise-all-reject-late@1.0.1",
+          "Name": "promise-all-reject-late",
+          "Identifier": {
+            "PURL": "pkg:npm/promise-all-reject-late@1.0.1",
+            "UID": "ce84f91d07830916",
+            "BOMRef": "pkg:npm/promise-all-reject-late@1.0.1?package-id=7bbf5ebf47784848"
+          },
+          "Version": "1.0.1",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "promise-call-limit@3.0.2",
+          "Name": "promise-call-limit",
+          "Identifier": {
+            "PURL": "pkg:npm/promise-call-limit@3.0.2",
+            "UID": "22ef1504ad804bc",
+            "BOMRef": "pkg:npm/promise-call-limit@3.0.2?package-id=a05a45a2d5be8cba"
+          },
+          "Version": "3.0.2",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "promzard@3.0.1",
+          "Name": "promzard",
+          "Identifier": {
+            "PURL": "pkg:npm/promzard@3.0.1",
+            "UID": "6358f6f03382264",
+            "BOMRef": "pkg:npm/promzard@3.0.1?package-id=fd4666f7f474ad31"
+          },
+          "Version": "3.0.1",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "qrcode-terminal@0.12.0",
+          "Name": "qrcode-terminal",
+          "Identifier": {
+            "PURL": "pkg:npm/qrcode-terminal@0.12.0",
+            "UID": "4bea48db4ed5fb4",
+            "BOMRef": "pkg:npm/qrcode-terminal@0.12.0?package-id=2b514adb3434967b"
+          },
+          "Version": "0.12.0",
+          "Licenses": [
+            "Apache 2.0"
+          ]
+        },
+        {
+          "ID": "read@5.0.1",
+          "Name": "read",
+          "Identifier": {
+            "PURL": "pkg:npm/read@5.0.1",
+            "UID": "f77548e2693d0370",
+            "BOMRef": "pkg:npm/read@5.0.1?package-id=74ce0a197c106d9a"
+          },
+          "Version": "5.0.1",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "read-cmd-shim@6.0.0",
+          "Name": "read-cmd-shim",
+          "Identifier": {
+            "PURL": "pkg:npm/read-cmd-shim@6.0.0",
+            "UID": "58eb247f2e719833",
+            "BOMRef": "pkg:npm/read-cmd-shim@6.0.0?package-id=161d485e32594db7"
+          },
+          "Version": "6.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "safer-buffer@2.1.2",
+          "Name": "safer-buffer",
+          "Identifier": {
+            "PURL": "pkg:npm/safer-buffer@2.1.2",
+            "UID": "756ee6e6ca50fbdb",
+            "BOMRef": "pkg:npm/safer-buffer@2.1.2?package-id=ccfa5651b74d5894"
+          },
+          "Version": "2.1.2",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "semver@7.7.4",
+          "Name": "semver",
+          "Identifier": {
+            "PURL": "pkg:npm/semver@7.7.4",
+            "UID": "d122b93aaed1d377",
+            "BOMRef": "pkg:npm/semver@7.7.4?package-id=bd58524b5fe05f9a"
+          },
+          "Version": "7.7.4",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "signal-exit@4.1.0",
+          "Name": "signal-exit",
+          "Identifier": {
+            "PURL": "pkg:npm/signal-exit@4.1.0",
+            "UID": "c9f7f990b98b502f",
+            "BOMRef": "pkg:npm/signal-exit@4.1.0?package-id=f20dee9f7897e24e"
+          },
+          "Version": "4.1.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "sigstore@4.1.0",
+          "Name": "sigstore",
+          "Identifier": {
+            "PURL": "pkg:npm/sigstore@4.1.0",
+            "UID": "97be927133050cd7",
+            "BOMRef": "pkg:npm/sigstore@4.1.0?package-id=2c78e6a69535cf08"
+          },
+          "Version": "4.1.0",
+          "Licenses": [
+            "Apache-2.0"
+          ]
+        },
+        {
+          "ID": "smart-buffer@4.2.0",
+          "Name": "smart-buffer",
+          "Identifier": {
+            "PURL": "pkg:npm/smart-buffer@4.2.0",
+            "UID": "218e66d203b2bd0b",
+            "BOMRef": "pkg:npm/smart-buffer@4.2.0?package-id=89b647b36466e69d"
+          },
+          "Version": "4.2.0",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "socks@2.8.7",
+          "Name": "socks",
+          "Identifier": {
+            "PURL": "pkg:npm/socks@2.8.7",
+            "UID": "5044bd39030ffda5",
+            "BOMRef": "pkg:npm/socks@2.8.7?package-id=e55babe454285056"
+          },
+          "Version": "2.8.7",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "socks-proxy-agent@8.0.5",
+          "Name": "socks-proxy-agent",
+          "Identifier": {
+            "PURL": "pkg:npm/socks-proxy-agent@8.0.5",
+            "UID": "e93b98ab73ba3287",
+            "BOMRef": "pkg:npm/socks-proxy-agent@8.0.5?package-id=ea73c863fffef408"
+          },
+          "Version": "8.0.5",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "spdx-exceptions@2.5.0",
+          "Name": "spdx-exceptions",
+          "Identifier": {
+            "PURL": "pkg:npm/spdx-exceptions@2.5.0",
+            "UID": "cec80d34fe31a803",
+            "BOMRef": "pkg:npm/spdx-exceptions@2.5.0?package-id=a716c00872c1b6a2"
+          },
+          "Version": "2.5.0",
+          "Licenses": [
+            "CC-BY-3.0"
+          ]
+        },
+        {
+          "ID": "spdx-expression-parse@4.0.0",
+          "Name": "spdx-expression-parse",
+          "Identifier": {
+            "PURL": "pkg:npm/spdx-expression-parse@4.0.0",
+            "UID": "f556e5eabd3a4a4c",
+            "BOMRef": "pkg:npm/spdx-expression-parse@4.0.0?package-id=629ebd5716ff7fc4"
+          },
+          "Version": "4.0.0",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "spdx-license-ids@3.0.23",
+          "Name": "spdx-license-ids",
+          "Identifier": {
+            "PURL": "pkg:npm/spdx-license-ids@3.0.23",
+            "UID": "ff36bdb57c7202c6",
+            "BOMRef": "pkg:npm/spdx-license-ids@3.0.23?package-id=8c680aa0bb9ba231"
+          },
+          "Version": "3.0.23",
+          "Licenses": [
+            "CC0-1.0"
+          ]
+        },
+        {
+          "ID": "ssri@13.0.1",
+          "Name": "ssri",
+          "Identifier": {
+            "PURL": "pkg:npm/ssri@13.0.1",
+            "UID": "5c60abe101902fda",
+            "BOMRef": "pkg:npm/ssri@13.0.1?package-id=d771fcf922e056ef"
+          },
+          "Version": "13.0.1",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "supports-color@10.2.2",
+          "Name": "supports-color",
+          "Identifier": {
+            "PURL": "pkg:npm/supports-color@10.2.2",
+            "UID": "82de495c6582e3bf",
+            "BOMRef": "pkg:npm/supports-color@10.2.2?package-id=f29a7d33fe5343f3"
+          },
+          "Version": "10.2.2",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "tar@7.5.11",
+          "Name": "tar",
+          "Identifier": {
+            "PURL": "pkg:npm/tar@7.5.11",
+            "UID": "19f884442f159e5b",
+            "BOMRef": "pkg:npm/tar@7.5.11?package-id=642df124d4347f65"
+          },
+          "Version": "7.5.11",
+          "Licenses": [
+            "BlueOak-1.0.0"
+          ]
+        },
+        {
+          "ID": "text-table@0.2.0",
+          "Name": "text-table",
+          "Identifier": {
+            "PURL": "pkg:npm/text-table@0.2.0",
+            "UID": "341472105b7151c4",
+            "BOMRef": "pkg:npm/text-table@0.2.0?package-id=6a7094ce66a8e5be"
+          },
+          "Version": "0.2.0",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "tiny-relative-date@2.0.2",
+          "Name": "tiny-relative-date",
+          "Identifier": {
+            "PURL": "pkg:npm/tiny-relative-date@2.0.2",
+            "UID": "c644cb6ed3c1ce6d",
+            "BOMRef": "pkg:npm/tiny-relative-date@2.0.2?package-id=883f67bc17ffebd0"
+          },
+          "Version": "2.0.2",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "tinyglobby@0.2.15",
+          "Name": "tinyglobby",
+          "Identifier": {
+            "PURL": "pkg:npm/tinyglobby@0.2.15",
+            "UID": "19458c3a5c91b9b3",
+            "BOMRef": "pkg:npm/tinyglobby@0.2.15?package-id=3c878e26e8669e8e"
+          },
+          "Version": "0.2.15",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "treeverse@3.0.0",
+          "Name": "treeverse",
+          "Identifier": {
+            "PURL": "pkg:npm/treeverse@3.0.0",
+            "UID": "b83b617b7cfdd52c",
+            "BOMRef": "pkg:npm/treeverse@3.0.0?package-id=472c53dfa2e5a263"
+          },
+          "Version": "3.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "tuf-js@4.1.0",
+          "Name": "tuf-js",
+          "Identifier": {
+            "PURL": "pkg:npm/tuf-js@4.1.0",
+            "UID": "81f8300b04f0b4a2",
+            "BOMRef": "pkg:npm/tuf-js@4.1.0?package-id=497b80177662d06b"
+          },
+          "Version": "4.1.0",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "util-deprecate@1.0.2",
+          "Name": "util-deprecate",
+          "Identifier": {
+            "PURL": "pkg:npm/util-deprecate@1.0.2",
+            "UID": "ec90a1b6186f3235",
+            "BOMRef": "pkg:npm/util-deprecate@1.0.2?package-id=484f818fd2ed4109"
+          },
+          "Version": "1.0.2",
+          "Licenses": [
+            "MIT"
+          ]
+        },
+        {
+          "ID": "validate-npm-package-name@7.0.2",
+          "Name": "validate-npm-package-name",
+          "Identifier": {
+            "PURL": "pkg:npm/validate-npm-package-name@7.0.2",
+            "UID": "baa0c52d0265968a",
+            "BOMRef": "pkg:npm/validate-npm-package-name@7.0.2?package-id=0e43195b9f1b1975"
+          },
+          "Version": "7.0.2",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "walk-up-path@4.0.0",
+          "Name": "walk-up-path",
+          "Identifier": {
+            "PURL": "pkg:npm/walk-up-path@4.0.0",
+            "UID": "9b78f369a9fd4419",
+            "BOMRef": "pkg:npm/walk-up-path@4.0.0?package-id=1d07700a3e3b9575"
+          },
+          "Version": "4.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "which@6.0.1",
+          "Name": "which",
+          "Identifier": {
+            "PURL": "pkg:npm/which@6.0.1",
+            "UID": "74393878267f8c",
+            "BOMRef": "pkg:npm/which@6.0.1?package-id=00e9d8e26b0a273a"
+          },
+          "Version": "6.0.1",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "write-file-atomic@7.0.1",
+          "Name": "write-file-atomic",
+          "Identifier": {
+            "PURL": "pkg:npm/write-file-atomic@7.0.1",
+            "UID": "d798957ce59ec79d",
+            "BOMRef": "pkg:npm/write-file-atomic@7.0.1?package-id=54ca6704947a32c1"
+          },
+          "Version": "7.0.1",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "yallist@4.0.0",
+          "Name": "yallist",
+          "Identifier": {
+            "PURL": "pkg:npm/yallist@4.0.0",
+            "UID": "590d0873d8f648a",
+            "BOMRef": "pkg:npm/yallist@4.0.0?package-id=36f671c64e793ede"
+          },
+          "Version": "4.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "yallist@4.0.0",
+          "Name": "yallist",
+          "Identifier": {
+            "PURL": "pkg:npm/yallist@4.0.0",
+            "UID": "d06e40acbad544b8",
+            "BOMRef": "pkg:npm/yallist@4.0.0?package-id=616dd037e40c0513"
+          },
+          "Version": "4.0.0",
+          "Licenses": [
+            "ISC"
+          ]
+        },
+        {
+          "ID": "yallist@5.0.0",
+          "Name": "yallist",
+          "Identifier": {
+            "PURL": "pkg:npm/yallist@5.0.0",
+            "UID": "9c3fdae14d7dae27",
+            "BOMRef": "pkg:npm/yallist@5.0.0?package-id=d76f0f6eb52812e5"
+          },
+          "Version": "5.0.0",
+          "Licenses": [
+            "BlueOak-1.0.0"
+          ]
+        }
+      ],
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2026-45149",
+          "VendorIDs": [
+            "GHSA-jxxr-4gwj-5jf2"
+          ],
+          "PkgID": "brace-expansion@5.0.5",
+          "PkgName": "brace-expansion",
+          "PkgIdentifier": {
+            "PURL": "pkg:npm/brace-expansion@5.0.5",
+            "UID": "c356b2e12b586fbd",
+            "BOMRef": "pkg:npm/brace-expansion@5.0.5?package-id=884683de2b2a4df4"
+          },
+          "InstalledVersion": "5.0.5",
+          "FixedVersion": "5.0.6",
+          "Status": "fixed",
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-45149",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory npm",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Anpm"
+          },
+          "Fingerprint": "sha256:274851839ad27a761ef3be9d2db7c2d280db7c45109e3b934386cacb644e7000",
+          "Title": "The brace-expansion library generates arbitrary strings containing a c ...",
+          "Description": "The brace-expansion library generates arbitrary strings containing a common prefix and suffix. From 5.0.0 to before 5.0.6, the max option was being applied too late. When expanding a single large numeric range like {1..10000000}, the sequence generation loop generates all 10 million intermediate elements before the max limit is applied With max=10, the output is correctly limited to 10 items, but the process still allocates ~505 MB and spends ~800ms building the full intermediate array. This vulnerability is fixed in 5.0.6.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-400"
+          ],
+          "VendorSeverity": {
+            "ghsa": 2,
+            "nvd": 3
+          },
+          "CVSS": {
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+              "V3Score": 6.5
+            },
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            }
+          },
+          "References": [
+            "https://github.com/juliangruber/brace-expansion",
+            "https://github.com/juliangruber/brace-expansion/commit/c0b095bdc52bc4c36dc88deddbadabc49f8371e5",
+            "https://github.com/juliangruber/brace-expansion/security/advisories/GHSA-jxxr-4gwj-5jf2"
+          ],
+          "PublishedDate": "2026-05-29T20:16:25.55Z",
+          "LastModifiedDate": "2026-06-03T20:13:55.22Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2026-42338",
+          "VendorIDs": [
+            "GHSA-v2v4-37r5-5v8g"
+          ],
+          "PkgID": "ip-address@10.1.0",
+          "PkgName": "ip-address",
+          "PkgIdentifier": {
+            "PURL": "pkg:npm/ip-address@10.1.0",
+            "UID": "3855395bd894c878",
+            "BOMRef": "pkg:npm/ip-address@10.1.0?package-id=b958288bb0c2bb20"
+          },
+          "InstalledVersion": "10.1.0",
+          "FixedVersion": "10.1.1",
+          "Status": "fixed",
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42338",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory npm",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Anpm"
+          },
+          "Fingerprint": "sha256:6244063935714d00da2e3c22c753c5024ef13493ee6f4df0b67baafe2e7f5265",
+          "Title": "ip-address is a library for parsing and manipulating IPv4 and IPv6 add ...",
+          "Description": "ip-address is a library for parsing and manipulating IPv4 and IPv6 addresses in JavaScript. Prior to 10.1.1, Address6.group() and Address6.link() do not HTML-escape attacker-controlled content before embedding it in the HTML strings they return, and AddressError.parseMessage (emitted by the Address6 constructor for invalid input) can contain unescaped attacker-controlled content in one branch. An application that (1) passes untrusted input to Address6 and (2) renders the output of these methods, or the thrown error's parseMessage, as HTML (e.g. via innerHTML) is vulnerable to cross-site scripting. This vulnerability is fixed in 10.1.1.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-79"
+          ],
+          "VendorSeverity": {
+            "ghsa": 2,
+            "nvd": 2
+          },
+          "CVSS": {
+            "ghsa": {
+              "V40Vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N",
+              "V40Score": 5.3
+            },
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+              "V3Score": 6.1
+            }
+          },
+          "References": [
+            "https://github.com/beaugunderson/ip-address",
+            "https://github.com/beaugunderson/ip-address/security/advisories/GHSA-v2v4-37r5-5v8g",
+            "https://nvd.nist.gov/vuln/detail/CVE-2026-42338"
+          ],
+          "PublishedDate": "2026-05-12T20:16:41.13Z",
+          "LastModifiedDate": "2026-05-19T20:04:05.337Z"
+        }
+      ]
+    }
+  ],
+  "_meta": {
+    "image": "cleanstart/node:latest",
+    "image_type": "cleanstart",
+    "total_cves": 2,
+    "reduction_pct": 99
+  }
+}
