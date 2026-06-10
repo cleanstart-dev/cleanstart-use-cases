@@ -56,7 +56,6 @@ The application code never changes. Only the base image does. That is the point.
 ## Run it
 
 ```bash
-cd cleanstart-demo
 bash compare.sh
 ```
 
