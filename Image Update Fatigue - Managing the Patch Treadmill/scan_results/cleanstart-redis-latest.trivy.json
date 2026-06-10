@@ -1,0 +1,22 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.70.0"
+  },
+  "ReportID": "019ea1a6-fcc9-7e3d-8aee-c8e2e3ef214a",
+  "CreatedAt": "2026-06-07T10:35:36.009938079Z",
+  "ArtifactName": "sboms/cleanstart-redis-latest.sbom.json",
+  "ArtifactType": "cyclonedx",
+  "Metadata": {
+    "OS": {
+      "Family": "clnstrt",
+      "Name": "3.20.3"
+    }
+  },
+  "_meta": {
+    "image": "cleanstart/redis:latest",
+    "image_type": "cleanstart",
+    "total_cves": 0,
+    "reduction_pct": 100
+  }
+}

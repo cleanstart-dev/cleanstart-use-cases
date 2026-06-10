@@ -1,0 +1,22 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.70.0"
+  },
+  "ReportID": "019ea1a4-38db-7ab0-a361-a13817b6f87b",
+  "CreatedAt": "2026-06-07T10:32:34.779703477Z",
+  "ArtifactName": "sboms/cleanstart-python-latest.sbom.json",
+  "ArtifactType": "cyclonedx",
+  "Metadata": {
+    "OS": {
+      "Family": "clnstrt",
+      "Name": "3.20.3"
+    }
+  },
+  "_meta": {
+    "image": "cleanstart/python:latest",
+    "image_type": "cleanstart",
+    "total_cves": 0,
+    "reduction_pct": 100
+  }
+}

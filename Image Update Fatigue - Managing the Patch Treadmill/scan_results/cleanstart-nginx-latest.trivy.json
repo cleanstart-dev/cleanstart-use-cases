@@ -1,0 +1,22 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.70.0"
+  },
+  "ReportID": "019ea1a5-9255-7614-96fd-cde5ce325399",
+  "CreatedAt": "2026-06-07T10:34:03.221400472Z",
+  "ArtifactName": "sboms/cleanstart-nginx-latest.sbom.json",
+  "ArtifactType": "cyclonedx",
+  "Metadata": {
+    "OS": {
+      "Family": "clnstrt",
+      "Name": "3.20.3"
+    }
+  },
+  "_meta": {
+    "image": "cleanstart/nginx:latest",
+    "image_type": "cleanstart",
+    "total_cves": 0,
+    "reduction_pct": 100
+  }
+}
