@@ -142,7 +142,6 @@ Match the format to whether you have a reproducible result behind it — don't p
 
 ### Template Skeleton
 
-```
 [𝗕𝗼𝗹𝗱 𝗵𝗼𝗼𝗸 𝗹𝗶𝗻𝗲 𝗻𝗮𝗺𝗶𝗻𝗴 𝘁𝗵𝗲 𝗳𝗮𝗶𝗹𝘂𝗿𝗲 𝗺𝗼𝗱𝗲]
 Here's what actually happens 👇
 ──────────────────────────
@@ -167,4 +166,3 @@ Full use case, scripts, and results on GitHub 👇
 [link]
 
 #DevSecOps #ContainerSecurity #SupplyChainSecurity #AppSec #CloudNative #cleanstart [+2-3 topic-specific tags]
-```
