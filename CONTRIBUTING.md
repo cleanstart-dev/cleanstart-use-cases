@@ -18,6 +18,26 @@ A use case that proves a narrower point convincingly is more valuable than one t
 
 ---
 
+## Eagle View of Steps
+A step-by-step guide to building a use case and sharing it with the Hardened Container Images LinkedIn community.
+
+**Steps**
+1. Identify a topic from the README tracker → https://github.com/cleanstart-dev/cleanstart-use-cases
+2. Brainstorm and scope with Claude → https://claude.ai
+3. Request repo access from Siddharth / Raghavendra and fork
+4. Build scripts, Dockerfiles, and supporting files
+5. Execute all commands and capture actual results
+6. Write the use case README → Refer to guidelines at https://github.com/cleanstart-dev/cleanstart-use-cases/blob/main/CONTRIBUTING.md
+7. Submit a Pull Request
+8. Address review comments and merge
+9. Draft the LinkedIn post and format via Typegrow → https://typegrow.com/tools/linkedin-text-formatter
+10. Post to the LinkedIn community group → https://www.linkedin.com/groups/18324021/
+11. Share with Ishan for final review before going live
+
+**Notes**
+- If you have your own topic, follow the same process
+- If there are no scripts or commands to execute, skip the relevant steps
+
 ## Repository Conventions
 
 Each use case occupies its own top-level directory, named to match the topic (e.g. `Attack Surface Reduction`, `The Transitive Dependency Problem`). Within that directory, contributors are expected to include:
