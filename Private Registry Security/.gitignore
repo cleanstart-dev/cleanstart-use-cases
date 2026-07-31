@@ -1,0 +1,6 @@
+staleness-audit/results/*.json
+staleness-audit/docs/*.html
+cve-comparison/sboms/*.json
+cve-comparison/scan_results/*.json
+cve-comparison/docs/*.html
+**/__pycache__/

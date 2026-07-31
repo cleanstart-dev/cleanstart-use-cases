@@ -1,0 +1,5 @@
+{
+  "image": "myregistry.internal/team/api:2.4.0",
+  "age_days": 3,
+  "signed": true
+}
