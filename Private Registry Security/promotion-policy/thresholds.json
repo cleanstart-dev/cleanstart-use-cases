@@ -1,0 +1,6 @@
+{
+  "thresholds": {
+    "max_age_days": 180,
+    "require_signature": true
+  }
+}

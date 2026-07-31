@@ -1,0 +1,17 @@
+# targets.txt — one image reference per line.
+#
+# Point this at whatever is actually pinned in your private registry, e.g.
+#   your-registry.internal/team/api:2.3.1
+#   123456789.dkr.ecr.us-east-1.amazonaws.com/payments:release-44
+#
+# The entries below are real, specific Docker Hub tags — swap them for your
+# own mirror's tags to audit what you actually have. Every number audit.sh
+# produces comes from asking the registry directly; nothing here is
+# estimated.
+
+python:3.11.4
+node:18.16.0
+nginx:1.23.4
+postgres:14.8
+redis:6.2.7
+prom/prometheus:v2.45.0
