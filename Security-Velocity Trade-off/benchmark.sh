@@ -109,17 +109,22 @@ image_size() { docker image inspect "$1" --format '{{.Size}}' 2>/dev/null || ech
 layer_count() { docker image inspect "$1" --format '{{len .RootFS.Layers}}' 2>/dev/null || echo "0"; }
 
 # ── time from `docker run -d` to the first successful `docker exec` ──────────
-# Falls back to SKIP (-1) for fully distroless images with no shell at all —
-# that's a known architectural characteristic, not a defect.
+# Falls back to SKIP (-1) for images whose default entrypoint doesn't stay
+# running without extra config (e.g. requires POSTGRES_PASSWORD) — a known
+# architectural characteristic of hardened/minimal images, not a defect.
 start_latency() {
   local image="$1" cname="bench_$(slugify "$image")_$$"
   docker rm -f "$cname" >/dev/null 2>&1 || true
 
-  # Try to override the entrypoint with a long-lived shell sleep so we can
-  # exec into it repeatedly. If the image has no shell (fully distroless),
-  # fall back to running its own entrypoint and timing until State.Running.
+  # IMPORTANT: overriding just the command (`docker run image sh -c ...`) only
+  # replaces CMD, not ENTRYPOINT. Any image with an explicit ENTRYPOINT pointing
+  # straight at its binary (common for hardened/minimal images, and for images
+  # like prom/prometheus that skip a shell wrapper script) would receive
+  # "sh -c sleep 300" as literal CLI args to that binary and exit immediately.
+  # --entrypoint sh replaces the entrypoint itself, guaranteeing we actually
+  # get a shell if the image has one at all.
   local cid=""
-  cid=$(docker run -d --name "$cname" "$image" sh -c "sleep 300" 2>/dev/null)
+  cid=$(docker run -d --name "$cname" --entrypoint sh "$image" -c "sleep 300" 2>/dev/null)
   local used_shell=1
   if [ -z "$cid" ]; then
     used_shell=0
@@ -141,18 +146,53 @@ start_latency() {
       # shell-having image: exec success is the readiness signal
       if docker exec "$cname" true >/dev/null 2>&1; then ready=1; break; fi
     else
-      # distroless: no shell to exec into — State.Running is the best proxy
-      if [ "$(docker inspect -f '{{.State.Running}}' "$cname" 2>/dev/null)" = "true" ]; then
+      # no shell at all (truly distroless): State.Running is the best proxy
+      local status
+      status="$(docker inspect -f '{{.State.Running}}' "$cname" 2>/dev/null)"
+      if [ "$status" = "true" ]; then
         ready=1; break
       fi
+      # Already exited rather than still starting — no point waiting out the
+      # full timeout; fail fast instead.
+      if [ "$(docker inspect -f '{{.State.Status}}' "$cname" 2>/dev/null)" = "exited" ]; then
+        break
+      fi
     fi
-    sleep 0.2
+    sleep 0.02
   done
   t1=$(now)
-  docker rm -f "$cname" >/dev/null 2>&1 || true
 
-  if [ "$ready" = "0" ]; then echo "-1"; return; fi
+  if [ "$ready" = "0" ]; then
+    local exit_code
+    exit_code=$(docker inspect -f '{{.State.ExitCode}}' "$cname" 2>/dev/null || echo "?")
+    echo "      ⏭️  no persistent start signal for $image (used_shell=$used_shell, exit=$exit_code)" >&2
+    echo "         likely needs runtime config (env vars/args) to stay running — SKIP, not a defect" >&2
+    docker rm -f "$cname" >/dev/null 2>&1 || true
+    echo "-1"; return
+  fi
+
+  docker rm -f "$cname" >/dev/null 2>&1 || true
   elapsed "$t0" "$t1"
+}
+
+# ── average start_latency over $RUNS samples ──────────────────────────────────
+# A single sample of a ~20-80ms process is noise, not a measurement — the sign
+# of the delta between two single samples can flip run to run purely from
+# scheduler jitter. Average over the same $RUNS the pull timing uses so this
+# is a defensible number rather than a coin flip dressed up as a percentage.
+start_latency_avg() {
+  local image="$1" total=0 i v valid=0
+  for ((i = 1; i <= RUNS; i++)); do
+    v=$(start_latency "$image")
+    if [ "$v" != "-1" ]; then
+      total=$(python3 -c "print($total + $v)")
+      valid=$((valid + 1))
+    fi
+  done
+  if [ "$valid" -eq 0 ]; then
+    echo "-1"; return
+  fi
+  python3 -c "print(round($total / $valid, 3))"
 }
 
 # ── CVE count via trivy image scan ────────────────────────────────────────────
@@ -226,8 +266,8 @@ while IFS='|' read -r pub cs; do
     size=$(image_size "$image")
     layers=$(layer_count "$image")
 
-    echo "      [2/3] container start latency"
-    start=$(start_latency "$image")
+    echo "      [2/3] container start latency ×$RUNS"
+    start=$(start_latency_avg "$image")
 
     echo "      [3/3] trivy CVE scan"
     scan_cves "$image" "$out"

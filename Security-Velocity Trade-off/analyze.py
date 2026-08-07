@@ -60,10 +60,26 @@ def aggregate(pairs):
     }
     avg_deltas = {k: (round(sum(v) / len(v), 1) if v else None) for k, v in deltas.items()}
 
-    # How many pairs got FASTER/SMALLER (not just "not slower") on each axis
-    faster_pull  = sum(1 for p in pairs if (p["pull_time_delta_pct"]  or 0) < 0)
-    smaller_size = sum(1 for p in pairs if (p["size_delta_pct"]       or 0) < 0)
-    faster_start = sum(1 for p in pairs if (p["start_delta_pct"]      or 0) < 0)
+    # IMPORTANT: only count wins among pairs that actually have a measurement.
+    # `p["start_delta_pct"] or 0` silently turns "no data" (None) into a loss
+    # (0, not < 0) — that's wrong; a metric with zero valid samples has zero
+    # wins AND zero losses, not zero wins out of every pair. Track the
+    # measured denominator explicitly instead of assuming it's always `n`.
+    def measured_and_faster(key):
+        measured = [p[key] for p in pairs if p[key] is not None]
+        faster = sum(1 for v in measured if v < 0)
+        return faster, len(measured)
+
+    faster_pull,  measured_pull  = measured_and_faster("pull_time_delta_pct")
+    smaller_size, measured_size  = measured_and_faster("size_delta_pct")
+    faster_start, measured_start = measured_and_faster("start_delta_pct")
+
+    # Flag outliers so a single bad number can't hide inside an average —
+    # e.g. one pull that was much slower shouldn't be silently smoothed over.
+    outliers = [
+        {"image": p["cleanstart"]["image"], "metric": "pull time", "pct": p["pull_time_delta_pct"]}
+        for p in pairs if p["pull_time_delta_pct"] is not None and p["pull_time_delta_pct"] > 100
+    ]
 
     return {
         "n_pairs": n,
@@ -77,9 +93,10 @@ def aggregate(pairs):
         "avg_pub_start": avg("start_latency_sec", "public"),
         "avg_cs_start": avg("start_latency_sec", "cleanstart"),
         "avg_deltas": avg_deltas,
-        "faster_pull": faster_pull,
-        "smaller_size": smaller_size,
-        "faster_start": faster_start,
+        "faster_pull": faster_pull, "measured_pull": measured_pull,
+        "smaller_size": smaller_size, "measured_size": measured_size,
+        "faster_start": faster_start, "measured_start": measured_start,
+        "outliers": outliers,
     }
 
 
@@ -90,11 +107,68 @@ def render_html(summary, agg):
     pairs = summary.get("pairs", [])
     n = agg.get("n_pairs", 0)
 
-    verdict = (
-        "no measurable trade-off"
-        if (agg.get("faster_pull", 0) + agg.get("smaller_size", 0) + agg.get("faster_start", 0)) >= n
-        else "partial trade-off"
-    )
+    # Verdict is derived per-metric, using only pairs where that metric was
+    # actually measured — a metric with zero valid samples is "not measured
+    # this run", not a loss, and must never be silently folded into a win count.
+    def verdict_for(faster, measured):
+        if measured == 0:
+            return "no data"
+        if faster == measured:
+            return "always"
+        if faster >= measured / 2:
+            return "mostly"
+        return "rarely"
+
+    size_v  = verdict_for(agg["smaller_size"], agg["measured_size"])
+    pull_v  = verdict_for(agg["faster_pull"],  agg["measured_pull"])
+    start_v = verdict_for(agg["faster_start"], agg["measured_start"])
+
+    verdict_parts = [f"size {size_v}", f"pull {pull_v}"]
+    if agg["measured_start"] > 0:
+        verdict_parts.append(f"start {start_v}")
+    verdict = " · ".join(verdict_parts)
+
+    outlier_html = ""
+    if agg.get("outliers"):
+        items = "".join(
+            f"<li><code>{o['image']}</code> pull time was <strong>+{o['pct']}%</strong> slower than public — "
+            f"see the per-image row below before citing an average.</li>"
+            for o in agg["outliers"]
+        )
+        outlier_html = f"""<div class="box" style="border-color:#ff9f4340">
+  <h2 style="color:var(--pub)">⚠️ Outlier(s) — don't let the average hide these</h2>
+  <ul style="color:var(--mu);font-size:.85rem;line-height:1.8;padding-left:1.2rem">{items}</ul>
+</div>"""
+
+    # Note any pairs missing a start-latency reading — not just when the whole
+    # metric is empty. Silently going quiet about 3 out of 6 missing pairs
+    # would understate how incomplete this measurement actually is.
+    missing_start = []
+    for p in pairs:
+        if p["start_delta_pct"] is not None:
+            continue
+        pub_ok = p["public"].get("start_latency_sec", -1) >= 0
+        cs_ok = p["cleanstart"].get("start_latency_sec", -1) >= 0
+        if not pub_ok and not cs_ok:
+            missing_start.append(f"{p['public']['image']} and {p['cleanstart']['image']} (both sides)")
+        elif not cs_ok:
+            missing_start.append(p["cleanstart"]["image"])
+        else:
+            missing_start.append(f"{p['public']['image']} (public side)")
+    no_start_note = ""
+    if missing_start:
+        scope = "None" if agg["measured_start"] == 0 else f"{len(missing_start)} of {n}"
+        items = "".join(f"<li><code>{img}</code></li>" for img in missing_start)
+        no_start_note = f"""<div class="box" style="border-color:#8b949e30">
+  <h2 style="color:var(--mu)">ℹ️ Start latency: {scope} pairs had no valid reading</h2>
+  <p style="color:var(--mu);font-size:.85rem;line-height:1.7">
+    These CleanStart images never produced a readable start signal, most likely because they're
+    fully distroless (no shell to exec into) and their default entrypoint doesn't stay running
+    without extra runtime config. That's a benchmark gap for these specific images, not a velocity
+    loss — re-run with an image-specific startup command/args if you need this metric filled in.
+  </p>
+  <ul style="color:var(--mu);font-size:.8rem;line-height:1.8;padding-left:1.2rem;margin-top:.5rem">{items}</ul>
+</div>"""
 
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -113,7 +187,7 @@ a{{color:var(--acc)}}
   padding-bottom:1.5rem;border-bottom:1px solid var(--bd);margin-bottom:2.5rem}}
 .hdr h1{{font-size:1.4rem;font-weight:600}}
 .hdr .sub{{font-size:.8rem;color:var(--mu);margin-top:.2rem}}
-.big{{font-size:2.2rem;font-weight:700;color:var(--grn);line-height:1;text-align:right;text-transform:capitalize}}
+.big{{font-size:1.3rem;font-weight:700;color:var(--tx);line-height:1.3;text-align:right}}
 .big-lbl{{font-size:.7rem;color:var(--mu);text-transform:uppercase;letter-spacing:.05em;text-align:right}}
 .cards{{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:2.5rem}}
 .card{{background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:1.1rem 1.3rem}}
@@ -178,15 +252,15 @@ footer{{border-top:1px solid var(--bd);padding-top:1rem;font-size:.7rem;color:va
   </div>
   <div class="card b">
     <div class="lbl">Pull time, avg delta</div><div class="val">{fmt_delta(agg['avg_deltas'].get('pull_time_delta_pct'))}</div>
-    <div class="note">{agg.get('faster_pull',0)}/{agg.get('n_pairs',0)} pairs pulled faster</div>
+    <div class="note">{agg.get('faster_pull',0)}/{agg.get('measured_pull',0)} measured pairs pulled faster</div>
   </div>
   <div class="card p">
     <div class="lbl">Image size, avg delta</div><div class="val">{fmt_delta(agg['avg_deltas'].get('size_delta_pct'))}</div>
-    <div class="note">{agg.get('smaller_size',0)}/{agg.get('n_pairs',0)} pairs smaller</div>
+    <div class="note">{agg.get('smaller_size',0)}/{agg.get('measured_size',0)} measured pairs smaller</div>
   </div>
   <div class="card o">
     <div class="lbl">Start latency, avg delta</div><div class="val">{fmt_delta(agg['avg_deltas'].get('start_delta_pct'))}</div>
-    <div class="note">{agg.get('faster_start',0)}/{agg.get('n_pairs',0)} pairs started faster</div>
+    <div class="note">{f"{agg.get('faster_start',0)}/{agg.get('measured_start',0)} measured pairs started faster" if agg.get('measured_start',0) > 0 else "no valid samples this run"}</div>
   </div>
 </div>
 
@@ -201,6 +275,9 @@ footer{{border-top:1px solid var(--bd);padding-top:1rem;font-size:.7rem;color:va
     <strong>faster or smaller</strong>, not slower — the opposite of what the trade-off predicts.
   </p>
 </div>
+
+{outlier_html}
+{no_start_note}
 
 <div class="sec">
   <div class="sec-title">Per-image comparison — security vs. velocity, same measurement run</div>
