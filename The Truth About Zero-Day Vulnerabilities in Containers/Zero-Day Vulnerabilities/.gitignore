@@ -1,0 +1,3 @@
+configs/*.json
+docs/*.html
+sboms/*.json

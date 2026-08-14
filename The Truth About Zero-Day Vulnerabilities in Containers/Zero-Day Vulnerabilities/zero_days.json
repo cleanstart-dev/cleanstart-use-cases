@@ -1,0 +1,125 @@
+{
+  "_notes": "Each entry is a real, historical zero-day/critical 0-day-class disclosure. package_aliases are the SBOM component names (lowercased) that would have been the exposure surface for that flaw. These are used to measure attack-surface overlap on TODAY's images, not to detect the (long-since patched) CVE itself -- the point is: 'if the next flaw like this one lands in this package, is the package even present in my image, and what happens if it is.' Dates and CVSS are as publicly reported at disclosure.",
+  "zero_days": [
+    {
+      "name": "Heartbleed",
+      "cve": "CVE-2014-0160",
+      "disclosed": "2014-04-07",
+      "category": "TLS/crypto",
+      "cvss": 7.5,
+      "package_aliases": ["openssl", "libssl", "libssl3", "libssl1.1"],
+      "layer": "os-package",
+      "summary": "Out-of-bounds read in OpenSSL's heartbeat extension let attackers pull server memory (keys, session data) over a normal TLS connection, no exploit tooling needed beyond a crafted packet."
+    },
+    {
+      "name": "Shellshock",
+      "cve": "CVE-2014-6271",
+      "disclosed": "2014-09-24",
+      "category": "shell",
+      "cvss": 9.8,
+      "package_aliases": ["bash"],
+      "layer": "os-package",
+      "summary": "Bash evaluated trailing commands embedded in environment variables, letting anything that passed attacker-controlled data into an environment variable and then invoked bash (CGI scripts, DHCP clients) achieve remote code execution."
+    },
+    {
+      "name": "GHOST",
+      "cve": "CVE-2015-0235",
+      "disclosed": "2015-01-27",
+      "category": "libc",
+      "cvss": 8.1,
+      "package_aliases": ["glibc", "libc6", "libc-bin"],
+      "layer": "os-package",
+      "summary": "Heap buffer overflow in glibc's gethostbyname() family, reachable by any code path that resolves a hostname -- which is nearly everything."
+    },
+    {
+      "name": "Dirty COW",
+      "cve": "CVE-2016-5195",
+      "disclosed": "2016-10-19",
+      "category": "kernel",
+      "cvss": 7.8,
+      "package_aliases": ["linux-kernel"],
+      "layer": "host-kernel",
+      "summary": "Race condition in the Linux kernel's copy-on-write handling allowed privilege escalation to root. Lives in the host kernel, not in any package an image ships -- no base image choice changes exposure to this one."
+    },
+    {
+      "name": "Log4Shell",
+      "cve": "CVE-2021-44228",
+      "disclosed": "2021-12-09",
+      "category": "application library",
+      "cvss": 10.0,
+      "package_aliases": ["log4j", "log4j-core", "log4j2"],
+      "layer": "app-dependency",
+      "summary": "Apache Log4j2's JNDI message-lookup feature let attacker-controlled log input trigger remote class loading and arbitrary code execution. Ships as an application dependency (Maven/Gradle), not an OS package, so base-image SBOMs won't carry it -- it shows up in the app's own dependency scan instead."
+    },
+    {
+      "name": "PwnKit",
+      "cve": "CVE-2021-4034",
+      "disclosed": "2022-01-25",
+      "category": "privilege escalation",
+      "cvss": 7.8,
+      "package_aliases": ["polkit", "policykit-1", "polkit-bin"],
+      "layer": "os-package",
+      "summary": "Memory-corruption bug in polkit's pkexec, present in the utility since 2009, let any local unprivileged user escalate straight to root on a default install of nearly every major Linux distribution."
+    },
+    {
+      "name": "Spring4Shell",
+      "cve": "CVE-2022-22965",
+      "disclosed": "2022-03-30",
+      "category": "application library",
+      "cvss": 9.8,
+      "package_aliases": ["spring-core", "spring-beans", "spring-webmvc"],
+      "layer": "app-dependency",
+      "summary": "Spring Framework's data-binding path allowed class-loader manipulation on JDK 9+ under specific deployment conditions (WAR on Tomcat), leading to remote code execution. Another app-dependency-layer flaw, invisible to an OS-package SBOM."
+    },
+    {
+      "name": "zlib heap over-read",
+      "cve": "CVE-2022-37434",
+      "disclosed": "2022-08-05",
+      "category": "compression library",
+      "cvss": 9.8,
+      "package_aliases": ["zlib", "zlib1g"],
+      "layer": "os-package",
+      "summary": "Heap buffer over-read in zlib's inflate() when processing a crafted gzip header with extra fields. zlib sits underneath an enormous share of image tooling (package managers, TLS stacks, language runtimes), so presence is nearly universal unless deliberately stripped."
+    },
+    {
+      "name": "Expat use-after-free",
+      "cve": "CVE-2022-40674",
+      "disclosed": "2022-09-01",
+      "category": "XML parser",
+      "cvss": 7.5,
+      "package_aliases": ["expat", "libexpat", "libexpat1"],
+      "layer": "os-package",
+      "summary": "Use-after-free in the Expat XML parser's DTD handling, reachable by anything parsing attacker-supplied XML with this library linked in."
+    },
+    {
+      "name": "curl SOCKS5 heap overflow",
+      "cve": "CVE-2023-38545",
+      "disclosed": "2023-10-11",
+      "category": "networking library",
+      "cvss": 9.8,
+      "package_aliases": ["curl", "libcurl", "libcurl4"],
+      "layer": "os-package",
+      "summary": "Heap buffer overflow in libcurl's SOCKS5 proxy handshake handling when the hostname exceeds an internal buffer length, reachable by anything linking libcurl and configured to use a SOCKS5 proxy."
+    },
+    {
+      "name": "XZ Utils backdoor",
+      "cve": "CVE-2024-3094",
+      "disclosed": "2024-03-29",
+      "category": "supply chain / compression library",
+      "cvss": 10.0,
+      "package_aliases": ["xz", "xz-utils", "xz-libs", "liblzma", "liblzma5"],
+      "layer": "os-package",
+      "summary": "A multi-year social-engineering campaign against the XZ Utils maintainer culminated in an obfuscated backdoor hidden in release tarballs of liblzma 5.6.0/5.6.1, intended to give a remote attacker SSH authentication bypass on affected distributions. Caught by chance days before wide distribution, via an SSH login latency regression."
+    },
+    {
+      "name": "regreSSHion",
+      "cve": "CVE-2024-6387",
+      "disclosed": "2024-07-01",
+      "category": "remote access",
+      "cvss": 8.1,
+      "package_aliases": ["openssh", "openssh-server", "openssh-client"],
+      "layer": "os-package",
+      "summary": "A signal-handler race condition reintroduced into OpenSSH's sshd (a regression of a bug fixed a decade earlier) allowed unauthenticated remote code execution as root under the right timing conditions."
+    }
+  ]
+}

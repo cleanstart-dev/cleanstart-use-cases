@@ -1,0 +1,8 @@
+# images.txt — public | cleanstart pairs
+# Reuses the same pairing convention as the Image Update Fatigue use case.
+python:3.14.7           | cleanstart/python:latest
+node:26.7.0             | cleanstart/node:latest
+nginx:1.31.3            | cleanstart/nginx:latest
+kong:3.9.3             | cleanstart/kong:latest
+postgres:18.4           | cleanstart/postgres:latest
+redis:8.10.0            | cleanstart/redis:latest
