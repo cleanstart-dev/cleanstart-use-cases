@@ -17,7 +17,7 @@ flowchart TD
     C --> D[Point the system's default crypto tool path<br/>at that provider]
     D --> E[Reduce attack surface:<br/>lock down ownership, clear unused accounts,<br/>strip unneeded general-purpose tools]
     E --> F[Pin the trusted CA bundle,<br/>constrain PATH,<br/>run as a dedicated non-root user]
-    F --> G[Ship documentation worded to match:<br/>'FIPS-approved algorithms only' —<br/>not 'validated,' not unqualified 'compliant']
+    F --> G[Ship documentation worded to match:<br/>'FIPS-approved algorithms only']
 ```
 
 > **Why pin the provider instead of letting it resolve at build time?**
@@ -52,10 +52,10 @@ flowchart TD
 
 ## How CleanStart follows the FIPS 140-2/140-3 standard
 
-FIPS 140-3 defines eleven requirement areas a cryptographic module must satisfy. CleanStart's build practice touches all eleven:
+FIPS 140-3 defines below requirement areas a cryptographic module must satisfy. CleanStart's build practice touches all of them:
 
-- **Module Specification** — the boundary and the pinned crypto provider are decided before the build starts, not discovered after
-- **Module Interfaces** — every path back to that provider is locked in, and anything outside it is removed
+- **Cryptographic Module Specification** — the boundary and the pinned crypto provider are decided before the build starts, not discovered after
+- **Cryptographic Module Interfaces** — every path back to that provider is locked in, and anything outside it is removed
 - **Roles, Services, Authentication** — the container runs as one low-privilege, non-root user, with no unused accounts left behind
 - **Software/Firmware Security** — nothing resolves at build time; every component is pinned to a known version, so what ships is what was checked
 - **Operational Environment** — attack surface is stripped down, not configured down
@@ -65,5 +65,7 @@ FIPS 140-3 defines eleven requirement areas a cryptographic module must satisfy.
 - **Self-Tests** — FIPS mode runs its own self-test on every load
 - **Life-Cycle Assurance** — the same checks re-run on every rebuild, not once and forgotten
 - **Mitigation of Other Attacks** — reduced surface and least privilege are the levers against everything else
+
+Attaching the official source for reference - https://www.atsec.com/wp-content/uploads/2024/05/FIPS-140-3-overview-1.pdf
 
 That's every area addressed by cleanstart during build practice.
