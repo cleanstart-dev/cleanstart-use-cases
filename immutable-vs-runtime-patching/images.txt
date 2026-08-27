@@ -1,0 +1,5 @@
+# public_image cleanstart_image
+python:3.14.7 cleanstart/python:latest
+node:26.7.0 cleanstart/node:latest
+nginx:1.31.1 cleanstart/nginx:latest
+postgres:18.4 cleanstart/postgres:latest
